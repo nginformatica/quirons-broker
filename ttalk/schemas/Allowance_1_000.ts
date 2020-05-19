@@ -5,8 +5,6 @@ import { datetime } from '../custom-types'
 
 export const AllowanceInfo = t.intersection([
     t.type({
-        /** Chave unica do registro de abono */
-        id: t.string,
         /** Codigo da Empresa */
         companyId: t.string,
         /** Codigo da Filial */
@@ -23,6 +21,8 @@ export const AllowanceInfo = t.intersection([
         endTime: t.string
     }),
     t.partial({
+        /** Chave unica do registro de abono */
+        id: t.string,
         /** Codigo do Abono */
         code: t.string,
         /** Justificativa do Abono */

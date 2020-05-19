@@ -4,14 +4,14 @@ import { Paging } from '../apis/types/totvsApiTypesBase'
 
 export const TrainingNecessityInfo = t.intersection([
     t.type({
-      /** Chave unica do registro de treinamento */
-      id: t.string,
       /** Codigo da Empresa */
       companyId: t.string,
       /** Codigo Identificador do Funcionario */
       employeeId: t.string,
     }),
     t.partial({
+      /** Chave unica do registro de treinamento */
+      id: t.string,
       /** Codigo da Filial */
       branchId: t.string,
       /** Codigo da Necessidade de Treinamento */

@@ -5,8 +5,6 @@ import { date } from '../custom-types'
 
 export const AdditionalInfo = t.intersection([
     t.type({
-        /** Código identificador do Adicional do Funcionario na Folha de Pagamento */
-        id: t.string,
         /** Codigo da Empresa */
         companyCode: t.string,
         /** Codigo da Filial */
@@ -15,6 +13,8 @@ export const AdditionalInfo = t.intersection([
         employeeId: t.string
     }),
     t.partial({
+        /** Código identificador do Adicional do Funcionario na Folha de Pagamento */
+        id: t.string,
         /** Grau de Insalubridade */
         unhealthyDegree: t.string,
         /** Periculosidade */

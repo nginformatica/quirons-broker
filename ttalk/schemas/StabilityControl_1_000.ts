@@ -5,8 +5,6 @@ import { datetime } from '../custom-types'
 
 export const StabilityControlInfo = t.intersection([
     t.type({
-        /** Chave única do registro de Período de Estabilidade */
-        id: t.string,
         /** Codigo da Empresa */
         companyId: t.string,
         /** Codigo da Filial */
@@ -19,6 +17,8 @@ export const StabilityControlInfo = t.intersection([
         stabilityCode: t.string
     }),
     t.partial({
+        /** Chave única do registro de Período de Estabilidade */
+        id: t.string,
         /** Data de Termino */
         endDate: datetime
     })

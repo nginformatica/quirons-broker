@@ -14,6 +14,11 @@ import { Classes } from './internal/training'
 import { TrainingHistory } from './internal/training-history'
 import { WorkingShifts } from './internal/workshift'
 import { datetime, pick } from './custom-types'
+import { AllowanceInfo } from './schemas/Allowance_1_000'
+import { AdditionalInfo } from './schemas/Additional_1_000'
+import { LeaveOfAbsenceInfo } from './schemas/LeaveOfAbsenceControl_1_000'
+import { StabilityControlInfo } from './schemas/StabilityControl_1_000'
+import { TrainingNecessityInfo } from './schemas/TrainingNecessity_1_000'
 
 export const Identification = t.type({
     /** The userId used in the backend. */
@@ -71,6 +76,24 @@ export const BusinessMessage = t.union([
     userMessage('traininghistory',   t.array(TrainingHistory))
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
+
+// Recomendation for enums, io-ts
+export const Method = t.keyof({
+  GET: null,
+  POST: null,
+  PUT: null,
+  DELETE: null
+})
+export type Method = t.TypeOf<typeof Method>
+
+export const SenderMessage = t.union([
+    senderMessage('allowance', AllowanceInfo),
+    senderMessage('additional', AdditionalInfo),
+    senderMessage('leaveofabscence', LeaveOfAbsenceInfo),
+    senderMessage('stability', StabilityControlInfo),
+    senderMessage('trainingnecessity', TrainingNecessityInfo)
+])
+export type SenderMessage = t.TypeOf<typeof SenderMessage>
 
 /**
  * Common content of a business message.
@@ -138,7 +161,8 @@ export const Message = t.union([
     userMessage('request',  BusinessRequest),
     userMessage('delete',   Delete),
     userMessage('deleted',  Deleted),
-    BusinessMessage
+    BusinessMessage,
+    SenderMessage
 ])
 export type Message = t.TypeOf<typeof Message>
 
@@ -163,6 +187,16 @@ function userMessage<N extends string, T extends t.Mixed>(kind: N, content: T) {
     return t.type({
         kind: t.literal(kind),
         identification: Identification,
+        content
+    })
+}
+
+// Type for a sender message (with identification)
+function senderMessage<N extends string, T extends t.Mixed>(kind: N, content: T) {
+    return t.type({
+        kind: t.literal(kind),
+        identification: Identification,
+        method: Method,
         content
     })
 }

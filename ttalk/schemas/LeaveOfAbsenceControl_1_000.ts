@@ -5,8 +5,6 @@ import { time, datetime } from '../custom-types'
 
 export const LeaveOfAbsenceInfo = t.intersection([
     t.type({
-        /** Chave unica do registro de afastamentos */
-        id: t.string,
         /** Codigo da Empresa */
         companyId: t.string,
         /** Codigo Identificador do Funcionario */
@@ -15,6 +13,8 @@ export const LeaveOfAbsenceInfo = t.intersection([
         startDate: datetime
     }),
     t.partial({
+        /** Chave unica do registro de afastamentos */
+        id: t.string,
         /** Codigo da Filial */
         branchId: t.string,
         /** Horário inicial do afastamento */
