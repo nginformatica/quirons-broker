@@ -1,12 +1,12 @@
 {
   "name": "quirons-broker",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha.5",
   "description": "A small library to expose the broker ttalk types",
   "main": "index.ts",
   "typings": "index.d.ts",
   "types": "index.d.ts",
   "typescript": {
-      "definition": "index.d.ts"
+    "definition": "index.d.ts"
   },
   "repository": "git@github.com:nginformatica/quirons-broker.git",
   "author": "void",
@@ -14,7 +14,8 @@
   "scripts": {
     "build": "tsc",
     "copy": "cp package.json lib/package.json && cp README.md lib/README.md",
-    "prepare": "rm -rf ./lib/* && yarn build && yarn copy"
+    "pre:release": "rm -rf ./lib && yarn build && yarn copy",
+    "release": "npm publish lib --scope=@quirons --tag alpha --access public"
   },
   "devDependencies": {
     "fp-ts": "2.6.1",

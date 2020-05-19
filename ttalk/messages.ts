@@ -79,20 +79,27 @@ export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 
 // Recomendation for enums, io-ts
 export const Method = t.keyof({
-  GET: null,
-  POST: null,
-  PUT: null,
-  DELETE: null
+  get: null,
+  post: null,
+  put: null,
+  delete: null
 })
 export type Method = t.TypeOf<typeof Method>
 
-export const SenderMessage = t.union([
+export const SenderMessageContent = t.union([
     senderMessage('allowance', AllowanceInfo),
     senderMessage('additional', AdditionalInfo),
     senderMessage('leaveofabscence', LeaveOfAbsenceInfo),
     senderMessage('stability', StabilityControlInfo),
     senderMessage('trainingnecessity', TrainingNecessityInfo)
 ])
+export type SenderMessageContent = t.TypeOf<typeof SenderMessageContent>
+
+export const SenderMessage = t.type({
+    kind: t.literal('send'),
+    identification: Identification,
+    content: SenderMessageContent
+})
 export type SenderMessage = t.TypeOf<typeof SenderMessage>
 
 /**
@@ -191,12 +198,10 @@ function userMessage<N extends string, T extends t.Mixed>(kind: N, content: T) {
     })
 }
 
-// Type for a sender message (with identification)
 function senderMessage<N extends string, T extends t.Mixed>(kind: N, content: T) {
     return t.type({
         kind: t.literal(kind),
-        identification: Identification,
-        method: Method,
+        verb: Method,
         content
     })
 }
