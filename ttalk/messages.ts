@@ -102,6 +102,27 @@ export const SenderMessage = t.type({
 })
 export type SenderMessage = t.TypeOf<typeof SenderMessage>
 
+export const SenderResponseMessage = t.intersection([
+    t.type({
+        kind: t.literal('senderResponse')
+    }),
+    t.partial({
+        errorMessage: t.string
+    })
+])
+export type SenderResponseMessage = t.TypeOf<typeof SenderResponseMessage>
+
+export const RequesterResponseMessage = t.intersection([
+    t.type({
+        kind: t.literal('requesterResponse'),
+        status: t.number
+    }),
+    t.partial({
+        errorMessage: t.string
+    })
+])
+export type RequesterResponseMessage = t.TypeOf<typeof SenderResponseMessage>
+
 /**
  * Common content of a business message.
  */
@@ -157,6 +178,9 @@ export const BusinessRequest = t.intersection([
 ])
 export type BusinessRequest = t.TypeOf<typeof BusinessRequest>
 
+export const BusinessRequestMessage = userMessage('request',  BusinessRequest)
+export type BusinessRequestMessage = t.TypeOf<typeof BusinessRequestMessage>
+
 /**
  * Message protocol used between the broker and the backend.
  */
@@ -165,11 +189,13 @@ export const Message = t.union([
     metaMessage('ping',     t.string),
     metaMessage('pong',     t.string),
     metaMessage('greeting', Greeting),
-    userMessage('request',  BusinessRequest),
+    BusinessRequestMessage,
     userMessage('delete',   Delete),
     userMessage('deleted',  Deleted),
     BusinessMessage,
-    SenderMessage
+    SenderMessage,
+    SenderResponseMessage,
+    RequesterResponseMessage
 ])
 export type Message = t.TypeOf<typeof Message>
 
@@ -198,10 +224,10 @@ function userMessage<N extends string, T extends t.Mixed>(kind: N, content: T) {
     })
 }
 
-function senderMessage<N extends string, T extends t.Mixed>(kind: N, content: T) {
+function senderMessage<N extends string, T extends t.Mixed>(kind: N, data: T) {
     return t.type({
         kind: t.literal(kind),
         verb: Method,
-        content
+        data
     })
 }
