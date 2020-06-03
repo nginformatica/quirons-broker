@@ -21,7 +21,7 @@ export const Person = t.intersection([
         rg: nullable(t.string),
         email: nullable(t.string),
         street: nullable(t.string),
-        number: nullable(t.number),
+        number: nullable(t.union([t.string, t.number])),
         district: nullable(t.string),
         city: nullable(t.string),
         zipCode: nullable(t.string),

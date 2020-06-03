@@ -92,7 +92,7 @@ export const Person = t.intersection([
         rg: t.string,
         email: t.string,
         street: t.string,
-        number: t.number,
+        number: t.union([t.string, t.number]),
         district: t.string,
         city: t.string,
         zipCode: t.string,
