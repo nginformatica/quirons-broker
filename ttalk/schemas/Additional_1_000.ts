@@ -6,7 +6,7 @@ import { date } from '../custom-types'
 export const AdditionalInfo = t.intersection([
     t.type({
         /** Codigo da Empresa */
-        companyCode: t.string,
+        companyId: t.string,
         /** Codigo da Filial */
         branchId: t.string,
         /** Matricula */
