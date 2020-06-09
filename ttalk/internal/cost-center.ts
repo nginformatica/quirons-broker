@@ -28,7 +28,7 @@ export type PayRollCostCenter = t.TypeOf<typeof PayRollCostCenter>
 export const Converter = {
     fromTTalk(data: ttalk.PayRollCostCenterInfo): PayRollCostCenter {
         return {
-            id: '',
+            id: data.id || '',
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
             erpId: data.code,

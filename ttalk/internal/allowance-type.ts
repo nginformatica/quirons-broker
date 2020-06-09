@@ -27,7 +27,7 @@ export type AllowanceType = t.TypeOf<typeof AllowanceType>
 export const Converter = {
     fromTTalk(data: ttalk.AllowanceTypesInfo): AllowanceType {
         return {
-            id: '',
+            id: data.id || '',
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
             erpId: data.code,

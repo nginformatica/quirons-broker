@@ -28,7 +28,7 @@ export type LeaveOfAbsenceType = t.TypeOf<typeof LeaveOfAbsenceType>
 export const Converter = {
     fromTTalk(data: ttalk.LeaveOfAbsenceTypeInfo): LeaveOfAbsenceType {
         return {
-            id: '',
+            id: data.id || '',
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
             erpId: data.leaveOfAbsenceCode,

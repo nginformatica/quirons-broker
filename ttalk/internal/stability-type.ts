@@ -27,7 +27,7 @@ export type StabilityType = t.TypeOf<typeof StabilityType>
 export const Converter = {
     fromTTalk(data: ttalk.StabilityTypeInfo): StabilityType {
         return {
-            id: '',
+            id: data.id || '',
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
             erpId: data.stabilityCode?.toString(),

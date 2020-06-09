@@ -28,7 +28,7 @@ export type Classes = t.TypeOf<typeof Classes>
 export const Converter = {
     fromTTalk(data: ttalk.ClassInfo): Classes {
         return {
-            id: '',
+            id: data.id || '',
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
             erpId: data.classCode,

@@ -28,7 +28,7 @@ export type WorkingShifts = t.TypeOf<typeof WorkingShifts>
 export const Converter = {
     fromTTalk(data: ttalk.WorkingShiftInfo): WorkingShifts {
         return {
-            id: '',
+            id: data.id || '',
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
             erpId: data.workShiftCode,

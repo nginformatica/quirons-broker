@@ -40,7 +40,7 @@ export const Converter = {
         }
 
         return {
-            id: '',
+            id: data.id || '',
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
             erpId: data.positionCode,
