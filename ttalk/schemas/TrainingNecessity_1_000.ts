@@ -1,6 +1,7 @@
 // Generated from jsonschema/schemas/TrainingNecessity_1_000.json
 import * as t from 'io-ts'
 import { Paging } from '../apis/types/totvsApiTypesBase'
+import { datetime } from '../custom-types'
 
 export const TrainingNecessityInfo = t.intersection([
     t.type({
@@ -21,7 +22,9 @@ export const TrainingNecessityInfo = t.intersection([
       /** Urgência da Necessidade de Treinamento */
       urgency: t.string,
       /** Responsável pelo PPRA */
-      hazardTechnicalResponsible: t.string
+      hazardTechnicalResponsible: t.string,
+      /** Data no qual deve ser realizado o treinamento */
+      date: datetime
     })
 ])
 export type TrainingNecessityInfo = t.TypeOf<typeof TrainingNecessityInfo>
