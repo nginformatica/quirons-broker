@@ -8,6 +8,8 @@ import { Dependant } from './internal/dependant'
 import { Employee } from './internal/employee'
 import { FunctionalHistory } from './internal/functional-history'
 import { Positions } from './internal/occupation'
+import { Organization } from './internal/organization'
+import { Payment } from './internal/payment'
 import { Person } from './internal/person'
 import { StabilityType } from './internal/stability-type'
 import { Classes } from './internal/training'
@@ -189,6 +191,8 @@ export const Message = t.union([
     metaMessage('ping',     t.string),
     metaMessage('pong',     t.string),
     metaMessage('greeting', Greeting),
+    metaMessage('organization', Organization),
+    metaMessage('payment', Payment),
     BusinessRequestMessage,
     userMessage('delete',   Delete),
     userMessage('deleted',  Deleted),
