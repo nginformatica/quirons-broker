@@ -1,8 +1,8 @@
 import * as t from 'io-ts'
 
 import * as ttalk from '../'
-import { datetime, nullable } from '../custom-types'
-import { APIValidationError } from '../errors'
+import { datetime, nullable } from '../../custom-types'
+import { APIValidationError } from '../../errors'
 
 /**
  * Our internal model for cost centers.

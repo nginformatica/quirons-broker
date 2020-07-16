@@ -23,7 +23,7 @@
         "noImplicitAny": true,
         "skipLibCheck": true
     },
-    "include": ["./ttalk/**/*.ts"],
+    "include": ["./src/**/**/*.ts"],
     "exclude": [
         "node_modules",
         "lib"

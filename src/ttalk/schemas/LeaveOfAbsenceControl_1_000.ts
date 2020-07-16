@@ -1,7 +1,7 @@
 // Generated from totvs-ttalk-standard-message/LeaveOfAbsenceControl_1_000.json
 import * as t from 'io-ts'
 import { Paging } from '../apis/types/totvsApiTypesBase'
-import { time, datetime } from '../custom-types'
+import { time, datetime } from '../../custom-types'
 
 export const LeaveOfAbsenceInfo = t.intersection([
     t.type({

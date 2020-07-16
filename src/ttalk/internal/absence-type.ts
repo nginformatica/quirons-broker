@@ -1,12 +1,12 @@
 import * as t from 'io-ts'
 
 import * as ttalk from '../'
-import { datetime, nullable } from '../custom-types'
+import { datetime, nullable } from '../../custom-types'
 
 /**
  * Our internal model for cost centers.
  */
-export const AllowanceType = t.intersection([
+export const LeaveOfAbsenceType = t.intersection([
     t.type({
         id: t.string,
         description: t.string
@@ -15,23 +15,25 @@ export const AllowanceType = t.intersection([
         erpId: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         erpCompany: nullable(t.string),
+        eSocialCode: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime)
     })
 ])
-export type AllowanceType = t.TypeOf<typeof AllowanceType>
+export type LeaveOfAbsenceType = t.TypeOf<typeof LeaveOfAbsenceType>
 
 /**
  * Standard message converter.
  */
 export const Converter = {
-    fromTTalk(data: ttalk.AllowanceTypesInfo): AllowanceType {
+    fromTTalk(data: ttalk.LeaveOfAbsenceTypeInfo): LeaveOfAbsenceType {
         return {
             id: data.id || '',
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
-            erpId: data.code,
-            description: data.name
+            erpId: data.leaveOfAbsenceCode,
+            description: data.name,
+            eSocialCode: data.esocialLeaveCode
         }
     }
 }

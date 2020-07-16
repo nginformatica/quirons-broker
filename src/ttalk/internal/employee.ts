@@ -1,7 +1,7 @@
 import * as t from 'io-ts'
 
 import * as ttalk from '../'
-import { datetime, nullable } from '../custom-types'
+import { datetime, nullable } from '../../custom-types'
 
 import { Person } from './person'
 

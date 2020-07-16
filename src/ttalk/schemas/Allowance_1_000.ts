@@ -1,7 +1,7 @@
 // Generated from totvs-ttalk-standard-message/Allowance_1_000.json
 import * as t from 'io-ts'
 import { Paging } from '../apis/types/totvsApiTypesBase'
-import { datetime } from '../custom-types'
+import { datetime } from '../../custom-types'
 
 export const AllowanceInfo = t.intersection([
     t.type({

@@ -1,7 +1,7 @@
 // Generated from jsonschema/schemas/StabilityControl_1_000.json
 import * as t from 'io-ts'
 import { Paging } from '../apis/types/totvsApiTypesBase'
-import { datetime } from '../custom-types'
+import { datetime } from '../../custom-types'
 
 export const StabilityControlInfo = t.intersection([
     t.type({

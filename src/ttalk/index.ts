@@ -12,7 +12,7 @@ import { StabilityControlInfo } from './schemas/StabilityControl_1_000'
 import { StabilityTypeInfo } from './schemas/StabilityType_1_000'
 import { TrainingNecessityInfo } from './schemas/TrainingNecessity_1_000'
 import { WorkingShiftInfo } from './schemas/WorkingShift_1_000'
-import { datetime } from './custom-types'
+import { datetime } from '../custom-types'
 
 /**
  * An object as returned by TOTVS' TTalk API.

@@ -1,7 +1,7 @@
 // Generated from totvs-ttalk-standard-message/Additional_1_000.json
 import * as t from 'io-ts'
 import { Paging } from '../apis/types/totvsApiTypesBase'
-import { date } from '../custom-types'
+import { date } from '../../custom-types'
 
 export const AdditionalInfo = t.intersection([
     t.type({

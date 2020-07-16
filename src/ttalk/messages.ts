@@ -1,6 +1,6 @@
 import * as t from 'io-ts'
 
-import { ErrorCodeKey } from './errors'
+import { ErrorCodeKey } from '../errors'
 import { LeaveOfAbsenceType } from './internal/absence-type'
 import { AllowanceType } from './internal/allowance-type'
 import { PayRollCostCenter } from './internal/cost-center'
@@ -8,27 +8,23 @@ import { Dependant } from './internal/dependant'
 import { Employee } from './internal/employee'
 import { FunctionalHistory } from './internal/functional-history'
 import { Positions } from './internal/occupation'
-import { Organization } from './internal/organization'
-import { Payment } from './internal/payment'
 import { Person } from './internal/person'
 import { StabilityType } from './internal/stability-type'
 import { Classes } from './internal/training'
 import { TrainingHistory } from './internal/training-history'
 import { WorkingShifts } from './internal/workshift'
-import { datetime, pick } from './custom-types'
+import { datetime, pick } from '../custom-types'
 import { AllowanceInfo } from './schemas/Allowance_1_000'
 import { AdditionalInfo } from './schemas/Additional_1_000'
 import { LeaveOfAbsenceInfo } from './schemas/LeaveOfAbsenceControl_1_000'
 import { StabilityControlInfo } from './schemas/StabilityControl_1_000'
 import { TrainingNecessityInfo } from './schemas/TrainingNecessity_1_000'
-
-export const Identification = t.type({
-    /** The userId used in the backend. */
-    userId: t.string,
-    /** The branch the user is currently using. */
-    branchId: t.string
-})
-export type Identification = t.TypeOf<typeof Identification>
+import {
+    userMessage,
+    metaMessage,
+    senderMessage,
+    Identification
+} from '../constructors'
 
 /**
  * Greeting message sent by the broker to the backend, specifiying how the
@@ -78,15 +74,6 @@ export const BusinessMessage = t.union([
     userMessage('traininghistory',   t.array(TrainingHistory))
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
-
-// Recomendation for enums, io-ts
-export const Method = t.keyof({
-  get: null,
-  post: null,
-  put: null,
-  delete: null
-})
-export type Method = t.TypeOf<typeof Method>
 
 export const SenderMessageContent = t.union([
     senderMessage('allowance', AllowanceInfo),
@@ -191,8 +178,6 @@ export const Message = t.union([
     metaMessage('ping',     t.string),
     metaMessage('pong',     t.string),
     metaMessage('greeting', Greeting),
-    metaMessage('organization', Organization),
-    metaMessage('payment', Payment),
     BusinessRequestMessage,
     userMessage('delete',   Delete),
     userMessage('deleted',  Deleted),
@@ -210,28 +195,3 @@ export type UserMessage = Subset<Message, { identification: any }>
 
 // Subset of a type given a condition
 type Subset<T extends Message, Cond> = T extends Cond ? T : never
-
-// Type for a meta message (without identification)
-function metaMessage<N extends string, T extends t.Mixed>(kind: N, content: T) {
-    return t.type({
-        kind: t.literal(kind),
-        content
-    })
-}
-
-// Type for a user message (with identification)
-function userMessage<N extends string, T extends t.Mixed>(kind: N, content: T) {
-    return t.type({
-        kind: t.literal(kind),
-        identification: Identification,
-        content
-    })
-}
-
-function senderMessage<N extends string, T extends t.Mixed>(kind: N, data: T) {
-    return t.type({
-        kind: t.literal(kind),
-        verb: Method,
-        data
-    })
-}
