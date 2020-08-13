@@ -28,7 +28,16 @@ export const Employee = t.intersection([
         eSocialRoleId: nullable(t.string),
         eSocialId: nullable(t.string),
         sefipCategory: nullable(t.string),
-        situation: nullable(t.number)
+        situation: nullable(t.number),
+        civilStatus: nullable(t.number),
+        educationLevel: nullable(t.number),
+        ctps: nullable(t.string),
+        mothersName: nullable(t.string),
+        state: nullable(t.string),
+        rais: nullable(t.string),
+        eSocialCategory: nullable(t.string),
+        position: nullable(t.string),
+        positionDescription: nullable(t.string)
     })
 ])
 export type Employee = t.TypeOf<typeof Employee>
@@ -67,7 +76,16 @@ export const Converter = {
             eSocialRoleId: data.eSocialRoleId,
             eSocialId: data.eSocialId,
             sefipCategory: data.sefipCategory,
-            situation: data.situation
+            situation: data.situation,
+            civilStatus: data.civilStatus,
+            educationLevel: data.educationLevel,
+            ctps: data.ctps,
+            mothersName: data.mothersName,
+            state: data.state,
+            rais: data.rais,
+            eSocialCategory: data.eSocialCategory,
+            position: data.position,
+            positionDescription: data.positionDescription
         }
     },
     toTTalk(data: Employee): ttalk.Employee {
@@ -100,7 +118,16 @@ export const Converter = {
             eSocialRoleId: data.eSocialRoleId ?? undefined,
             eSocialId: data.eSocialId ?? undefined,
             sefipCategory: data.sefipCategory ?? undefined,
-            situation: data.situation ?? undefined
+            situation: data.situation ?? undefined,
+            civilStatus: data.civilStatus ?? undefined,
+            educationLevel: data.educationLevel ?? undefined,
+            ctps: data.ctps ?? undefined,
+            mothersName: data.mothersName ?? undefined,
+            state: data.state ?? undefined,
+            rais: data.rais ?? undefined,
+            eSocialCategory: data.eSocialCategory ?? undefined,
+            position: data.position ?? undefined,
+            positionDescription: data.positionDescription ?? undefined
         }
     }
 }

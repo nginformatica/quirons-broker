@@ -124,7 +124,16 @@ export const Employee = t.intersection([
         eSocialRoleId: t.string,
         eSocialId: t.string,
         sefipCategory: t.string,
-        situation: t.number
+        situation: t.number,
+        civilStatus: t.number,
+        educationLevel: t.number,
+        ctps: t.string,
+        mothersName: t.string,
+        state: t.string,
+        rais: t.string,
+        eSocialCategory: t.string,
+        position: t.string,
+        positionDescription: t.string
     })
 ])
 export type Employee = t.TypeOf<typeof Employee>
@@ -189,3 +198,86 @@ export const TrainingHistory = t.intersection([
 ])
 
 export type TrainingHistory = t.TypeOf<typeof TrainingHistory>
+
+export const AbsenceType = t.intersection([
+    t.type({
+        id: t.string,
+        description: t.string
+    }),
+    t.partial({
+        eSocialCode: t.string
+    })
+])
+
+export type AbsenceType = t.TypeOf<typeof AbsenceType>
+
+export const AllowanceType = t.type({
+    id: t.string,
+    description: t.string
+})
+
+export type AllowanceType = t.TypeOf<typeof AllowanceType>
+
+export const CostCenter = t.type({
+    id: t.string,
+    description: t.string
+})
+
+export type CostCenter = t.TypeOf<typeof CostCenter>
+
+export const Occupation = t.intersection([
+    t.type({
+        id: t.string,
+        description: t.string
+    }),
+    t.partial({
+        cbo: t.string
+    })
+])
+
+export type Occupation = t.TypeOf<typeof Occupation>
+
+export const StabilityType = t.type({
+    id: t.string,
+    description: t.string
+})
+
+export type StabilityType = t.TypeOf<typeof StabilityType>
+
+export const Training = t.intersection([
+    t.type({
+        id: t.string,
+        description: t.string
+    }),
+    t.partial({
+        eSocialCode: t.string
+    })
+])
+
+export type Training = t.TypeOf<typeof Training>
+
+export const WorkingShift = t.intersection([
+    t.type({
+        id: t.string,
+        description: t.string
+    }),
+    t.partial({
+        productiveHours: t.number
+    })
+])
+
+export type WorkingShift = t.TypeOf<typeof WorkingShift>
+
+export const Department = t.type({
+    id: t.string,
+    description: t.string
+})
+
+export type Department = t.TypeOf<typeof Department>
+
+export const Position = t.type({
+    id: t.string,
+    description: t.string
+})
+
+export type Position = t.TypeOf<typeof Position>
