@@ -19,6 +19,7 @@ import { AdditionalInfo } from './schemas/Additional_1_000'
 import { LeaveOfAbsenceInfo } from './schemas/LeaveOfAbsenceControl_1_000'
 import { StabilityControlInfo } from './schemas/StabilityControl_1_000'
 import { TrainingNecessityInfo } from './schemas/TrainingNecessity_1_000'
+import { Department, Position } from './index'
 import {
     userMessage,
     metaMessage,
@@ -71,7 +72,9 @@ export const BusinessMessage = t.union([
     userMessage('employee',          t.array(Employee)),
     userMessage('dependant',         t.array(Dependant)),
     userMessage('functionalhistory', t.array(FunctionalHistory)),
-    userMessage('traininghistory',   t.array(TrainingHistory))
+    userMessage('traininghistory',   t.array(TrainingHistory)),
+    userMessage('department',        t.array(Department)),
+    userMessage('position',          t.array(Position))
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 
