@@ -12,7 +12,7 @@ import { StabilityControlInfo } from './schemas/StabilityControl_1_000'
 import { StabilityTypeInfo } from './schemas/StabilityType_1_000'
 import { TrainingNecessityInfo } from './schemas/TrainingNecessity_1_000'
 import { WorkingShiftInfo } from './schemas/WorkingShift_1_000'
-import { datetime } from '../custom-types'
+import { datetime, nullable } from '../custom-types'
 
 /**
  * An object as returned by TOTVS' TTalk API.
@@ -89,14 +89,14 @@ export const Person = t.intersection([
         gender: t.number
     }),
     t.partial({
-        rg: t.string,
-        email: t.string,
-        street: t.string,
-        number: t.union([t.string, t.number]),
-        district: t.string,
-        city: t.string,
-        zipCode: t.string,
-        phone: t.string
+        rg: nullable(t.string),
+        email: nullable(t.string),
+        street: nullable(t.string),
+        number: t.union([t.string, t.number, t.null]),
+        district: nullable(t.string),
+        city: nullable(t.string),
+        zipCode: nullable(t.string),
+        phone: nullable(t.string)
     })
 ])
 export type Person = t.TypeOf<typeof Person>
@@ -113,27 +113,27 @@ export const Employee = t.intersection([
         occupation: t.string
     }),
     t.partial({
-        workshiftDescription: t.string,
-        costCenterDescription: t.string,
-        occupationDescription: t.string,
-        department: t.string,
-        departmentDescription: t.string,
-        admissionDate: datetime,
-        dismissalDate: datetime,
-        pisCode: t.string,
-        eSocialRoleId: t.string,
-        eSocialId: t.string,
-        sefipCategory: t.string,
-        situation: t.number,
-        civilStatus: t.number,
-        educationLevel: t.number,
-        ctps: t.string,
-        mothersName: t.string,
-        state: t.string,
-        rais: t.string,
-        eSocialCategory: t.string,
-        position: t.string,
-        positionDescription: t.string
+        workshiftDescription: nullable(t.string),
+        costCenterDescription: nullable(t.string),
+        occupationDescription: nullable(t.string),
+        department: nullable(t.string),
+        departmentDescription: nullable(t.string),
+        admissionDate: nullable(datetime),
+        dismissalDate: nullable(datetime),
+        pisCode: nullable(t.string),
+        eSocialRoleId: nullable(t.string),
+        eSocialId: nullable(t.string),
+        sefipCategory: nullable(t.string),
+        situation: nullable(t.number),
+        civilStatus: nullable(t.number),
+        educationLevel: nullable(t.number),
+        ctps: nullable(t.string),
+        mothersName: nullable(t.string),
+        state: nullable(t.string),
+        rais: nullable(t.string),
+        eSocialCategory: nullable(t.string),
+        position: nullable(t.string),
+        positionDescription: nullable(t.string)
     })
 ])
 export type Employee = t.TypeOf<typeof Employee>
@@ -151,7 +151,7 @@ export const Dependant = t.intersection([
         cpf: t.string
     }),
     t.partial({
-        rg: t.string
+        rg: nullable(t.string)
     })
 ])
 
@@ -169,12 +169,12 @@ export const FunctionalHistory = t.intersection([
         occupation: t.string
     }),
     t.partial({
-        costCenterDescription: t.string,
-        department: t.string,
-        departmentDescription: t.string,
-        occupationDescription: t.string,
-        employeePosition: t.string,
-        sefipCategory: t.string
+        costCenterDescription: nullable(t.string),
+        department: nullable(t.string),
+        departmentDescription: nullable(t.string),
+        occupationDescription: nullable(t.string),
+        employeePosition: nullable(t.string),
+        sefipCategory: nullable(t.string)
     })
 ])
 export type FunctionalHistory = t.TypeOf<typeof FunctionalHistory>
@@ -190,10 +190,10 @@ export const TrainingHistory = t.intersection([
         training: t.string
     }),
     t.partial({
-        trainingDescription: t.string,
-        approval: t.number,
-        completionDate: datetime,
-        expirationDate: datetime
+        trainingDescription: nullable(t.string),
+        approval: nullable(t.number),
+        completionDate: nullable(datetime),
+        expirationDate: nullable(datetime)
     })
 ])
 
@@ -205,7 +205,7 @@ export const AbsenceType = t.intersection([
         description: t.string
     }),
     t.partial({
-        eSocialCode: t.string
+        eSocialCode: nullable(t.string)
     })
 ])
 
@@ -231,7 +231,7 @@ export const Occupation = t.intersection([
         description: t.string
     }),
     t.partial({
-        cbo: t.string
+        cbo: nullable(t.string)
     })
 ])
 
@@ -250,7 +250,7 @@ export const Training = t.intersection([
         description: t.string
     }),
     t.partial({
-        eSocialCode: t.string
+        eSocialCode: nullable(t.string)
     })
 ])
 
@@ -262,7 +262,7 @@ export const WorkingShift = t.intersection([
         description: t.string
     }),
     t.partial({
-        productiveHours: t.number
+        productiveHours: nullable(t.number)
     })
 ])
 
