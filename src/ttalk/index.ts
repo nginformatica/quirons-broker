@@ -231,7 +231,8 @@ export const Occupation = t.intersection([
         description: t.string
     }),
     t.partial({
-        cbo: nullable(t.string)
+        cbo: nullable(t.string),
+        activityDetails: nullable(t.string)
     })
 ])
 
