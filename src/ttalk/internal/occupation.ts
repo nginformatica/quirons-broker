@@ -5,7 +5,7 @@ import { datetime, nullable } from '../../custom-types'
 import { APIValidationError } from '../../errors'
 
 /**
- * Our internal model for cost centers.
+ * Our internal model for occupations.
  */
 export const Positions = t.intersection([
     t.type({
@@ -17,6 +17,7 @@ export const Positions = t.intersection([
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         erpCompany: nullable(t.string),
         cbo: nullable(t.string),
+        activityDetails: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime)
     })
@@ -45,7 +46,8 @@ export const Converter = {
             erpBranch: data.branchId || false,
             erpId: data.positionCode,
             description: data.name,
-            cbo: data.cbo || undefined
+            cbo: data.cbo || undefined,
+            activityDetails: data.activityDetails || undefined
         }
     }
 }

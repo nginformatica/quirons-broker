@@ -17,7 +17,9 @@ export const PositionInfo = t.intersection([
         /** Código da Função */
         positionCode: t.string,
         /** CBO da Função */
-        cbo: t.string
+        cbo: t.string,
+        /** Detalhamento das Atividades da Função */
+        activityDetails: t.string
     })
 ])
 export type PositionInfo = t.TypeOf<typeof PositionInfo>
