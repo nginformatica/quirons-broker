@@ -26,6 +26,13 @@ export function metaMessage<N extends string, T extends t.Mixed>(kind: N, conten
     })
 }
 
+export function dataMessage<N extends string, T extends t.Mixed>(kind: N, data: T) {
+    return t.type({
+        kind: t.literal(kind),
+        data
+    })
+}
+
 // Type for a user message (with identification)
 export function userMessage<N extends string, T extends t.Mixed>(kind: N, content: T) {
     return t.type({
