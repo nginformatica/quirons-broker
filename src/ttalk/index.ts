@@ -89,6 +89,7 @@ export const Person = t.intersection([
         gender: t.number
     }),
     t.partial({
+        socialName: nullable(t.string),
         rg: nullable(t.string),
         email: nullable(t.string),
         street: nullable(t.string),
