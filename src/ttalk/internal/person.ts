@@ -17,6 +17,7 @@ export const Person = t.intersection([
     t.partial({
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
+        socialName: nullable(t.string),
         registration: nullable(t.string),
         rg: nullable(t.string),
         email: nullable(t.string),
@@ -40,6 +41,7 @@ export const Converter = {
         return {
             erpId: data.id,
             name: data.name,
+            socialName: data.socialName,
             birth: data.birth,
             gender: data.gender,
             rg: data.rg,
@@ -60,6 +62,7 @@ export const Converter = {
             birth: data.birth,
             gender: data.gender,
             cpf: data.cpf,
+            socialName: data.socialName ?? undefined,
             rg: data.rg ?? undefined,
             email: data.email ?? undefined,
             street: data.street ?? undefined,
