@@ -1,14 +1,14 @@
 import * as t from 'io-ts'
 
-import * as evtCAT from './schemas/evtCAT'
-import * as evtMonit from './schemas/evtMonit'
-import * as evtExpRisco from './schemas/evtExpRisco'
+import { eSocial as evtCAT } from './schemas/evtCAT'
+import { eSocial as evtMonit } from './schemas/evtMonit'
+import { eSocial as evtExpRisco } from './schemas/evtExpRisco'
 
-import { dataMessage, userMessage } from '../constructors'
+import { dataMessage, metaMessage, userMessage } from '../constructors'
 
-export const Response = userMessage('eSocialResponse', t.union([
+export const Response = metaMessage('eSocialResponse', t.union([
     t.type({
-        error: t.string
+        error: t.array(t.string)
     }),
     t.type({
         response: t.string
@@ -17,23 +17,23 @@ export const Response = userMessage('eSocialResponse', t.union([
 
 export type Response = t.TypeOf<typeof Response>
 
-export const BuildMessage = t.type({
+export const ESocialRequest = t.type({
     action: t.union([
         t.literal('build'),
         t.literal('validate')
     ]),
     message: t.union([
-        dataMessage('evtCAT',      evtCAT.eSocial),
-        dataMessage('evtMonit',    evtMonit.eSocial),
-        dataMessage('evtExpRisco', evtExpRisco.eSocial)
+        dataMessage('evtCAT',      evtCAT),
+        dataMessage('evtMonit',    evtMonit),
+        dataMessage('evtExpRisco', evtExpRisco)
     ])
 })
 
-export type BuildMessage = t.TypeOf<typeof BuildMessage>
+export type ESocialRequest = t.TypeOf<typeof ESocialRequest>
 
 export const Message = t.union([
     Response,
-    userMessage('eSocial', BuildMessage)
+    userMessage('eSocial', ESocialRequest)
 ])
 
 export type Message = t.TypeOf<typeof Message>
