@@ -234,7 +234,7 @@ export const TS_uf = t.union([
 
 /// Preencher com o código do município, conforme tabela do IBGE.
 /// Validação: Deve ser um código válido e existente na tabela do IBGE.
-export const TS_codMunic = t.number
+export const TS_codMunic = t.string
 
 /// Indicativo de período de apuração.
 export const TS_indApuracao = t.union([
@@ -290,7 +290,7 @@ export const TS_dia = t.number
 
 /// Preencher com o código da categoria do trabalhador.
 /// Validação: Deve ser um código válido e existente na Tabela 01.
-export const TS_codCateg = t.number
+export const TS_codCateg = t.string
 
 /// Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.
 /// Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [21], deve ser igual a [3, 4].
@@ -726,7 +726,7 @@ export const TS_percentual = t.number
 
 export const TS_pais = t.string
 
-export const TS_hora = t.number
+export const TS_hora = t.string
 
 /// Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.
 /// Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.

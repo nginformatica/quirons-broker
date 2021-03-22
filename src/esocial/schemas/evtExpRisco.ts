@@ -62,7 +62,7 @@ export const eSocial = t.type({
                 }),
                 /// Agente(s) nocivo(s) ao(s) qual(is) o trabalhador está exposto.
                 /// CHAVE_GRUPO: {codAgNoc}, {dscAgNoc}
-                agNoc: t.intersection([
+                agNoc: t.array(t.intersection([
                     t.type({
                         /// Informar o código do agente nocivo ao qual o trabalhador está exposto. Preencher com números e pontos. Caso não haja exposição, informar o código [09.01.001] (Ausência de agente nocivo ou de atividades previstas no Anexo IV do Decreto 3.048/1999).
                         /// Validação: Deve ser um código válido e existente na Tabela 24. Não é possível informar nenhum outro código de agente nocivo quando houver o código [09.01.001].
@@ -104,7 +104,7 @@ export const eSocial = t.type({
                                 /// EPI.
                                 /// CONDICAO_GRUPO: O (se {utilizEPI}(../utilizEPI) = [2]); N (nos demais casos)
                                 /// CHAVE_GRUPO: {docAval}, {dscEPI}
-                                epi: t.intersection([
+                                epi: t.array(t.intersection([
                                     t.type({
                                         /// O EPI é eficaz na neutralização do risco ao trabalhador?
                                         eficEpi: tipos.TS_sim_nao
@@ -116,7 +116,7 @@ export const eSocial = t.type({
                                         /// Validação: Preenchimento obrigatório e exclusivo se {docAval}(./docAval) não for informado.
                                         dscEPI: tipos.TS_texto_999
                                     })
-                                ]),
+                                ])),
                                 /// Requisitos das NR-06 e NR-09 pelo(s) EPI(s) informado(s)
                                 /// DESCRICAO_COMPLETA:Requisitos da Norma Regulamentadora 06 - NR-06 e da Norma Regulamentadora 09 - NR-09 pelo(s) EPI(s) informado(s).
                                 /// CONDICAO_GRUPO: O (se {utilizEPI}(../utilizEPI) = [2]); N (nos demais casos)
@@ -215,10 +215,10 @@ export const eSocial = t.type({
                         /// Validação: Preenchimento obrigatório e exclusivo se {tpAval}(./tpAval) = [1].
                         tecMedicao: t.string
                     })
-                ]),
+                ])),
                 /// Responsável pelos registros ambientais
                 /// DESCRICAO_COMPLETA:Informações relativas ao responsável pelos registros ambientais.
-                respReg: t.intersection([
+                respReg: t.array(t.intersection([
                     t.type({
                         /// Preencher com o CPF do responsável pelos registros ambientais.
                         /// Validação: Deve ser um CPF válido.
@@ -242,7 +242,7 @@ export const eSocial = t.type({
                         /// Validação: Preenchimento obrigatório e exclusivo se {ideOC}(./ideOC) = [9].
                         dscOC: t.string
                     })
-                ])
+                ]))
             }),
             t.partial({
                 /// Observações relativas a registros ambientais.
