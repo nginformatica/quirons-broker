@@ -68,7 +68,7 @@ export const eSocial = t.type({
                 indComunPolicia: tipos.TS_sim_nao,
                 /// Preencher com o código da situação geradora do acidente ou da doença profissional.
                 /// Validação: Deve ser um código válido e existente na Tabela 15 ou na Tabela 16.
-                codSitGeradora: t.number,
+                codSitGeradora: t.string,
                 /// Iniciativa da CAT.
                 iniciatCAT: t.union([
                     /// Empregador
@@ -143,7 +143,7 @@ export const eSocial = t.type({
                 parteAtingida: t.type({
                     /// Preencher com o código correspondente à parte atingida.
                     /// Validação: Deve ser um código válido e existente na Tabela 13.
-                    codParteAting: t.number,
+                    codParteAting: t.string,
                     /// Lateralidade da(s) parte(s) atingida(s).
                     /// Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, assinalar o lado (direito ou esquerdo). Ex.: Caso o órgão atingido seja perna, apontar qual foi a atingida (perna direita, perna esquerda ou ambas). Se o órgão atingido é único (como, por exemplo, a cabeça), assinalar este campo como não aplicável.
                     lateralidade: t.union([
@@ -162,7 +162,7 @@ export const eSocial = t.type({
                 agenteCausador: t.type({
                     /// Preencher com o código correspondente ao agente causador do acidente.
                     /// Validação: Deve ser um código válido e existente na Tabela 14 ou na Tabela 15.
-                    codAgntCausador: t.number
+                    codAgntCausador: t.string
                 })
             }),
             t.partial({
@@ -172,7 +172,7 @@ export const eSocial = t.type({
                 hrAcid: tipos.TS_hora,
                 /// Horas trabalhadas antes da ocorrência do acidente, no formato HHMM.
                 /// Validação: Preenchimento obrigatório e exclusivo se {tpAcid}(./tpAcid) = [1]. Se informada, deve estar no intervalo entre [0000] e [9959], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
-                hrsTrabAntesAcid: t.number,
+                hrsTrabAntesAcid: t.string,
                 /// Data do óbito.
                 /// Validação: Deve ser uma data válida, igual ou posterior a {dtAcid}(./dtAcid) e igual ou anterior à data atual.
                 /// Preenchimento obrigatório e exclusivo se {indCatObito}(./indCatObito) = [S].
@@ -198,7 +198,7 @@ export const eSocial = t.type({
                         indAfast: tipos.TS_sim_nao,
                         /// Preencher com a descrição da natureza da lesão.
                         /// Validação: Deve ser um código válido e existente na Tabela 17.
-                        dscLesao: t.number,
+                        dscLesao: t.string,
                         /// Informar o código da tabela de Classificação Internacional de Doenças - CID.
                         /// Validação: Deve ser preenchido com caracteres alfanuméricos, conforme opções constantes na tabela CID.
                         codCID: t.string,

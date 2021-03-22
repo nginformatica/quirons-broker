@@ -65,14 +65,14 @@ export const eSocial = t.type({
                     /// Avaliações clínicas e exames complementares realizados
                     /// DESCRICAO_COMPLETA:Grupo que detalha as avaliações clínicas e os exames complementares porventura realizados pelo trabalhador em virtude do determinado nos Quadros I e II da NR-07, além de outros solicitados pelo médico e os referentes ao ASO.
                     /// CHAVE_GRUPO: {dtExm}, {procRealizado}
-                    exame: t.intersection([
+                    exame: t.array(t.intersection([
                         t.type({
                             /// Data do exame realizado.
                             /// Validação: Deve ser uma data válida, igual ou anterior à data do ASO informada em {dtAso}(../dtAso).
                             dtExm: tipos.date,
                             /// Código do procedimento diagnóstico.
                             /// Validação: Deve ser um código válido e existente na Tabela 27.
-                            procRealizado: t.number,
+                            procRealizado: t.string,
                             /// Ordem do exame.
                             ordExame: t.union([
                                 /// Inicial
@@ -96,7 +96,7 @@ export const eSocial = t.type({
                                 t.literal(4)
                             ])
                         })
-                    ]),
+                    ])),
                     /// Informações sobre o médico emitente do ASO.
                     medico: t.type({
                         /// Preencher com o nome do médico emitente do ASO.
