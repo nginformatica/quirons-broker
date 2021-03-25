@@ -4,17 +4,18 @@ import * as t from 'io-ts'
  * Our internal model for Message.
  */
 export const PostMessage = t.type({
-    ticketCode: t.array(t.type({
-        lote: t.intersection([
+    ticketCode: t.string,
+    lote: t.array(
+        t.intersection([
             t.type({
                 // Código Identificador da filial do ERP emissor.
                 sourceBranch: t.string,
                 // Determina se o arquivo enviado em TAFMSG é .txt  (1)ou .Xml(2).
-                messageType: t.string,
+                messageType: t.union([t.literal('1'), t.literal('2')]),
                 // Sequência do arquivo; A Mensagem em TAFMSG pode ser enviada em mais de 1 registro, para isso deve-se repetir as informações dos demais campos e alterar a sequencia de acordo com a ordem das informações enviadas.
                 messageSequential: t.string,
                 // Código do Evento
-                registryType: t.string,
+                registryType: t.union([t.literal('S-2210'), t.literal('S-2220'), t.literal('S-2240'), t.literal('S-3000')]),
                 // Chave do Registro.
                 registryKey: t.string,
                 // Arquivo/Evento a ser integrado, a mensagem deve ser enviada com criptografia BASE64.
@@ -27,7 +28,7 @@ export const PostMessage = t.type({
                 // Prioridade de processamento do registro.
                 registryPriority: t.string,
                 // Registro será considerado na fila de integração. '1' - Enable ou '0' - Disable.
-                integrationQueue: t.string,
+                integrationQueue: t.union([t.literal('1'), t.literal('2')]),
                 // Identificação do dono do XML a ser integrado
                 erpowner: t.string,
                 // Identificador com o TAFKEY do registro predecessor, caso exista algum registro que o preceda.
@@ -38,7 +39,7 @@ export const PostMessage = t.type({
                 complement: t.string
             })
         ])
-    }))
+    )
 })
 
 export const PostResponseMessage = t.partial({
@@ -62,11 +63,11 @@ export const PostResponseMessage = t.partial({
         })
     ])),
     //Código de erro que impediu a integração do lote
-    coderr: t.string,
+    coderr: t.number,
     //Descrição do erro que impossibilitou a integração do lote. 
     description: t.string,
     //Número de registros enviados no POST.
-    keyAmount: t.string
+    keyAmount: t.number
 })
 
 export const GetMessage = t.type({
@@ -75,15 +76,15 @@ export const GetMessage = t.type({
     // Código do TAFKEY, Obrigatório caso ticketCode não seja informado.
     registryKey: t.string,
     // Numero do RecNo Inicial a ser considerado na consulta.
-    startRecNo: t.string,
+    startRecNo: t.number,
     // Modo de pesquisa, quando não informado o response retorna todos os TAFKEYs relacionados a busca, quando igual a 1 retorna a última ocorrência do TAFKEY, quando igual a 2 retorna a última ocorrência válida do TAFKEY. Este parâmetro é útil quando o mesmo TAFKEY é enviado em vários TAFTICKET diferentes.
-    searchMode: t.string,
+    searchMode: t.union([t.literal('1'), t.literal('2')]),
     // Código Identificador da filial do ERP emissor - *Não há uma validação de obrigatoriedade no retorno da requisição por conta do legado.
     sourceBranch: t.string,
     // Determina se o método deve retornar os erros dos registros com statusCode igual a 3 (Erros retornados pelo RET e gravados no TSS), o retorno será atribuído no grupo streamingErrors. Quando a tag não é informada os erros são retornados por Default. Valores validos: 0 - Desabilita, 1 - Habilita.
-    queryElements: t.string, 
+    queryElements: t.union([t.literal('0'), t.literal('1')]),
     //Limita a quantidade de registros a serem retornados na requisição. O tamanho da mensagem não poderá ultrapassar 850Kb, caso isto aconteça será realizado um retorno contendo os registros que já foram incrementados na resposta.
-    lotQuantity: t.string 
+    lotQuantity: t.number 
 })
 
 export const GetResponseMessage = t.type({
@@ -145,7 +146,7 @@ export const DeleteMessage = t.type({
     }))
 })
 
-export const ResponseDeleteMessage = t.type({
+export const DeleteResponseMessage = t.type({
     sucess: t.boolean
 })
 
@@ -154,4 +155,4 @@ export type PostResponseMessage = t.TypeOf<typeof PostResponseMessage>
 export type GetMessage = t.TypeOf<typeof GetMessage>
 export type GetResponseMessage = t.TypeOf<typeof GetResponseMessage>
 export type DeleteMessage = t.TypeOf<typeof DeleteMessage>
-export type ResponseDeleteMessage = t.TypeOf<typeof ResponseDeleteMessage>
+export type DeleteResponseMessage = t.TypeOf<typeof DeleteResponseMessage>
