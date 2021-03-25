@@ -2,6 +2,7 @@ import * as t from 'io-ts'
 
 import { eSocial as evtCAT } from './schemas/evtCAT'
 import { eSocial as evtMonit } from './schemas/evtMonit'
+import { eSocial as evtExclusao } from './schemas/evtExclusao'
 import { eSocial as evtExpRisco } from './schemas/evtExpRisco'
 
 import { dataMessage, metaMessage, userMessage } from '../constructors'
@@ -25,6 +26,7 @@ export const ESocialRequest = t.type({
     message: t.union([
         dataMessage('evtCAT',      evtCAT),
         dataMessage('evtMonit',    evtMonit),
+        dataMessage('evtExclusao', evtExclusao),
         dataMessage('evtExpRisco', evtExpRisco)
     ])
 })
