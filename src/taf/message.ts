@@ -145,7 +145,7 @@ export const DeleteMessage = t.type({
     }))
 })
 
-export const ResponseDeleteMessage = t.type({
+export const DeleteResponseMessage = t.type({
     sucess: t.boolean
 })
 
@@ -154,4 +154,4 @@ export type PostResponseMessage = t.TypeOf<typeof PostResponseMessage>
 export type GetMessage = t.TypeOf<typeof GetMessage>
 export type GetResponseMessage = t.TypeOf<typeof GetResponseMessage>
 export type DeleteMessage = t.TypeOf<typeof DeleteMessage>
-export type ResponseDeleteMessage = t.TypeOf<typeof ResponseDeleteMessage>
+export type DeleteResponseMessage = t.TypeOf<typeof DeleteResponseMessage>
