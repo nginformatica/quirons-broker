@@ -4,6 +4,7 @@ import { eSocial as evtCAT } from './schemas/evtCAT'
 import { eSocial as evtMonit } from './schemas/evtMonit'
 import { eSocial as evtExclusao } from './schemas/evtExclusao'
 import { eSocial as evtExpRisco } from './schemas/evtExpRisco'
+import { eSocial as evtInfoEmpregador } from './schemas/evtInfoEmpregador'
 
 import { dataMessage, metaMessage, userMessage } from '../constructors'
 
@@ -24,10 +25,11 @@ export const ESocialRequest = t.type({
         t.literal('validate')
     ]),
     message: t.union([
-        dataMessage('evtCAT',      evtCAT),
-        dataMessage('evtMonit',    evtMonit),
-        dataMessage('evtExclusao', evtExclusao),
-        dataMessage('evtExpRisco', evtExpRisco)
+        dataMessage('evtCAT',            evtCAT),
+        dataMessage('evtMonit',          evtMonit),
+        dataMessage('evtExclusao',       evtExclusao),
+        dataMessage('evtExpRisco',       evtExpRisco),
+        dataMessage('evtInfoEmpregador', evtInfoEmpregador)
     ])
 })
 
