@@ -115,6 +115,9 @@ export const eSocial = t.type({
     /// REGRA:REGRA_VALIDA_DT_FUTURA
     /// REGRA:REGRA_VALIDA_EMPREGADOR
     evtInfoEmpregador: t.type({
+        $: t.type({
+            Id: tipos.TS_Id
+        }),
         ideEvento: tipos.T_ideEvento_evtTab,
         /// Informações de identificação do empregador.
         /// CHAVE_GRUPO: {tpInsc}, {nrInsc}
