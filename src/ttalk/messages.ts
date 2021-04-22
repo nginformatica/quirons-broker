@@ -99,7 +99,8 @@ export const SenderResponseMessage = t.intersection([
         kind: t.literal('senderResponse')
     }),
     t.partial({
-        errorMessage: t.string
+        errorMessage: t.string,
+        bodyMessage: t.string
     })
 ])
 export type SenderResponseMessage = t.TypeOf<typeof SenderResponseMessage>
