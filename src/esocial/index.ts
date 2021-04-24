@@ -1,5 +1,3 @@
-import * as t from 'io-ts'
-
 import { eSocial as evtCAT } from './schemas/evtCAT'
 import { eSocial as evtMonit } from './schemas/evtMonit'
 import { eSocial as evtExpRisco } from './schemas/evtExpRisco'
@@ -14,22 +12,12 @@ export {
     evtInfoEmpregador
 }
 
-export type evtCAT = t.TypeOf<typeof evtCAT>
-
-export type evtMonit = t.TypeOf<typeof evtMonit>
-
-export type evtExpRisco = t.TypeOf<typeof evtExpRisco>
-
-export type evtExclusao = t.TypeOf<typeof evtExclusao>
-
-export type evtInfoEmpregador = t.TypeOf<typeof evtInfoEmpregador>
-
 export type eSocialObject =
-    | t.TypeOf<typeof evtCAT>
-    | t.TypeOf<typeof evtMonit>
-    | t.TypeOf<typeof evtExpRisco>
-    | t.TypeOf<typeof evtExclusao>
-    | t.TypeOf<typeof evtInfoEmpregador>
+    | evtCAT
+    | evtMonit
+    | evtExpRisco
+    | evtExclusao
+    | evtInfoEmpregador
 
 export type eSocialKey = Keys<eSocialObject>
 

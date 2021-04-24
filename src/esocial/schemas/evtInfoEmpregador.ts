@@ -165,3 +165,5 @@ export const eSocial = t.type({
         ])
     })
 })
+
+export type eSocial = t.TypeOf<typeof eSocial>
