@@ -4,6 +4,7 @@ import { AdditionalInfo } from './schemas/Additional_1_000'
 import { AllowanceInfo } from './schemas/Allowance_1_000'
 import { AllowanceTypesInfo } from './schemas/AllowanceTypes_1_000'
 import { ClassInfo } from './schemas/Classes_2_000'
+import { InformationDeficienciesInfo } from './schemas/InformationDeficiencies'
 import { LeaveOfAbsenceInfo } from './schemas/LeaveOfAbsenceControl_1_000'
 import { LeaveOfAbsenceTypeInfo } from './schemas/LeaveOfAbsenceTypes_1_000'
 import { PayRollCostCenterInfo } from './schemas/PayRollCostCenter_1_000'
@@ -27,6 +28,7 @@ export const Object = t.union([
     WorkingShiftInfo,
     LeaveOfAbsenceInfo,
     AdditionalInfo,
+    InformationDeficienciesInfo,
     TrainingNecessityInfo,
     StabilityControlInfo,
     AllowanceInfo
@@ -71,6 +73,7 @@ export {
     ClassInfo,
     WorkingShiftInfo,
     AdditionalInfo,
+    InformationDeficienciesInfo,
     AllowanceInfo,
     LeaveOfAbsenceInfo,
     StabilityControlInfo,
