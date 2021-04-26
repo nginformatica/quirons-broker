@@ -253,6 +253,8 @@ export const eSocial = t.type({
                 })
             })
         ])
-    }),
-    // TODO: SIGNATURE
+    })
 })
+
+export type eSocial = t.TypeOf<typeof eSocial>
+
