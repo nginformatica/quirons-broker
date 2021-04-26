@@ -16,6 +16,7 @@ import { WorkingShifts } from './internal/workshift'
 import { datetime, pick } from '../custom-types'
 import { AllowanceInfo } from './schemas/Allowance_1_000'
 import { AdditionalInfo } from './schemas/Additional_1_000'
+import { InformationDeficienciesInfo } from './schemas/InformationDeficiencies'
 import { LeaveOfAbsenceInfo } from './schemas/LeaveOfAbsenceControl_1_000'
 import { StabilityControlInfo } from './schemas/StabilityControl_1_000'
 import { TrainingNecessityInfo } from './schemas/TrainingNecessity_1_000'
@@ -81,6 +82,7 @@ export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 export const SenderMessageContent = t.union([
     senderMessage('allowance', AllowanceInfo),
     senderMessage('additional', AdditionalInfo),
+    senderMessage('informationDeficiencies', InformationDeficienciesInfo),
     senderMessage('leaveofabscence', LeaveOfAbsenceInfo),
     senderMessage('stability', StabilityControlInfo),
     senderMessage('trainingnecessity', TrainingNecessityInfo)
