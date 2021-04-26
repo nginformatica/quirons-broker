@@ -2,8 +2,11 @@ import * as t from 'io-ts'
 export { 
     PostMessage,
     GetMessage,
-    DeleteMessage  
- } from './message'
+    DeleteMessage,
+    PostResponseMessage,
+    GetResponseMessage,
+    DeleteResponseMessage
+} from './message'
 import { 
     PostMessage,
     GetMessage,
