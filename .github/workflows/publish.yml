@@ -1,0 +1,19 @@
+name: Publish Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    name: NPM Publish Job
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Publish Package
+      run: |
+        npm run pre:release
+        npm run release
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
