@@ -3,13 +3,15 @@ import { eSocial as evtMonit } from './schemas/evtMonit'
 import { eSocial as evtExpRisco } from './schemas/evtExpRisco'
 import { eSocial as evtExclusao } from './schemas/evtExclusao'
 import { eSocial as evtInfoEmpregador } from './schemas/evtInfoEmpregador'
+import { eSocial as envioLote } from './schemas/EnvioLoteEventos-v1_1_1'
 
 export {
     evtCAT,
     evtMonit,
     evtExpRisco,
     evtExclusao,
-    evtInfoEmpregador
+    evtInfoEmpregador,
+    envioLote
 }
 
 export type eSocialObject =
