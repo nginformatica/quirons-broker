@@ -8,7 +8,7 @@ import * as t from 'io-ts'
 
 // TODO: não deixa eu passar esse unknown no PR, por favor
 /// Define os dados de um arquivo do eSocial (evento).
-export const TArquivoEsocial = t.unknown
+export const TArquivoEsocial = t.array(t.unknown)
 
 /// Define a identificação do transmissor.
 export const TIdeTransmissor = t.type({
