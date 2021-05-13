@@ -18,33 +18,30 @@ export {
     DeleteResponseMessage
 } from './message'
 
-export const SendMessage = userMessage('sendTAF', t.intersection([
-    t.union([
-        PostMessage,
-        GetMessage,
-        DeleteMessage
-    ]),
-    // Responses may optionally contain an error message attached to the content
-    t.type({
-        content: t.partial({
-            errorMessage: t.string
-        })
+export const SenderMessage = userMessage('sendTAF', t.union([
+    PostMessage,
+    GetMessage,
+    DeleteMessage
+]))
+
+export type SenderMessage = t.TypeOf<typeof SenderMessage>
+
+export const SenderResponseMessage = t.intersection([
+    userMessage('responseTAF', t.union([
+        PostResponseMessage,
+        GetResponseMessage,
+        DeleteResponseMessage
+    ])),
+    t.partial({
+        errorMessage: t.string
     })
-]))
+])
 
-export type SendMessage = t.TypeOf<typeof SendMessage>
-
-export const ResponseMessage = userMessage('responseTAF', t.union([
-    PostResponseMessage,
-    GetResponseMessage,
-    DeleteResponseMessage
-]))
-
-export type ResponseMessage = t.TypeOf<typeof ResponseMessage>
+export type ResponseMessage = t.TypeOf<typeof SenderResponseMessage>
 
 export const Message = t.union([
-    SendMessage,
-    ResponseMessage
+    SenderMessage,
+    SenderResponseMessage
 ])
 
 export type Message = t.TypeOf<typeof Message>

@@ -5,6 +5,7 @@ import * as t from 'io-ts'
  */
 export const PostMessage = t.type({
     verb: t.literal('post'),
+    // Atributo raiz
     ticketCode: t.string,
     lote: t.array(
         t.intersection([
@@ -46,7 +47,7 @@ export const PostMessage = t.type({
 
 export type PostMessage = t.TypeOf<typeof PostMessage>
 
-export const PostResponseMessage = t.partial({
+export const PostResponseMessage = t.type({
     verb: t.literal('post'),
     // Atributo raiz
     ticketCode: t.string,
