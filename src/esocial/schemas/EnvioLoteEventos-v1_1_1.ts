@@ -6,9 +6,9 @@
 */
 import * as t from 'io-ts'
 
-// TODO: não deixa eu passar esse unknown no PR, por favor
+// TODO: should we enforce a stricter type here?
 /// Define os dados de um arquivo do eSocial (evento).
-export const TArquivoEsocial = t.array(t.unknown)
+export const TArquivoEsocial = t.array(t.object)
 
 /// Define a identificação do transmissor.
 export const TIdeTransmissor = t.type({

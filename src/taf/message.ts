@@ -20,7 +20,8 @@ export const PostMessage = t.type({
                 registryKey: t.string,
                 // Arquivo/Evento a ser integrado, a mensagem deve ser enviada com criptografia BASE64.
                 integrationMessage: t.string,
-            }),t.partial({
+            }),
+            t.partial({
                 // Data da Integração.
                 integrationDate: t.string,
                 // Hora da Integração.
@@ -52,7 +53,8 @@ export const PostResponseMessage = t.partial({
             key: t.string,
             //Informa se o TAFKEY foi integrado ou não.
             success: t.boolean
-        }), t.partial({
+        }),
+        t.partial({
             //Array contendo os erros que impediram a integração do registro. Atributo gerado somente quando success for igual a false.
             error: t.array(t.type({
                 //Código do erro que impossibilitou a integração.

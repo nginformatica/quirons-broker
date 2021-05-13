@@ -25,7 +25,7 @@ export const SenderMessageContent = t.union([
 export type SenderMessageContent = t.TypeOf<typeof SenderMessageContent>
 
 export const SenderMessage = t.type({
-    kind: t.literal('send'),
+    kind: t.literal('sendTAF'),
     identification: Identification,
     content: SenderMessageContent
 })
