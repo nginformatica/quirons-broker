@@ -37,7 +37,7 @@ export const SenderResponseMessage = t.intersection([
     })
 ])
 
-export type ResponseMessage = t.TypeOf<typeof SenderResponseMessage>
+export type SenderResponseMessage = t.TypeOf<typeof SenderResponseMessage>
 
 export const Message = t.union([
     SenderMessage,
