@@ -4,6 +4,7 @@ import * as t from 'io-ts'
  * Our internal model for Message.
  */
 export const PostMessage = t.type({
+    verb: t.literal('post'),
     ticketCode: t.string,
     lote: t.array(
         t.intersection([
@@ -43,36 +44,42 @@ export const PostMessage = t.type({
     )
 })
 
+export type PostMessage = t.TypeOf<typeof PostMessage>
+
 export const PostResponseMessage = t.partial({
-    //Atributo raiz
+    verb: t.literal('post'),
+    // Atributo raiz
     ticketCode: t.string,
-    //Array contendo os TAFKEY requisitados.
+    // Array contendo os TAFKEY requisitados.
     registryKey: t.array(t.intersection([
         t.type({
-            //Código do TAFKEY
+            // Código do TAFKEY
             key: t.string,
-            //Informa se o TAFKEY foi integrado ou não.
+            // Informa se o TAFKEY foi integrado ou não.
             success: t.boolean
         }),
         t.partial({
-            //Array contendo os erros que impediram a integração do registro. Atributo gerado somente quando success for igual a false.
+            // Array contendo os erros que impediram a integração do registro. Atributo gerado somente quando success for igual a false.
             error: t.array(t.type({
-                //Código do erro que impossibilitou a integração.
+                // Código do erro que impossibilitou a integração.
                 coderr: t.string,
-                //Descrição do erro que impossibilitou a integração. 
+                // Descrição do erro que impossibilitou a integração. 
                 description: t.string
             }))
         })
     ])),
-    //Código de erro que impediu a integração do lote
+    // Código de erro que impediu a integração do lote
     coderr: t.number,
-    //Descrição do erro que impossibilitou a integração do lote. 
+    // Descrição do erro que impossibilitou a integração do lote. 
     description: t.string,
-    //Número de registros enviados no POST.
+    // Número de registros enviados no POST.
     keyAmount: t.number
 })
 
+export type PostResponseMessage = t.TypeOf<typeof PostResponseMessage>
+
 export const GetMessage = t.type({
+    verb: t.literal('get'),
     // Código do TAFTICKET, Obrigatório caso registryKey não seja informado.
     ticketCode: t.string,
     // Código do TAFKEY, Obrigatório caso ticketCode não seja informado.
@@ -85,11 +92,14 @@ export const GetMessage = t.type({
     sourceBranch: t.string,
     // Determina se o método deve retornar os erros dos registros com statusCode igual a 3 (Erros retornados pelo RET e gravados no TSS), o retorno será atribuído no grupo streamingErrors. Quando a tag não é informada os erros são retornados por Default. Valores validos: 0 - Desabilita, 1 - Habilita.
     queryElements: t.union([t.literal('0'), t.literal('1')]),
-    //Limita a quantidade de registros a serem retornados na requisição. O tamanho da mensagem não poderá ultrapassar 850Kb, caso isto aconteça será realizado um retorno contendo os registros que já foram incrementados na resposta.
+    // Limita a quantidade de registros a serem retornados na requisição. O tamanho da mensagem não poderá ultrapassar 850Kb, caso isto aconteça será realizado um retorno contendo os registros que já foram incrementados na resposta.
     lotQuantity: t.number 
 })
 
+export type GetMessage = t.TypeOf<typeof GetMessage>
+
 export const GetResponseMessage = t.type({
+    verb: t.literal('get'),
     // Determina o agrupamento do retorno que pode ser por ticketCode (TAFTICKET) ou registryKey (TAFKEY), o agrupamento depende dos parâmetros enviados no request, quando o registryKey é informado e o ticketCode omitido, o  retorno será por registryKey caso contrário por ticketCode.
     type: t.string,
     // Código do registro indicado no atributo type.
@@ -142,19 +152,20 @@ export const GetResponseMessage = t.type({
     maxRecNo: t.number
 })
 
+export type GetResponseMessage = t.TypeOf<typeof GetResponseMessage>
+
 export const DeleteMessage = t.type({
+    verb: t.literal('delete'),
     deleteTicket: t.array(t.type({
         ticketCode: t.string
     }))
 })
 
+export type DeleteMessage = t.TypeOf<typeof DeleteMessage>
+
 export const DeleteResponseMessage = t.type({
+    verb: t.literal('delete'),
     sucess: t.boolean
 })
 
-export type PostMessage = t.TypeOf<typeof PostMessage>
-export type PostResponseMessage = t.TypeOf<typeof PostResponseMessage>
-export type GetMessage = t.TypeOf<typeof GetMessage>
-export type GetResponseMessage = t.TypeOf<typeof GetResponseMessage>
-export type DeleteMessage = t.TypeOf<typeof DeleteMessage>
 export type DeleteResponseMessage = t.TypeOf<typeof DeleteResponseMessage>
