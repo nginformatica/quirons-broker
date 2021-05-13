@@ -18,11 +18,15 @@ export {
     DeleteResponseMessage
 } from './message'
 
-export const SenderMessage = userMessage('sendTAF', t.union([
+export const SenderMessageContent = t.union([
     PostMessage,
     GetMessage,
     DeleteMessage
-]))
+])
+
+export type SenderMessageContent = t.TypeOf<typeof SenderMessageContent>
+
+export const SenderMessage = userMessage('sendTAF', SenderMessageContent)
 
 export type SenderMessage = t.TypeOf<typeof SenderMessage>
 
