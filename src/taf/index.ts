@@ -7,7 +7,8 @@ import {
     GetResponseMessage,
     DeleteResponseMessage  
 } from './message'
-import { userMessage } from '../constructors'
+import { Identification, userMessage } from '../constructors'
+import { nullable } from '../custom-types'
 
 export { 
     PostMessage,
@@ -30,13 +31,17 @@ export const SenderMessage = userMessage('sendTAF', SenderMessageContent)
 
 export type SenderMessage = t.TypeOf<typeof SenderMessage>
 
-export const SenderResponseMessage = t.intersection([
-    userMessage('responseTAF', t.union([
+export const SenderResponseMessage = t.union([
+    // This should match the tag below
+    userMessage('responseTAF', nullable(t.union([
         PostResponseMessage,
         GetResponseMessage,
         DeleteResponseMessage
-    ])),
-    t.partial({
+    ]))),
+    t.type({
+        // This should match the tag above
+        kind: t.literal('responseTAF'),
+        identification: Identification,
         errorMessage: t.string
     })
 ])
