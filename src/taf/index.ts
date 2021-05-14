@@ -7,7 +7,7 @@ import {
     GetResponseMessage,
     DeleteResponseMessage  
 } from './message'
-import { Identification, userMessage } from '../constructors'
+import { userMessage } from '../constructors'
 import { nullable } from '../custom-types'
 
 export { 
@@ -41,7 +41,6 @@ export const SenderResponseMessage = t.union([
     t.type({
         // This should match the tag above
         kind: t.literal('responseTAF'),
-        identification: Identification,
         errorMessage: t.string
     })
 ])
