@@ -5,7 +5,7 @@ import {
     DeleteMessage,
     PostResponseMessage,
     GetResponseMessage,
-    DeleteResponseMessage  
+    DeleteResponseMessage
 } from './message'
 import { userMessage } from '../constructors'
 import { nullable } from '../custom-types'
