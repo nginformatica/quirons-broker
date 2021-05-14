@@ -1,4 +1,15 @@
 import * as t from 'io-ts'
+import { 
+    PostMessage,
+    GetMessage,
+    DeleteMessage,
+    PostResponseMessage,
+    GetResponseMessage,
+    DeleteResponseMessage
+} from './message'
+import { userMessage } from '../constructors'
+import { nullable } from '../custom-types'
+
 export { 
     PostMessage,
     GetMessage,
@@ -7,47 +18,36 @@ export {
     GetResponseMessage,
     DeleteResponseMessage
 } from './message'
-import { 
-    PostMessage,
-    GetMessage,
-    DeleteMessage,
-    PostResponseMessage,
-    GetResponseMessage,
-    DeleteResponseMessage  
-} from './message'
-import { Identification, senderMessage, userMessage } from '../constructors'
 
 export const SenderMessageContent = t.union([
-    senderMessage('postMessage', PostMessage),
-    senderMessage('getMessage', GetMessage),
-    senderMessage('deleteMessage', DeleteMessage),
+    PostMessage,
+    GetMessage,
+    DeleteMessage
 ])
+
 export type SenderMessageContent = t.TypeOf<typeof SenderMessageContent>
 
-export const SenderMessage = t.type({
-    kind: t.literal('send'),
-    identification: Identification,
-    content: SenderMessageContent
-})
+export const SenderMessage = userMessage('sendTAF', SenderMessageContent)
+
 export type SenderMessage = t.TypeOf<typeof SenderMessage>
 
-export const SenderResponseMessage = t.intersection([
+export const SenderResponseMessage = t.union([
+    // This should match the tag below
+    userMessage('responseTAF', nullable(t.union([
+        PostResponseMessage,
+        GetResponseMessage,
+        DeleteResponseMessage
+    ]))),
     t.type({
-        kind: t.literal('senderResponse')
-    }),
-    t.partial({
+        // This should match the tag above
+        kind: t.literal('responseTAF'),
         errorMessage: t.string
     })
 ])
+
 export type SenderResponseMessage = t.TypeOf<typeof SenderResponseMessage>
 
 export const Message = t.union([
-    userMessage('postMessage', PostMessage),
-    userMessage('getMessage', GetMessage),
-    userMessage('deleteMessage', DeleteMessage),
-    userMessage('postResponseMessage', PostResponseMessage),
-    userMessage('getResponseMessage', GetResponseMessage),
-    userMessage('deleteResponseMessage', DeleteResponseMessage),
     SenderMessage,
     SenderResponseMessage
 ])

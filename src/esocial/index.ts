@@ -1,16 +1,25 @@
+import * as t from 'io-ts'
+
 import { eSocial as evtCAT } from './schemas/evtCAT'
 import { eSocial as evtMonit } from './schemas/evtMonit'
 import { eSocial as evtExpRisco } from './schemas/evtExpRisco'
 import { eSocial as evtExclusao } from './schemas/evtExclusao'
 import { eSocial as evtInfoEmpregador } from './schemas/evtInfoEmpregador'
+import { eSocial as EnvioLote } from './schemas/EnvioLoteEventos-v1_1_1'
+import { T_ideEmpregador } from './schemas/tipos'
 
 export {
     evtCAT,
     evtMonit,
     evtExpRisco,
     evtExclusao,
-    evtInfoEmpregador
+    evtInfoEmpregador,
+    EnvioLote
 }
+
+export const IdeEmpregador = T_ideEmpregador
+
+export type IdeEmpregador = t.TypeOf<typeof T_ideEmpregador>
 
 export type eSocialObject =
     | evtCAT

@@ -16,4 +16,5 @@ export const Message = t.union([
     InternalMessage,
     TAFMessage
 ])
+
 export type Message = t.TypeOf<typeof Message>

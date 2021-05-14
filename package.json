@@ -1,7 +1,7 @@
 {
   "name": "quirons-broker",
-  "version": "0.0.1-alpha.34",
-  "description": "A small library to expose the broker ttalk types",
+  "version": "0.0.1-alpha.35",
+  "description": "A small library to expose the broker types",
   "main": "index.ts",
   "typings": "index.d.ts",
   "types": "index.d.ts",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "fp-ts": "2.6.1",
-    "io-ts": "2.2.2",
+    "io-ts": "2.2.16",
     "typescript": "3.9.2"
   }
 }
