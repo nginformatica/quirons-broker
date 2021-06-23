@@ -14,6 +14,8 @@ import { StabilityTypeInfo } from './schemas/StabilityType_1_000'
 import { TrainingNecessityInfo } from './schemas/TrainingNecessity_1_000'
 import { WorkingShiftInfo } from './schemas/WorkingShift_1_000'
 import { datetime, nullable } from '../custom-types'
+import { SickNoteInfo } from './schemas/SickNote'
+import { MedicalConsultationInfo } from './schemas/MedicalConsultation'
 
 /**
  * An object as returned by TOTVS' TTalk API.
@@ -31,7 +33,9 @@ export const Object = t.union([
     InformationDeficienciesInfo,
     TrainingNecessityInfo,
     StabilityControlInfo,
-    AllowanceInfo
+    AllowanceInfo,
+    SickNoteInfo,
+    MedicalConsultationInfo
 ])
 export type Object = t.TypeOf<typeof Object>
 
@@ -77,7 +81,9 @@ export {
     AllowanceInfo,
     LeaveOfAbsenceInfo,
     StabilityControlInfo,
-    TrainingNecessityInfo
+    TrainingNecessityInfo,
+    SickNoteInfo,
+    MedicalConsultationInfo
 }
 
 /**
@@ -286,3 +292,11 @@ export const Position = t.type({
 })
 
 export type Position = t.TypeOf<typeof Position>
+
+export const SickNote = SickNoteInfo
+
+export type SickNote = t.TypeOf<typeof SickNote>
+
+export const MedicalConsultation = MedicalConsultationInfo
+
+export type MedicalConsultation = t.TypeOf<typeof MedicalConsultation>

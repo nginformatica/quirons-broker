@@ -20,7 +20,7 @@ import { InformationDeficienciesInfo } from './schemas/InformationDeficiencies'
 import { LeaveOfAbsenceInfo } from './schemas/LeaveOfAbsenceControl_1_000'
 import { StabilityControlInfo } from './schemas/StabilityControl_1_000'
 import { TrainingNecessityInfo } from './schemas/TrainingNecessity_1_000'
-import { Department, Position } from './index'
+import { Department, MedicalConsultation, Position, SickNote } from './index'
 import {
     userMessage,
     metaMessage,
@@ -62,20 +62,23 @@ export type TError = t.TypeOf<typeof TError>
  * Possible business messages.
  */
 export const BusinessMessage = t.union([
-    userMessage('costcenter',        t.array(PayRollCostCenter)),
-    userMessage('occupation',        t.array(Positions)),
-    userMessage('workshift',         t.array(WorkingShifts)),
-    userMessage('training',          t.array(Classes)),
-    userMessage('absencetype',       t.array(LeaveOfAbsenceType)),
-    userMessage('allowancetype',     t.array(AllowanceType)),
-    userMessage('stabilitytype',     t.array(StabilityType)),
-    userMessage('person',            t.array(Person)),
-    userMessage('employee',          t.array(Employee)),
-    userMessage('dependant',         t.array(Dependant)),
-    userMessage('functionalhistory', t.array(FunctionalHistory)),
-    userMessage('traininghistory',   t.array(TrainingHistory)),
-    userMessage('department',        t.array(Department)),
-    userMessage('position',          t.array(Position))
+    userMessage('costcenter',          t.array(PayRollCostCenter)),
+    userMessage('occupation',          t.array(Positions)),
+    userMessage('workshift',           t.array(WorkingShifts)),
+    userMessage('training',            t.array(Classes)),
+    userMessage('absencetype',         t.array(LeaveOfAbsenceType)),
+    userMessage('allowancetype',       t.array(AllowanceType)),
+    userMessage('stabilitytype',       t.array(StabilityType)),
+    userMessage('person',              t.array(Person)),
+    userMessage('employee',            t.array(Employee)),
+    userMessage('dependant',           t.array(Dependant)),
+    userMessage('functionalhistory',   t.array(FunctionalHistory)),
+    userMessage('traininghistory',     t.array(TrainingHistory)),
+    userMessage('department',          t.array(Department)),
+    userMessage('position',            t.array(Position)),
+    userMessage('sicknote',            t.array(SickNote)),
+    userMessage('medicalconsultation', t.array(MedicalConsultation))
+    
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 
