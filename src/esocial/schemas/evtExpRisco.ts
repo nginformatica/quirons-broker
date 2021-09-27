@@ -66,7 +66,12 @@ export const eSocial = t.type({
                     t.type({
                         /// Informar o código do agente nocivo ao qual o trabalhador está exposto. Preencher com números e pontos. Caso não haja exposição, informar o código [09.01.001] (Ausência de agente nocivo ou de atividades previstas no Anexo IV do Decreto 3.048/1999).
                         /// Validação: Deve ser um código válido e existente na Tabela 24. Não é possível informar nenhum outro código de agente nocivo quando houver o código [09.01.001].
-                        codAgNoc: t.string,
+                        codAgNoc: t.string
+                    }),
+                    t.partial({
+                        /// Descrição do agente nocivo.
+                        /// Validação: Preenchimento obrigatório se {codAgNoc}(./codAgNoc) = [01.01.001, 01.02.001, 01.03.001, 01.04.001, 01.05.001, 01.06.001, 01.07.001, 01.08.001, 01.09.001, 01.10.001, 01.12.001, 01.13.001, 01.14.001, 01.15.001, 01.16.001, 01.17.001, 01.18.001, 05.01.001].
+                        dscAgNoc: tipos.TS_texto_999,
                         /// Tipo de avaliação do agente nocivo.
                         tpAval: t.union([
                             /// Critério quantitativo
@@ -74,73 +79,6 @@ export const eSocial = t.type({
                             /// Critério qualitativo
                             t.literal(2)
                         ]),
-                        /// EPC e EPI
-                        /// DESCRICAO_COMPLETA:Informações relativas a Equipamentos de Proteção Coletiva - EPC e Equipamentos de Proteção Individual - EPI.
-                        epcEpi: t.intersection([
-                            t.type({
-                                /// O empregador implementa medidas de proteção coletiva (EPC) para eliminar ou reduzir a exposição dos trabalhadores ao agente nocivo?
-                                utilizEPC: t.union([
-                                    /// Não se aplica
-                                    t.literal(0),
-                                    /// Não implementa
-                                    t.literal(1),
-                                    /// Implementa
-                                    t.literal(2)
-                                ]),
-                                /// Utilização de EPI.
-                                utilizEPI: t.union([
-                                    /// Não se aplica
-                                    t.literal(0),
-                                    /// Não utilizado
-                                    t.literal(1),
-                                    /// Utilizado
-                                    t.literal(2)
-                                ])
-                            }),
-                            t.partial({
-                                /// Os EPCs são eficazes na neutralização dos riscos ao trabalhador?
-                                /// Validação: Preenchimento obrigatório e exclusivo se {utilizEPC}(./utilizEPC) = [2].
-                                eficEpc: tipos.TS_sim_nao,
-                                /// EPI.
-                                /// CONDICAO_GRUPO: O (se {utilizEPI}(../utilizEPI) = [2]); N (nos demais casos)
-                                /// CHAVE_GRUPO: {docAval}, {dscEPI}
-                                epi: t.array(t.intersection([
-                                    t.type({
-                                        /// O EPI é eficaz na neutralização do risco ao trabalhador?
-                                        eficEpi: tipos.TS_sim_nao
-                                    }),
-                                    t.partial({
-                                        /// Certificado de Aprovação - CA ou documento de avaliação do EPI.
-                                        docAval: tipos.TS_texto_255,
-                                        /// Descrição do EPI.
-                                        /// Validação: Preenchimento obrigatório e exclusivo se {docAval}(./docAval) não for informado.
-                                        dscEPI: tipos.TS_texto_999
-                                    })
-                                ])),
-                                /// Requisitos das NR-06 e NR-09 pelo(s) EPI(s) informado(s)
-                                /// DESCRICAO_COMPLETA:Requisitos da Norma Regulamentadora 06 - NR-06 e da Norma Regulamentadora 09 - NR-09 pelo(s) EPI(s) informado(s).
-                                /// CONDICAO_GRUPO: O (se {utilizEPI}(../utilizEPI) = [2]); N (nos demais casos)
-                                epiCompl: t.type({
-                                    /// Foi tentada a implementação de medidas de proteção coletiva, de caráter administrativo ou de organização, optando-se pelo EPI por inviabilidade técnica, insuficiência ou interinidade, ou ainda em caráter complementar ou emergencial?
-                                    medProtecao: tipos.TS_sim_nao,
-                                    /// Foram observadas as condições de funcionamento do EPI ao longo do tempo, conforme especificação técnica do fabricante nacional ou importador, ajustadas às condições de campo?
-                                    condFuncto: tipos.TS_sim_nao,
-                                    /// Foi observado o uso ininterrupto do EPI ao longo do tempo, conforme especificação técnica do fabricante nacional ou importador, ajustadas às condições de campo?
-                                    usoInint: tipos.TS_sim_nao,
-                                    /// Foi observado o prazo de validade do CA no momento da compra do EPI?
-                                    przValid: tipos.TS_sim_nao,
-                                    /// É observada a periodicidade de troca definida pelo fabricante nacional ou importador e/ou programas ambientais, comprovada mediante recibo assinado pelo usuário em época própria?
-                                    periodicTroca: tipos.TS_sim_nao,
-                                    /// É observada a higienização conforme orientação do fabricante nacional ou importador?
-                                    higienizacao: tipos.TS_sim_nao
-                                })
-                            })
-                        ])
-                    }),
-                    t.partial({
-                        /// Descrição do agente nocivo.
-                        /// Validação: Preenchimento obrigatório se {codAgNoc}(./codAgNoc) = [01.01.001, 01.02.001, 01.03.001, 01.04.001, 01.05.001, 01.06.001, 01.07.001, 01.08.001, 01.09.001, 01.10.001, 01.12.001, 01.13.001, 01.14.001, 01.15.001, 01.16.001, 01.17.001, 01.18.001, 05.01.001].
-                        dscAgNoc: tipos.TS_texto_999,
                         /// Intensidade, concentração ou dose da exposição do trabalhador ao agente nocivo cujo critério de avaliação seja quantitativo.
                         /// Validação: Preenchimento obrigatório e exclusivo se {tpAval}(./tpAval) = [1].
                         intConc: t.number,
@@ -213,7 +151,69 @@ export const eSocial = t.type({
                         ]),
                         /// Técnica utilizada para medição da intensidade ou concentração.
                         /// Validação: Preenchimento obrigatório e exclusivo se {tpAval}(./tpAval) = [1].
-                        tecMedicao: t.string
+                        tecMedicao: t.string,
+                        /// EPC e EPI
+                        /// DESCRICAO_COMPLETA:Informações relativas a Equipamentos de Proteção Coletiva - EPC e Equipamentos de Proteção Individual - EPI.
+                        epcEpi: t.intersection([
+                            t.type({
+                                /// O empregador implementa medidas de proteção coletiva (EPC) para eliminar ou reduzir a exposição dos trabalhadores ao agente nocivo?
+                                utilizEPC: t.union([
+                                    /// Não se aplica
+                                    t.literal(0),
+                                    /// Não implementa
+                                    t.literal(1),
+                                    /// Implementa
+                                    t.literal(2)
+                                ]),
+                                /// Utilização de EPI.
+                                utilizEPI: t.union([
+                                    /// Não se aplica
+                                    t.literal(0),
+                                    /// Não utilizado
+                                    t.literal(1),
+                                    /// Utilizado
+                                    t.literal(2)
+                                ])
+                            }),
+                            t.partial({
+                                /// Os EPCs são eficazes na neutralização dos riscos ao trabalhador?
+                                /// Validação: Preenchimento obrigatório e exclusivo se {utilizEPC}(./utilizEPC) = [2].
+                                eficEpc: tipos.TS_sim_nao,
+                                /// O EPI é eficaz na neutralização do risco ao trabalhador?
+                                eficEpi: tipos.TS_sim_nao,
+                                /// EPI.
+                                /// CONDICAO_GRUPO: O (se {utilizEPI}(../utilizEPI) = [2]); N (nos demais casos)
+                                /// CHAVE_GRUPO: {docAval}, {dscEPI}
+                                epi: t.array(t.intersection([
+                                    t.type({
+                                    }),
+                                    t.partial({
+                                        /// Certificado de Aprovação - CA ou documento de avaliação do EPI.
+                                        docAval: tipos.TS_texto_255,
+                                        /// Descrição do EPI.
+                                        /// Validação: Preenchimento obrigatório e exclusivo se {docAval}(./docAval) não for informado.
+                                        dscEPI: tipos.TS_texto_999
+                                    })
+                                ])),
+                                /// Requisitos das NR-06 e NR-09 pelo(s) EPI(s) informado(s)
+                                /// DESCRICAO_COMPLETA:Requisitos da Norma Regulamentadora 06 - NR-06 e da Norma Regulamentadora 09 - NR-09 pelo(s) EPI(s) informado(s).
+                                /// CONDICAO_GRUPO: O (se {utilizEPI}(../utilizEPI) = [2]); N (nos demais casos)
+                                epiCompl: t.type({
+                                    /// Foi tentada a implementação de medidas de proteção coletiva, de caráter administrativo ou de organização, optando-se pelo EPI por inviabilidade técnica, insuficiência ou interinidade, ou ainda em caráter complementar ou emergencial?
+                                    medProtecao: tipos.TS_sim_nao,
+                                    /// Foram observadas as condições de funcionamento do EPI ao longo do tempo, conforme especificação técnica do fabricante nacional ou importador, ajustadas às condições de campo?
+                                    condFuncto: tipos.TS_sim_nao,
+                                    /// Foi observado o uso ininterrupto do EPI ao longo do tempo, conforme especificação técnica do fabricante nacional ou importador, ajustadas às condições de campo?
+                                    usoInint: tipos.TS_sim_nao,
+                                    /// Foi observado o prazo de validade do CA no momento da compra do EPI?
+                                    przValid: tipos.TS_sim_nao,
+                                    /// É observada a periodicidade de troca definida pelo fabricante nacional ou importador e/ou programas ambientais, comprovada mediante recibo assinado pelo usuário em época própria?
+                                    periodicTroca: tipos.TS_sim_nao,
+                                    /// É observada a higienização conforme orientação do fabricante nacional ou importador?
+                                    higienizacao: tipos.TS_sim_nao
+                                })
+                            })
+                        ])
                     })
                 ])),
                 /// Responsável pelos registros ambientais
