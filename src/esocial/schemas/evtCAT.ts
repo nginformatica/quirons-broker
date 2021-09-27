@@ -163,22 +163,7 @@ export const eSocial = t.type({
                     /// Preencher com o código correspondente ao agente causador do acidente.
                     /// Validação: Deve ser um código válido e existente na Tabela 14 ou na Tabela 15.
                     codAgntCausador: t.string
-                })
-            }),
-            t.partial({
-                /// Hora do acidente, no formato HHMM.
-                /// Validação: Preenchimento obrigatório e exclusivo se {tpAcid}(./tpAcid) = [1]. Se informada, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
-                /// Se {tpCat}(./tpCat) = [2, 3], deve ser informado valor igual ao preenchido no evento de CAT anterior, quando informado em {nrRecCatOrig}(./catOrigem_nrRecCatOrig).
-                hrAcid: tipos.TS_hora,
-                /// Horas trabalhadas antes da ocorrência do acidente, no formato HHMM.
-                /// Validação: Preenchimento obrigatório e exclusivo se {tpAcid}(./tpAcid) = [1]. Se informada, deve estar no intervalo entre [0000] e [9959], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
-                hrsTrabAntesAcid: t.string,
-                /// Data do óbito.
-                /// Validação: Deve ser uma data válida, igual ou posterior a {dtAcid}(./dtAcid) e igual ou anterior à data atual.
-                /// Preenchimento obrigatório e exclusivo se {indCatObito}(./indCatObito) = [S].
-                dtObito: tipos.date,
-                /// Observação.
-                obsCAT: tipos.TS_texto_999,
+                }),
                 /// Atestado médico.
                 /// CONDICAO_GRUPO: OC
                 atestado: t.intersection([
@@ -228,7 +213,22 @@ export const eSocial = t.type({
                         diagProvavel: tipos.TS_texto_100,
                         observacao: tipos.TS_observacao
                     })
-                ]),
+                ])
+            }),
+            t.partial({
+                /// Hora do acidente, no formato HHMM.
+                /// Validação: Preenchimento obrigatório e exclusivo se {tpAcid}(./tpAcid) = [1]. Se informada, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+                /// Se {tpCat}(./tpCat) = [2, 3], deve ser informado valor igual ao preenchido no evento de CAT anterior, quando informado em {nrRecCatOrig}(./catOrigem_nrRecCatOrig).
+                hrAcid: tipos.TS_hora,
+                /// Horas trabalhadas antes da ocorrência do acidente, no formato HHMM.
+                /// Validação: Preenchimento obrigatório e exclusivo se {tpAcid}(./tpAcid) = [1]. Se informada, deve estar no intervalo entre [0000] e [9959], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+                hrsTrabAntesAcid: t.string,
+                /// Data do óbito.
+                /// Validação: Deve ser uma data válida, igual ou posterior a {dtAcid}(./dtAcid) e igual ou anterior à data atual.
+                /// Preenchimento obrigatório e exclusivo se {indCatObito}(./indCatObito) = [S].
+                dtObito: tipos.date,
+                /// Observação.
+                obsCAT: tipos.TS_texto_999,
                 /// CAT de origem
                 /// DESCRICAO_COMPLETA:Grupo que indica a CAT anterior, no caso de CAT de reabertura ou de comunicação de óbito.
                 /// CHAVE_GRUPO: {nrRecCatOrig}
