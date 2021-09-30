@@ -47,35 +47,38 @@ export const PostMessage = t.type({
 
 export type PostMessage = t.TypeOf<typeof PostMessage>
 
-export const PostResponseMessage = t.type({
-    verb: t.literal('post'),
-    // Atributo raiz
-    ticketCode: t.string,
-    // Array contendo os TAFKEY requisitados.
-    registryKey: t.array(t.intersection([
-        t.type({
-            // Código do TAFKEY
-            key: t.string,
-            // Informa se o TAFKEY foi integrado ou não.
-            success: t.boolean
-        }),
-        t.partial({
-            // Array contendo os erros que impediram a integração do registro. Atributo gerado somente quando success for igual a false.
-            error: t.array(t.type({
-                // Código do erro que impossibilitou a integração.
-                coderr: t.string,
-                // Descrição do erro que impossibilitou a integração. 
-                description: t.string
-            }))
-        })
-    ])),
-    // Código de erro que impediu a integração do lote
-    coderr: t.number,
-    // Descrição do erro que impossibilitou a integração do lote. 
-    description: t.string,
-    // Número de registros enviados no POST.
-    keyAmount: t.number
-})
+export const PostResponseMessage = t.intersection([
+    t.type({
+        // Atributo raiz
+        ticketCode: t.string,
+        // Array contendo os TAFKEY requisitados.
+        registryKey: t.array(t.intersection([
+            t.type({
+                // Código do TAFKEY
+                key: t.string,
+                // Informa se o TAFKEY foi integrado ou não.
+                success: t.boolean
+            }),
+            t.partial({
+                // Array contendo os erros que impediram a integração do registro. Atributo gerado somente quando success for igual a false.
+                error: t.array(t.type({
+                    // Código do erro que impossibilitou a integração.
+                    coderr: t.union([t.number, t.string]),
+                    // Descrição do erro que impossibilitou a integração. 
+                    description: t.string
+                }))
+            })
+        ])),
+        // Número de registros enviados no POST.
+        keyAmount: t.number
+    }), t.partial({
+        verb: t.literal('post'),
+        // Código de erro que impediu a integração do lote
+        coderr: t.number,
+        // Descrição do erro que impossibilitou a integração do lote. 
+        description: t.string,
+    })
+])
 
 export type PostResponseMessage = t.TypeOf<typeof PostResponseMessage>
 
