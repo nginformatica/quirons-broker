@@ -30,7 +30,7 @@ export const SenderMessageContent = t.union([
 export type SenderMessageContent = t.TypeOf<typeof SenderMessageContent>
 
 export const SenderMessage = t.type({
-    kind: t.literal('send'),
+    kind: t.literal('sendInventory'),
     identification: Identification,
     content: SenderMessageContent
 })
@@ -38,7 +38,7 @@ export type SenderMessage = t.TypeOf<typeof SenderMessage>
 
 export const SenderResponseMessage = t.intersection([
     t.type({
-        kind: t.literal('senderResponse')
+        kind: t.literal('senderResponseInventory')
     }),
     t.partial({
         errorMessage: t.string,
@@ -47,25 +47,12 @@ export const SenderResponseMessage = t.intersection([
 ])
 export type SenderResponseMessage = t.TypeOf<typeof SenderResponseMessage>
 
-export const RequesterResponseMessage = t.intersection([
-    t.type({
-        kind: t.literal('requesterResponse'),
-        status: t.number
-    }),
-    t.partial({
-        errorMessage: t.string
-    })
-])
-export type RequesterResponseMessage = t.TypeOf<typeof SenderResponseMessage>
-
-
 /**
  * Message protocol used between the broker and the backend.
  */
  export const Message = t.union([
     BusinessMessage,
     SenderMessage,
-    SenderResponseMessage,
-    RequesterResponseMessage
+    SenderResponseMessage
 ])
 export type Message = t.TypeOf<typeof Message>
