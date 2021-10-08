@@ -24,7 +24,7 @@ export type Seller = t.TypeOf<typeof Seller>
 
 
 export const Converter = {
-    fromTTalk(data: inventoryUM.SellerInfo): Seller {
+    fromInventoryUM(data: inventoryUM.SellerInfo): Seller {
         const { Content } = data
 
         return {

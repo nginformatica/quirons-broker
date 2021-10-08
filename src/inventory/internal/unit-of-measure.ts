@@ -24,7 +24,7 @@ export type UnitOfMeasure = t.TypeOf<typeof UnitOfMeasure>
 
 
 export const Converter = {
-    fromTTalk(data: inventoryUM.UnitOfMeasureInfo): UnitOfMeasure {
+    fromInventoryUM(data: inventoryUM.UnitOfMeasureInfo): UnitOfMeasure {
         const { Content } = data
 
         return {

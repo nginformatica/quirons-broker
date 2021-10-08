@@ -29,7 +29,7 @@ export const Item = t.intersection([
 export type Item = t.TypeOf<typeof Item>
 
 export const Converter = {
-    fromTTalk(data: inventoryUM.ItemInfo): Item {
+    fromInventoryUM(data: inventoryUM.ItemInfo): Item {
         const { Content } = data
 
         return {

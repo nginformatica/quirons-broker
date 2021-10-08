@@ -1,6 +1,8 @@
 import * as t from 'io-ts'
 import { datetime } from '../../custom-types'
-import { Header } from './Header'
+import { getHeader } from './Header'
+
+const MESSAGE = 'STOCKTURNOVER'
 
 const StockTurnOver = t.intersection([
     t.type({
@@ -31,11 +33,11 @@ const StockTurnOver = t.intersection([
 ])
 
 export const StockTurnOverInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: StockTurnOver
 })
 export const ListStockTurnOverInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: t.array(StockTurnOver)
 })
 

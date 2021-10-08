@@ -1,5 +1,7 @@
 import * as t from 'io-ts'
-import { Header } from './Header'
+import { getHeader } from './Header'
+
+const MESSAGE = 'STOCKLEVEL'
 
 const StockLevel = t.intersection([
     t.type({
@@ -26,11 +28,11 @@ const StockLevel = t.intersection([
 ])
 
 export const StockLevelInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: StockLevel
 })
 export const ListStockLevelInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: t.array(StockLevel)
 })
 

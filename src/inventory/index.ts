@@ -7,7 +7,7 @@ import { UnitOfMeasureInfo } from './schema/UnitOfMeasure'
 import { WarehouseInfo } from './schema/Warehouse'
 
 /**
- * An object as returned by TOTVS' TTalk API.
+ * An object as returned by TOTVS' EAI API.
  */
 export const Object = t.union([
     ItemInfo,
@@ -23,14 +23,14 @@ export const Object = t.union([
  */
 export interface Converter<From, To> {
     /**
-     * Convert a TOTVS' TTalk message to an internal model of our own.
+     * Convert a TOTVS' EAI message to an internal model of our own.
      *
      * @param from Original message
      */
     fromInventoryUM(from: From): To
 
     /**
-     * Converts a message in our internal odel to TOTVS' TTalk's.
+     * Converts a message in our internal odel to TOTVS' EAI's.
      *
      * @param from Original message
      */

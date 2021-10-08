@@ -1,5 +1,7 @@
 import * as t from 'io-ts'
-import { Header } from './Header'
+import { getHeader } from './Header'
+
+const MESSAGE = 'WAREHOUSE'
 
 const Warehouse = t.intersection([
     t.type({
@@ -16,11 +18,11 @@ const Warehouse = t.intersection([
 ])
 
 export const WarehouseInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: Warehouse
 })
 export const ListWarehouseInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: t.array(Warehouse)
 })
 

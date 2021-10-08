@@ -26,7 +26,7 @@ export type StockLevel = t.TypeOf<typeof StockLevel>
 
 
 export const Converter = {
-    fromTTalk(data: inventoryUM.StockLevelInfo): Array<StockLevel> {
+    fromInventoryUM(data: inventoryUM.StockLevelInfo): Array<StockLevel> {
         const { Content } = data
 
         return Content.ListOfWarehouseStock.map(item => ({
