@@ -1,6 +1,8 @@
 import * as t from 'io-ts'
 import { datetime } from '../../custom-types'
-import { Header } from './Header'
+import { getHeader } from './Header'
+
+const MESSAGE = 'REQUEST'
 
 const Request = t.intersection([
     t.type({
@@ -31,11 +33,11 @@ const Request = t.intersection([
 ])
 
 export const RequestInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: Request
 })
 export const ListRequestInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: t.array(Request)
 })
 

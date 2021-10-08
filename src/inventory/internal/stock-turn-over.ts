@@ -22,7 +22,7 @@ export const StockTurnOver = t.intersection([
 export type StockTurnOver = t.TypeOf<typeof StockTurnOver>
 
 export const Converter = {
-    fromTTalk(data: inventoryUM.StockTurnOverInfo): Array<StockTurnOver> {
+    fromInventoryUM(data: inventoryUM.StockTurnOverInfo): Array<StockTurnOver> {
         const { Content } = data
 
         return Content.ListofStockTurnoverItem.map(item => ({

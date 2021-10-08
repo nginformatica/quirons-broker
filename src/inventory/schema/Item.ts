@@ -1,6 +1,8 @@
 import * as t from 'io-ts'
 import { datetime } from '../../custom-types'
-import { Header } from './Header'
+import { getHeader } from './Header'
+
+const MESSAGE = 'ITEM'
 
 const Item = t.intersection([
     t.type({
@@ -31,11 +33,11 @@ const Item = t.intersection([
 ])
 
 export const ItemInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: Item
 })
 export const ListItemInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: t.array(Item)
 })
 

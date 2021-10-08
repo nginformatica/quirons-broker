@@ -1,5 +1,7 @@
 import * as t from 'io-ts'
-import { Header } from './Header'
+import { getHeader } from './Header'
+
+const MESSAGE = 'UNITOFMEASURE'
 
 const UnitOfMeasure = t.intersection([
     t.type({
@@ -16,11 +18,11 @@ const UnitOfMeasure = t.intersection([
 ])
 
 export const UnitOfMeasureInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: UnitOfMeasure
 })
 export const ListUnitOfMeasureInfo = t.type({
-    Header,
+    Header: getHeader(MESSAGE),
     Content: t.array(UnitOfMeasure)
 })
 
