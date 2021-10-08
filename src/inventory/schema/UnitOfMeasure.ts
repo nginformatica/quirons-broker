@@ -1,5 +1,5 @@
 import * as t from 'io-ts'
-import { datetime } from '../../custom-types'
+import { datetime, nullable } from '../../custom-types'
 
 const MESSAGE = 'UNITOFMEASURE'
 
@@ -19,11 +19,11 @@ export const Header = t.intersection([
         Event: t.string
     }),
     t.partial({
-        SubType: t.string,
-        Version: t.string,
-        CompanySharingMode: t.string,
-        BusinessUnitySharingMode: t.string,
-        BranchSharingMode: t.string
+        SubType: nullable(t.string),
+        Version: nullable(t.string),
+        CompanySharingMode: nullable(t.string),
+        BusinessUnitySharingMode: nullable(t.string),
+        BranchSharingMode: nullable(t.string)
     })
 ])
 
