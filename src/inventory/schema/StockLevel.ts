@@ -1,7 +1,31 @@
 import * as t from 'io-ts'
-import { getHeader } from './Header'
+import { datetime } from '../../custom-types'
 
 const MESSAGE = 'STOCKLEVEL'
+
+export const Header = t.intersection([
+    t.type({
+        UUID: t.string,
+        Type: t.string,
+        Transaction: t.literal(MESSAGE),
+        StandardVersion: t.string,
+        SourceApplication: t.string,
+        ProductName: t.string,
+        ProductVersion: t.string,
+        CompanyId: t.string,
+        BranchId: t.string,
+        GeneratedOn: datetime,
+        DeliveryType: t.string,
+        Event: t.string
+    }),
+    t.partial({
+        SubType: t.string,
+        Version: t.string,
+        CompanySharingMode: t.string,
+        BusinessUnitySharingMode: t.string,
+        BranchSharingMode: t.string
+    })
+])
 
 const StockLevel = t.intersection([
     t.type({
@@ -28,11 +52,11 @@ const StockLevel = t.intersection([
 ])
 
 export const StockLevelInfo = t.type({
-    Header: getHeader(MESSAGE),
+    Header,
     Content: StockLevel
 })
 export const ListStockLevelInfo = t.type({
-    Header: getHeader(MESSAGE),
+    Header,
     Content: t.array(StockLevel)
 })
 
