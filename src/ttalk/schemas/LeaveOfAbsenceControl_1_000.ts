@@ -36,7 +36,13 @@ export const LeaveOfAbsenceInfo = t.intersection([
         /** Tipo Orgao de Classe */
         classEntity: t.string,
         /** Tipo de Acidente */
-        accidentClassification: t.string
+        accidentClassification: t.string,
+        /** Origem da retificação */
+        rectificationOrigin: t.union([t.literal('1'), t.literal('2'), t.literal('3')]),
+        /** Tipo de Processo */
+        typeOfProcess: t.union([t.literal('1'), t.literal('2'), t.literal('3')]),
+        /** Número do Processo*/
+        processNumber: t.string
     })
 ])
 export type LeaveOfAbsenceInfo = t.TypeOf<typeof LeaveOfAbsenceInfo>
