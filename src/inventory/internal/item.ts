@@ -23,14 +23,15 @@ export const Item = t.intersection([
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         created_at: nullable(datetime),
-        updated_at: nullable(datetime)
+        updated_at: nullable(datetime),
+        operation: t.union([t.literal('upsert'), t.literal('delete')])
     })
 ])
 export type Item = t.TypeOf<typeof Item>
 
 export const Converter = {
     fromInventoryUM(data: inventoryUM.ItemInfo): Item {
-        const { Content } = data
+        const { Header, Content } = data
 
         return {
             /** required */
@@ -45,7 +46,8 @@ export const Converter = {
             /** not required */
             unitOfMeasureDescription: Content.UnitOfMeasureCode,
             erpCompany: Content.CompanyId,
-            erpBranch: Content.BranchId
+            erpBranch: Content.BranchId,
+            operation: Header.Event
         }
     }
 }

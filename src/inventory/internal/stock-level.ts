@@ -19,7 +19,8 @@ export const StockLevel = t.intersection([
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         created_at: nullable(datetime),
-        updated_at: nullable(datetime)
+        updated_at: nullable(datetime),
+        operation: t.union([t.literal('upsert'), t.literal('delete')])
     })
 ])
 export type StockLevel = t.TypeOf<typeof StockLevel>
@@ -27,7 +28,7 @@ export type StockLevel = t.TypeOf<typeof StockLevel>
 
 export const Converter = {
     fromInventoryUM(data: inventoryUM.StockLevelInfo): Array<StockLevel> {
-        const { Content } = data
+        const { Header, Content } = data
 
         return Content.ListOfWarehouseStock.map(item => ({
                 id: '',
@@ -37,7 +38,8 @@ export const Converter = {
                 amoutBooked: item.BookedStockAmount,
                 physicalBalance: item.ValueOfCurrentStockAmount,
                 erpBranch: Content.BranchId,
-                erpCompany: Content.CompanyId
+                erpCompany: Content.CompanyId,
+                operation: Header.Event
             }))
     }
 }

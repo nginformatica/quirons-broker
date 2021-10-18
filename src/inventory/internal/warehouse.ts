@@ -16,14 +16,15 @@ export const Warehouse = t.intersection([
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         created_at: nullable(datetime),
-        updated_at: nullable(datetime)
+        updated_at: nullable(datetime),
+        operation: t.union([t.literal('upsert'), t.literal('delete')])
     })
 ])
 export type Warehouse = t.TypeOf<typeof Warehouse>
 
 export const Converter = {
     fromInventoryUM(data: inventoryUM.WarehouseInfo): Warehouse {
-        const { Content } = data
+        const { Header, Content } = data
 
         return {
             /** required */
@@ -32,7 +33,8 @@ export const Converter = {
             erpId: Content.InternalId,
             /** not required */
             erpCompany: Content.CompanyId,
-            erpBranch: Content.BranchId
+            erpBranch: Content.BranchId,
+            operation: Header.Event
         }
     }
 }

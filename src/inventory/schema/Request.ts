@@ -16,7 +16,7 @@ export const Header = t.intersection([
         BranchId: t.string,
         GeneratedOn: datetime,
         DeliveryType: t.string,
-        Event: t.string
+        Event: t.union([t.literal('upsert'), t.literal('delete')])
     }),
     t.partial({
         SubType: nullable(t.string),
@@ -37,7 +37,7 @@ const Request = t.intersection([
         UserRequesterInternalId: t.string,
         RegisterDateTime: datetime,
         ListOfRequestItem: t.array(t.type({
-            Event: t.string,
+            Event: t.union([t.literal('upsert'), t.literal('delete')]),
             Code: t.string,
             InternalId: t.string,
             ItemInternalid: t.string,
