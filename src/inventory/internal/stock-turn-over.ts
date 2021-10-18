@@ -16,21 +16,23 @@ export const StockTurnOver = t.intersection([
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         created_at: nullable(datetime),
-        updated_at: nullable(datetime)
+        updated_at: nullable(datetime),
+        operation: t.union([t.literal('upsert'), t.literal('delete')])
     })
 ])
 export type StockTurnOver = t.TypeOf<typeof StockTurnOver>
 
 export const Converter = {
     fromInventoryUM(data: inventoryUM.StockTurnOverInfo): Array<StockTurnOver> {
-        const { Content } = data
+        const { Header, Content } = data
 
         return Content.ListofStockTurnoverItem.map(item => ({
             id: '',
             erpId: Content.InternalId, 
             erpItem: item.ItemInternalId,
             erpBranch: Content.BranchId,
-            erpCompany: Content.CompanyId
+            erpCompany: Content.CompanyId,
+            operation: Header.Event
         }))
     }
 }
