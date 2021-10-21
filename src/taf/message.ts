@@ -47,7 +47,7 @@ export const PostMessage = t.type({
 
 export type PostMessage = t.TypeOf<typeof PostMessage>
 
-export const PostResponseMessage = t.intersection([
+export const PostResponseMessage = t.union([
     t.type({
         // Atributo raiz
         ticketCode: t.string,
