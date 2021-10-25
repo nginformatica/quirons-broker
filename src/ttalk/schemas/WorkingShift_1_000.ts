@@ -19,7 +19,7 @@ export const WorkingShiftInfo = t.intersection([
         /** Código do Turno de trabalho */
         workShiftCode: t.string,
         /** Regime de Revezamento*/
-        relayScheme: t.string
+        relaySchema: t.string
     })
 ])
 export type WorkingShiftInfo = t.TypeOf<typeof WorkingShiftInfo>
