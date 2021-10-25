@@ -37,7 +37,15 @@ export const Employee = t.intersection([
         rais: nullable(t.string),
         eSocialCategory: nullable(t.string),
         position: nullable(t.string),
-        positionDescription: nullable(t.string)
+        positionDescription: nullable(t.string),
+        defFisica: nullable(t.union([t.literal('S'), t.literal('N')])),
+        defVisual: nullable(t.union([t.literal('S'), t.literal('N')])),
+        defAuditiva: nullable(t.union([t.literal('S'), t.literal('N')])),
+        defFala: nullable(t.union([t.literal('S'), t.literal('N')])),
+        defMental: nullable(t.union([t.literal('S'), t.literal('N')])),
+        defIntelectual: nullable(t.union([t.literal('S'), t.literal('N')])),
+        reabReadap: nullable(t.union([t.literal('S'), t.literal('N')])),
+        lastExamDate: nullable(datetime)
     })
 ])
 export type Employee = t.TypeOf<typeof Employee>
@@ -85,7 +93,15 @@ export const Converter = {
             rais: data.rais,
             eSocialCategory: data.eSocialCategory,
             position: data.position,
-            positionDescription: data.positionDescription
+            positionDescription: data.positionDescription,
+            defFisica: data.defFisica,
+            defVisual: data.defVisual,
+            defAuditiva: data.defAuditiva,
+            defFala: data.defFala,
+            defMental: data.defMental,
+            defIntelectual: data.defIntelectual,
+            reabReadap: data.reabReadap,
+            lastExamDate: data.lastExamDate
         }
     },
     toTTalk(data: Employee): ttalk.Employee {
@@ -127,7 +143,15 @@ export const Converter = {
             rais: data.rais ?? undefined,
             eSocialCategory: data.eSocialCategory ?? undefined,
             position: data.position ?? undefined,
-            positionDescription: data.positionDescription ?? undefined
+            positionDescription: data.positionDescription ?? undefined,
+            defFisica: data.defFisica ?? undefined,
+            defVisual: data.defVisual ?? undefined,
+            defAuditiva: data.defAuditiva ?? undefined,
+            defFala: data.defFala ?? undefined,
+            defMental: data.defMental ?? undefined,
+            defIntelectual: data.defIntelectual ?? undefined,
+            reabReadap: data.reabReadap ?? undefined,
+            lastExamDate: data.lastExamDate ?? undefined
         }
     }
 }
