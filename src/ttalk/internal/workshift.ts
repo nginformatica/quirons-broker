@@ -17,7 +17,8 @@ export const WorkingShifts = t.intersection([
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         productiveHours: nullable(t.number),
         created_at: nullable(datetime),
-        updated_at: nullable(datetime)
+        updated_at: nullable(datetime),
+        relayScheme: t.string
     })
 ])
 export type WorkingShifts = t.TypeOf<typeof WorkingShifts>
@@ -36,7 +37,8 @@ export const Converter = {
             productiveHours: data.monthlyWorkingHours
                 // TODO: TOTVS gives us "hh:mm", properly convert that
                 ? parseFloat(data.monthlyWorkingHours)
-                : null
+                : null,
+            relayScheme: data.relayScheme
         }
     }
 }
