@@ -18,7 +18,7 @@ export const WorkingShifts = t.intersection([
         productiveHours: nullable(t.number),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
-        relayScheme: t.string
+        relaySchema: t.string
     })
 ])
 export type WorkingShifts = t.TypeOf<typeof WorkingShifts>
@@ -38,7 +38,7 @@ export const Converter = {
                 // TODO: TOTVS gives us "hh:mm", properly convert that
                 ? parseFloat(data.monthlyWorkingHours)
                 : null,
-            relayScheme: data.relayScheme
+            relaySchema: data.relaySchema
         }
     }
 }
