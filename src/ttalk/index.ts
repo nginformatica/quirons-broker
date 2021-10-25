@@ -143,7 +143,23 @@ export const Employee = t.intersection([
         rais: nullable(t.string),
         eSocialCategory: nullable(t.string),
         position: nullable(t.string),
-        positionDescription: nullable(t.string)
+        positionDescription: nullable(t.string),
+        /** Identificador de Deficiência Física */
+        defFisica: nullable(t.union([t.literal('S'), t.literal('N')])),
+        /** Identificador de Deficiência Visual */
+        defVisual: nullable(t.union([t.literal('S'), t.literal('N')])),
+        /** Identificador de Deficiência Auditiva */
+        defAuditiva: nullable(t.union([t.literal('S'), t.literal('N')])),
+        /** Identificador de Deficiência de Fala */
+        defFala: nullable(t.union([t.literal('S'), t.literal('N')])),
+        /** Identificador de Deficiência Mental */
+        defMental: nullable(t.union([t.literal('S'), t.literal('N')])),
+        /** Identificador de Deficiência Intelectual */
+        defIntelectual: nullable(t.union([t.literal('S'), t.literal('N')])),
+        /** Identificador de Reabilitação */
+        reabReadap: nullable(t.union([t.literal('S'), t.literal('N')])),
+        /** Data do Último Exame Médico */
+        lastExamDate: nullable(datetime)
     })
 ])
 export type Employee = t.TypeOf<typeof Employee>
