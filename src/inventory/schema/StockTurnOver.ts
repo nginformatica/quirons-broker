@@ -27,25 +27,25 @@ export const Header = t.intersection([
     })
 ])
 
-const StockTurnoverItem = t.type({
-    Code: t.string,
-    InternalId: t.string,
-    ItemInternalId: t.string,
-    UnitPrice: t.number,
-    TotalPrice: t.number,
-    Quantity: t.number,
-    UnitOfMeasureInternalId: t.string,
-    WarehouseInternalId: t.string,
-    RequestItemInternalId: t.string
-})
+const StockTurnoverItem = t.intersection([
+    t.type({
+        InternalId: t.string,
+        ItemInternalId: t.string,
+        UnitPrice: t.number,
+        TotalPrice: t.number,
+        Quantity: t.number,
+        UnitOfMeasureInternalId: t.string,
+        WarehouseInternalId: t.string,
+        RequestItemInternalId: t.string
+    }),
+    t.partial({
+        Code: t.string,
+    })
+])
 
 const StockTurnOver = t.intersection([
     t.type({
-        Code: t.string,
         InternalId: t.string,
-        Number: t.string,
-        Series: t.string,
-        Type: t.string,
         CompanyId: t.string,
         BranchId: t.string,
         RegisterDateTime: t.union([datetime, date]),
@@ -54,8 +54,12 @@ const StockTurnOver = t.intersection([
         }))
     }),
     t.partial({
+        Code: t.string,
         CompanyInternalId: t.string,
-        Observation: t.string
+        Observation: t.string,
+        Number: t.string,
+        Series: t.string,
+        Type: t.string
     })
 ])
 

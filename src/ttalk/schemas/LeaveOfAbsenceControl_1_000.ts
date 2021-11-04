@@ -1,7 +1,7 @@
 // Generated from totvs-ttalk-standard-message/LeaveOfAbsenceControl_1_000.json
 import * as t from 'io-ts'
 import { Paging } from '../apis/types/totvsApiTypesBase'
-import { time, datetime } from '../../custom-types'
+import { time, datetime, nullable } from '../../custom-types'
 
 export const LeaveOfAbsenceInfo = t.intersection([
     t.type({
@@ -20,9 +20,9 @@ export const LeaveOfAbsenceInfo = t.intersection([
         /** Horário inicial do afastamento */
         startTime: time,
         /** Data final do afastamento */
-        endDate: datetime,
+        endDate: nullable(datetime),
         /** Horário final do afastamento. */
-        endTime: time,
+        endTime: nullable(time),
         /** Código do afastamento */
         leaveOfAbsenceCode: t.string,
         /** CID - Classificacao Internacional de Doencas e Problemas Relacionados a Saude */
