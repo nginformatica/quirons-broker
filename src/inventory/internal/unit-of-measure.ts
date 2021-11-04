@@ -16,6 +16,7 @@ export const UnitOfMeasure = t.intersection([
     t.partial({
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
+        description: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
         operation: t.union([t.literal('upsert'), t.literal('delete')])
@@ -31,12 +32,13 @@ export const Converter = {
         return {
             /** required */
             id: '',
-            name: Content.Description,
+            name: Content.ShortName,
+            description: Content.Description,
             acronym: Content.Code,
             erpId: Content.InternalId,
             /** not required */
-            erpCompany: Content.CompanyId,
-            erpBranch: Content.BranchId,
+            erpCompany: Header.CompanyId,
+            erpBranch: Header.BranchId,
             operation: Header.Event
         }
     }

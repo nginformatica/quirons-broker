@@ -30,14 +30,15 @@ export const Header = t.intersection([
 const Seller = t.intersection([
     t.type({
         InternalId: t.string,
-        CompanyId: t.string,
         Code: t.string,
         Name: t.string,
         EmployeeInternalId: t.string
     }),
     t.partial({
+        CompanyId: t.string,
         CompanyInternalId: t.string,
-        BranchId: t.string
+        BranchId: t.string,
+        Active: t.string
     })
 ])
 

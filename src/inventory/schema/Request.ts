@@ -1,5 +1,5 @@
 import * as t from 'io-ts'
-import { datetime, nullable } from '../../custom-types'
+import { date, datetime, nullable } from '../../custom-types'
 
 const MESSAGE = 'REQUEST'
 
@@ -27,31 +27,35 @@ export const Header = t.intersection([
     })
 ])
 
+const RequestItem = t.type({
+    Event: t.union([t.literal('upsert'), t.literal('delete')]),
+    Code: t.string,
+    InternalId: t.string,
+    ItemInternalid: t.string,
+    TotalPrice: t.string,
+    Quantity: t.string,
+    UnitOfMeasureInternalId: t.string,
+    WarehouseInternalId: t.string,
+    DeliveryDateTime: t.union([datetime, date])
+})
+
 const Request = t.intersection([
     t.type({
         InternalId: t.string,
-        CompanyId: t.string,
-        Code: t.string,
         Number: t.string,
         UserRequesterCode: t.string,
         UserRequesterInternalId: t.string,
-        RegisterDateTime: datetime,
+        RegisterDateTime: t.union([datetime, date]),
         ListOfRequestItem: t.array(t.type({
-            Event: t.union([t.literal('upsert'), t.literal('delete')]),
-            Code: t.string,
-            InternalId: t.string,
-            ItemInternalid: t.string,
-            TotalPrice: t.number,
-            Quantity: t.number,
-            UnitOfMeasureInternalId: t.string,
-            WarehouseInternalId: t.string,
-            DeliveryDateTime: datetime
+            RequestItem: RequestItem
         }))
     }),
     t.partial({
+        CompanyId: t.string,
+        Code: t.string,
         CompanyInternalId: t.string,
         BranchId: t.string,
-        DeliveryDateTime: datetime
+        DeliveryDateTime: t.union([datetime, date])
     })
 ])
 

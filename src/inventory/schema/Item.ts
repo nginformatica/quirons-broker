@@ -39,19 +39,23 @@ const Item = t.intersection([
         ProductType: t.string,
         UnitOfMeasureCode: t.string,
         UnitOfMeasureInternalId: t.string,
-        Values: t.type({
-            CostPrice: t.number,
-            SalesPrice: t.number,
-            AverageCostPrice: t.number,
-            StandardCostPrice: t.number,
-            BaseDate: datetime
-        })
+        Values: t.intersection([
+            t.type({
+                CostPrice: t.string,
+                SalesPrice: t.string,
+                AverageCostPrice: t.string,
+                StandardCostPrice: t.string
+            }),
+            t.partial({
+                BaseDate: datetime
+            })
+        ])
     }),
     t.partial({
         CompanyInternalId: t.string,
         BranchId: t.string,
         ShortName: t.string,
-        Active: t.boolean
+        Active: t.string
     })
 ])
 

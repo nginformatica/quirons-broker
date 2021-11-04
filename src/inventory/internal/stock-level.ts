@@ -29,17 +29,32 @@ export type StockLevel = t.TypeOf<typeof StockLevel>
 export const Converter = {
     fromInventoryUM(data: inventoryUM.StockLevelInfo): Array<StockLevel> {
         const { Header, Content } = data
+        const stockLevel: StockLevel[] = []
 
-        return Content.ListOfWarehouseStock.map(item => ({
-                id: '',
-                erpId: '',
-                erpItem: Content.ItemInternalId,
-                erpWarehouse: item.WarehouseInternalId,
-                amoutBooked: item.BookedStockAmount,
-                physicalBalance: item.ValueOfCurrentStockAmount,
-                erpBranch: Content.BranchId,
-                erpCompany: Content.CompanyId,
-                operation: Header.Event
-            }))
+        Content.ListOfReturnItem.forEach(item => {
+            const { ReturnItem } = item
+
+            ReturnItem.ListOfWarehouseStock.forEach(warehouse => {
+                const { WarehouseStock } = warehouse
+                stockLevel.push({
+                    id: '',
+                    erpId: '',
+                    erpItem: ReturnItem.ItemInternalId,
+                    erpWarehouse: WarehouseStock.WarehouseInternalId,
+                    amoutBooked: Number(
+                        WarehouseStock.BookedStockAmount
+                    ),
+                    physicalBalance: Number(
+                        WarehouseStock.ValueOfCurrentStockAmount
+                    ),
+                    erpBranch: Header.BranchId,
+                    erpCompany: Header.CompanyId,
+                    operation: Header.Event
+                })
+            })
+
+        })
+
+        return stockLevel
     }
 }
