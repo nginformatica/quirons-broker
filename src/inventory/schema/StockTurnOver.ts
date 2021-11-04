@@ -1,5 +1,5 @@
 import * as t from 'io-ts'
-import { datetime, nullable } from '../../custom-types'
+import { date, datetime, nullable } from '../../custom-types'
 
 const MESSAGE = 'STOCKTURNOVER'
 
@@ -27,6 +27,18 @@ export const Header = t.intersection([
     })
 ])
 
+const StockTurnoverItem = t.type({
+    Code: t.string,
+    InternalId: t.string,
+    ItemInternalId: t.string,
+    UnitPrice: t.number,
+    TotalPrice: t.number,
+    Quantity: t.number,
+    UnitOfMeasureInternalId: t.string,
+    WarehouseInternalId: t.string,
+    RequestItemInternalId: t.string
+})
+
 const StockTurnOver = t.intersection([
     t.type({
         Code: t.string,
@@ -36,17 +48,9 @@ const StockTurnOver = t.intersection([
         Type: t.string,
         CompanyId: t.string,
         BranchId: t.string,
-        RegisterDateTime: datetime,
+        RegisterDateTime: t.union([datetime, date]),
         ListofStockTurnoverItem: t.array(t.type({
-            Code: t.string,
-            InternalId: t.string,
-            ItemInternalId: t.string,
-            UnitPrice: t.number,
-            TotalPrice: t.number,
-            Quantity: t.number,
-            UnitOfMeasureInternalId: t.string,
-            WarehouseInternalId: t.string,
-            RequestItemInternalId: t.string
+            StockTurnoverItem: StockTurnoverItem
         }))
     }),
     t.partial({

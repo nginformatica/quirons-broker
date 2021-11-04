@@ -25,14 +25,21 @@ export type StockTurnOver = t.TypeOf<typeof StockTurnOver>
 export const Converter = {
     fromInventoryUM(data: inventoryUM.StockTurnOverInfo): Array<StockTurnOver> {
         const { Header, Content } = data
+        const stockTurnOver: StockTurnOver[] = []
+        
+        Content.ListofStockTurnoverItem.forEach(item => {
+            const { StockTurnoverItem } = item
 
-        return Content.ListofStockTurnoverItem.map(item => ({
-            id: '',
-            erpId: Content.InternalId, 
-            erpItem: item.ItemInternalId,
-            erpBranch: Content.BranchId,
-            erpCompany: Content.CompanyId,
-            operation: Header.Event
-        }))
+            stockTurnOver.push({
+                id: '',
+                erpId: Content.InternalId, 
+                erpItem: StockTurnoverItem.ItemInternalId,
+                erpBranch: Header.BranchId,
+                erpCompany: Header.CompanyId,
+                operation: Header.Event
+            })
+        })
+
+        return stockTurnOver
     }
 }

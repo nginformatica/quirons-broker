@@ -40,13 +40,13 @@ export const Converter = {
             erpId: Content.InternalId,
             erpWarehouse: '',
             erpUnitOfMeasure: Content.UnitOfMeasureInternalId,
-            unitaryCost: Content.Values.CostPrice,
+            unitaryCost: Number(Content.Values.CostPrice),
             dangerous: false,
             quantity: 0,
             /** not required */
             unitOfMeasureDescription: Content.UnitOfMeasureCode,
-            erpCompany: Content.CompanyId,
-            erpBranch: Content.BranchId,
+            erpCompany: Header.CompanyId,
+            erpBranch: Header.BranchId,
             operation: Header.Event
         }
     }

@@ -35,8 +35,8 @@ export const Converter = {
             name: Content.Name,
             erpId: Content.InternalId,
             /** not required */
-            erpCompany: Content.CompanyId,
-            erpBranch: Content.BranchId,
+            erpCompany: Header.CompanyId,
+            erpBranch: Header.BranchId,
             operation: Header.Event
         }
     }

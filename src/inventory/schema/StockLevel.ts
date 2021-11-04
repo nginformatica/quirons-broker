@@ -27,29 +27,49 @@ export const Header = t.intersection([
     })
 ])
 
-const StockLevel = t.intersection([
+const WarehouseStock = t.type({
+    WarehouseInternalId: t.string,
+    CurrentStockAmount: t.string,
+    TransitStockAmount: t.string,
+    FutureStockAmount: t.string,
+    UnitItemCost: t.string,
+    ValueOfCurrentStockAmount: t.string,
+    AvailableStockAmout: t.string,
+    BookedStockAmount: t.string,
+    AverageUnitItemCost: t.string,
+    SalesOrderQuantity: t.string,
+    Amountcommittedstock: t.string
+})
+
+const ReturnItem = t.intersection([
     t.type({
         ItemInternalId: t.string,
         ListOfWarehouseStock: t.array(t.type({
-            ValueOfCurrentStockAmount: t.number,
-            CurrentStockAmount: t.number,
-            AvailableStockAmout: t.number,
-            UnitItemCost: t.number,
-            WarehouseInternalId: t.string,
-            AverageUnitItemCost: t.number,
-            TransitStockAmount: t.number,
-            BookedStockAmount: t.number,
-            FutureStockAmount: t.number
+            WarehouseStock: WarehouseStock
         }))
     }),
     t.partial({
-        BranchId: t.string,
-        CompanyId: t.string,
         UnitItemCost: t.string,
-        WarehouseInternalId: t.string,
-        CompanyInternalId: t.string
+        WarehouseInternalId: t.string        
     })
 ])
+
+const StockLevel = t.intersection([
+    t.type({
+        ListOfReturnItem: t.array(t.type({
+            ReturnItem: ReturnItem
+        }))
+    }),
+    t.partial({
+        CompanyId: t.string,
+        BranchId: t.string,
+        CompanyInternalId: t.string,
+        Active: t.string,
+        Entity: t.string,
+        Event: t.string
+    })
+])
+    
 
 export const StockLevelInfo = t.type({
     Header,
