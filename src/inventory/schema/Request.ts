@@ -27,22 +27,25 @@ export const Header = t.intersection([
     })
 ])
 
-const RequestItem = t.type({
-    Event: t.union([t.literal('upsert'), t.literal('delete')]),
-    Code: t.string,
-    InternalId: t.string,
-    ItemInternalid: t.string,
-    TotalPrice: t.string,
-    Quantity: t.string,
-    UnitOfMeasureInternalId: t.string,
-    WarehouseInternalId: t.string,
-    DeliveryDateTime: t.union([datetime, date])
-})
+const RequestItem = t.intersection([
+    t.type({
+        Event: t.union([t.literal('upsert'), t.literal('delete')]),
+        InternalId: t.string,
+        ItemInternalid: t.string,
+        TotalPrice: t.string,
+        Quantity: t.string,
+        UnitOfMeasureInternalId: t.string,
+        WarehouseInternalId: t.string,
+        DeliveryDateTime: t.union([datetime, date])
+    }), 
+    t.partial({
+        Code: t.string
+    })
+])
 
 const Request = t.intersection([
     t.type({
         InternalId: t.string,
-        Number: t.string,
         UserRequesterCode: t.string,
         UserRequesterInternalId: t.string,
         RegisterDateTime: t.union([datetime, date]),
@@ -55,6 +58,7 @@ const Request = t.intersection([
         Code: t.string,
         CompanyInternalId: t.string,
         BranchId: t.string,
+        Number: t.string,
         DeliveryDateTime: t.union([datetime, date])
     })
 ])
