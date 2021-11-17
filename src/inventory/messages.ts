@@ -7,8 +7,8 @@ import { StockLevel } from './internal/stock-level'
 import { StockTurnOver } from './internal/stock-turn-over'
 import { UnitOfMeasure } from './internal/unit-of-measure'
 import { Warehouse } from './internal/warehouse'
-import { RequestInfo } from './schema/Request'
-import { StockTurnOverInfo } from './schema/StockTurnOver'
+import { RequestError, RequestInfo, RequestReturn } from './schema/Request'
+import { StockTurnOverError, StockTurnOverInfo, StockTurnOverReturn } from './schema/StockTurnOver'
 
 /**
  * Possible business messages.
@@ -36,14 +36,22 @@ export const SenderMessage = t.type({
 })
 export type SenderMessage = t.TypeOf<typeof SenderMessage>
 
-export const SenderResponseMessage = t.intersection([
-    t.type({
-        kind: t.literal('senderResponseInventory')
-    }),
-    t.partial({
-        errorMessage: t.string,
-        bodyMessage: t.string
-    })
+export const SenderResponseMessage = t.union([
+    userMessage('responseInventory', t.union([
+        RequestError,
+        RequestReturn,
+        StockTurnOverError,
+        StockTurnOverReturn
+    ])),
+    t.intersection([
+        t.type({
+            kind: t.literal('responseInventory')
+        }),
+        t.partial({
+            errorMessage: t.string,
+            bodyMessage: t.string
+        })
+    ])
 ])
 export type SenderResponseMessage = t.TypeOf<typeof SenderResponseMessage>
 
