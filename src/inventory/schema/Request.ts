@@ -45,6 +45,7 @@ const RequestItem = t.intersection([
 
 const Request = t.intersection([
     t.type({
+        Type: t.literal('001'),
         InternalId: t.string,
         UserRequesterCode: t.string,
         UserRequesterInternalId: t.string,
@@ -63,6 +64,52 @@ const Request = t.intersection([
     })
 ])
 
+export const RequestReturn = t.type({
+    Header,
+    Content: t.type({
+        ReturnContent: t.type({
+            ListOfInternalID: t.array(t.type({
+                Destination: t.string,
+                Name: t.string,
+                Origin: t.string
+            }))
+        }),
+        ProcessingInformation: t.type({
+            Status: t.string,
+            ProcessedOn: t.union([datetime, date])
+        }),
+        ReceivedMessage: t.type({
+            UUID: t.string,
+            Event: t.string,
+            SentBy: t.string
+        })
+    })
+})
+
+export const RequestError = t.type({
+    Header,
+    Content: t.type({
+        ReturnContent: t.type({
+            Error: t.string
+        }),
+        ProcessingInformation: t.type({
+            Status: t.string,
+            ProcessedOn: t.union([datetime, date]),
+            Details: t.array(t.type({
+                Code: t.string,
+                Message: t.string,
+                DetailedMessage: t.string,
+                HelpUrl: t.string
+            }))
+        }),
+        ReceivedMessage: t.type({
+            UUID: t.string,
+            Event: t.string,
+            SentBy: t.string
+        })
+    })
+})
+
 export const RequestInfo = t.type({
     Header,
     Content: Request
@@ -72,5 +119,7 @@ export const ListRequestInfo = t.type({
     Content: t.array(Request)
 })
 
+export type RequestReturn = t.TypeOf<typeof RequestReturn>
+export type RequestError = t.TypeOf<typeof RequestError>
 export type RequestInfo = t.TypeOf<typeof RequestInfo>
 export type ListRequestInfo = t.TypeOf<typeof ListRequestInfo>

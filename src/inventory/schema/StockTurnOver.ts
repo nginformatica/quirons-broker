@@ -48,6 +48,7 @@ const StockTurnOver = t.intersection([
         InternalId: t.string,
         CompanyId: t.string,
         BranchId: t.string,
+        MovementTypeCode: t.union([t.literal('399'), t.literal('599')]),
         RegisterDateTime: t.union([datetime, date]),
         ListofStockTurnoverItem: t.array(t.type({
             StockTurnoverItem: StockTurnoverItem
@@ -63,6 +64,52 @@ const StockTurnOver = t.intersection([
     })
 ])
 
+export const StockTurnOverReturn = t.type({
+    Header,
+    Content: t.type({
+        ReturnContent: t.type({
+            ListOfInternalID: t.array(t.type({
+                Destination: t.string,
+                Name: t.string,
+                Origin: t.string
+            }))
+        }),
+        ProcessingInformation: t.type({
+            Status: t.string,
+            ProcessedOn: t.union([datetime, date])
+        }),
+        ReceivedMessage: t.type({
+            UUID: t.string,
+            Event: t.string,
+            SentBy: t.string
+        })
+    })
+})
+
+export const StockTurnOverError = t.type({
+    Header,
+    Content: t.type({
+        ReturnContent: t.type({
+            Error: t.string
+        }),
+        ProcessingInformation: t.type({
+            Status: t.string,
+            ProcessedOn: t.union([datetime, date]),
+            Details: t.array(t.type({
+                Code: t.string,
+                Message: t.string,
+                DetailedMessage: t.string,
+                HelpUrl: t.string
+            }))
+        }),
+        ReceivedMessage: t.type({
+            UUID: t.string,
+            Event: t.string,
+            SentBy: t.string
+        })
+    })
+})
+
 export const StockTurnOverInfo = t.type({
     Header,
     Content: StockTurnOver
@@ -72,5 +119,7 @@ export const ListStockTurnOverInfo = t.type({
     Content: t.array(StockTurnOver)
 })
 
+export type StockTurnOverReturn = t.TypeOf<typeof StockTurnOverReturn>
+export type StockTurnOverError = t.TypeOf<typeof StockTurnOverError>
 export type StockTurnOverInfo = t.TypeOf<typeof StockTurnOverInfo>
 export type ListStockTurnOverInfo = t.TypeOf<typeof ListStockTurnOverInfo>
