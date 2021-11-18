@@ -50,7 +50,7 @@ export const MedicalConsultationInfo = t.intersection([
         /** Observações */
         observation: t.string,
         /** Lista de Exames */
-        exams: t.array(ExamInfo)
+        examList: t.array(ExamInfo)
     })
 ])
 export type MedicalConsultationInfo = t.TypeOf<typeof MedicalConsultationInfo>
