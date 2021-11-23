@@ -15,7 +15,6 @@ export const UnitOfMeasure = t.intersection([
         acronym: t.string,
         erpId: t.string,
         originMessageId: t.string,
-        originEvent: t.string,
         sentBy: t.string
     }),
     t.partial({
@@ -42,7 +41,6 @@ export const Converter = {
             acronym: Content.Code,
             erpId: Content.InternalId,
             originMessageId: Header.UUID,
-            originEvent: Header.Event,
             sentBy: Header.ProductName,
             /** not required */
             operation: Header.Event

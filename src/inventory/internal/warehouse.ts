@@ -14,7 +14,6 @@ export const Warehouse = t.intersection([
         description: t.string,
         erpId: t.string,
         originMessageId: t.string,
-        originEvent: t.string,
         sentBy: t.string
     }),
     t.partial({
@@ -37,7 +36,6 @@ export const Converter = {
             description: Content.Description,
             erpId: Content.InternalId,
             originMessageId: Header.UUID,
-            originEvent: Header.Event,
             sentBy: Header.ProductName,
             /** not required */
             operation: Header.Event
