@@ -1,5 +1,5 @@
 import * as t from 'io-ts'
-import { datetime, nullable } from '../../custom-types'
+import { date, datetime, nullable } from '../../custom-types'
 
 const MESSAGE = 'SELLER'
 
@@ -42,6 +42,53 @@ const Seller = t.intersection([
     })
 ])
 
+
+export const SellerReturn = t.type({
+    Header,
+    Content: t.type({
+        ReturnContent: t.type({
+            ListOfInternalID: t.array(t.type({
+                Destination: t.string,
+                Name: t.string,
+                Origin: t.string
+            }))
+        }),
+        ProcessingInformation: t.type({
+            Status: t.string,
+            ProcessedOn: t.union([datetime, date])
+        }),
+        ReceivedMessage: t.type({
+            UUID: t.string,
+            Event: t.string,
+            SentBy: t.string
+        })
+    })
+})
+
+export const SellerError = t.type({
+    Header,
+    Content: t.type({
+        ReturnContent: t.type({
+            Error: t.string
+        }),
+        ProcessingInformation: t.type({
+            Status: t.string,
+            ProcessedOn: t.union([datetime, date]),
+            Details: t.array(t.type({
+                Code: t.string,
+                Message: t.string,
+                DetailedMessage: t.string,
+                HelpUrl: t.string
+            }))
+        }),
+        ReceivedMessage: t.type({
+            UUID: t.string,
+            Event: t.string,
+            SentBy: t.string
+        })
+    })
+})
+
 export const SellerInfo = t.type({
     Header,
     Content: Seller
@@ -51,5 +98,7 @@ export const ListSellerInfo = t.type({
     Content: t.array(Seller)
 })
 
+export type SellerReturn = t.TypeOf<typeof SellerReturn>
+export type SellerError = t.TypeOf<typeof SellerError>
 export type SellerInfo = t.TypeOf<typeof SellerInfo>
 export type ListSellerInfo = t.TypeOf<typeof ListSellerInfo>
