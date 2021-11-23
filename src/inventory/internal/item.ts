@@ -8,6 +8,8 @@ import { datetime, nullable } from '../../custom-types'
  */
 export const Item = t.intersection([
     t.type({
+        erpCompany: t.string,
+        erpBranch: t.string,
         id: t.string,
         description: t.string,
         erpId: t.string,
@@ -15,13 +17,14 @@ export const Item = t.intersection([
         erpUnitOfMeasure: t.string,
         unitaryCost: t.number,
         dangerous: t.boolean,
-        quantity: t.number
+        quantity: t.number,
+        originMessageId: t.string,
+        originEvent: t.string,
+        sentBy: t.string
     }),
     t.partial({
         warehouseDescription: nullable(t.string),
         unitOfMeasureDescription: nullable(t.string),
-        erpCompany: nullable(t.string),
-        erpBranch: t.union([t.string, t.null, t.literal(false)]),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
         operation: t.union([t.literal('upsert'), t.literal('delete')])
@@ -35,6 +38,8 @@ export const Converter = {
 
         return {
             /** required */
+            erpCompany: Header.CompanyId,
+            erpBranch: Header.BranchId,
             id: '',
             description: Content.Name,
             erpId: Content.InternalId,
@@ -43,10 +48,11 @@ export const Converter = {
             unitaryCost: Number(Content.Values.CostPrice),
             dangerous: false,
             quantity: 0,
+            originMessageId: Header.UUID,
+            originEvent: Header.Event,
+            sentBy: Header.ProductName,
             /** not required */
             unitOfMeasureDescription: Content.UnitOfMeasureCode,
-            erpCompany: Header.CompanyId,
-            erpBranch: Header.BranchId,
             operation: Header.Event
         }
     }

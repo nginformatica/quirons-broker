@@ -8,14 +8,17 @@ import { datetime, nullable } from '../../custom-types'
  */
 export const UnitOfMeasure = t.intersection([
     t.type({
+        erpCompany: t.string,
+        erpBranch: t.string,
         id: t.string,
         name: t.string,
         acronym: t.string,
-        erpId: t.string
+        erpId: t.string,
+        originMessageId: t.string,
+        originEvent: t.string,
+        sentBy: t.string
     }),
     t.partial({
-        erpCompany: nullable(t.string),
-        erpBranch: t.union([t.string, t.null, t.literal(false)]),
         description: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
@@ -31,14 +34,17 @@ export const Converter = {
 
         return {
             /** required */
+            erpCompany: Header.CompanyId,
+            erpBranch: Header.BranchId,
             id: '',
             name: Content.ShortName,
             description: Content.Description,
             acronym: Content.Code,
             erpId: Content.InternalId,
+            originMessageId: Header.UUID,
+            originEvent: Header.Event,
+            sentBy: Header.ProductName,
             /** not required */
-            erpCompany: Header.CompanyId,
-            erpBranch: Header.BranchId,
             operation: Header.Event
         }
     }

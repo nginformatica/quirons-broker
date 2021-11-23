@@ -1,5 +1,5 @@
 import * as t from 'io-ts'
-import { datetime, nullable } from '../../custom-types'
+import { date, datetime, nullable } from '../../custom-types'
 
 const MESSAGE = 'ITEM'
 
@@ -59,6 +59,53 @@ const Item = t.intersection([
     })
 ])
 
+
+export const ItemReturn = t.type({
+    Header,
+    Content: t.type({
+        ReturnContent: t.type({
+            ListOfInternalID: t.array(t.type({
+                Destination: t.string,
+                Name: t.string,
+                Origin: t.string
+            }))
+        }),
+        ProcessingInformation: t.type({
+            Status: t.string,
+            ProcessedOn: t.union([datetime, date])
+        }),
+        ReceivedMessage: t.type({
+            UUID: t.string,
+            Event: t.string,
+            SentBy: t.string
+        })
+    })
+})
+
+export const ItemError = t.type({
+    Header,
+    Content: t.type({
+        ReturnContent: t.type({
+            Error: t.string
+        }),
+        ProcessingInformation: t.type({
+            Status: t.string,
+            ProcessedOn: t.union([datetime, date]),
+            Details: t.array(t.type({
+                Code: t.string,
+                Message: t.string,
+                DetailedMessage: t.string,
+                HelpUrl: t.string
+            }))
+        }),
+        ReceivedMessage: t.type({
+            UUID: t.string,
+            Event: t.string,
+            SentBy: t.string
+        })
+    })
+})
+
 export const ItemInfo = t.type({
     Header,
     Content: Item
@@ -68,5 +115,7 @@ export const ListItemInfo = t.type({
     Content: t.array(Item)
 })
 
+export type ItemReturn = t.TypeOf<typeof ItemReturn>
+export type ItemError = t.TypeOf<typeof ItemError>
 export type ItemInfo = t.TypeOf<typeof ItemInfo>
 export type ListItemInfo = t.TypeOf<typeof ListItemInfo>

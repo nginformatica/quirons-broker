@@ -8,16 +8,19 @@ import { datetime, nullable } from '../../custom-types'
  */
 export const StockLevel = t.intersection([
     t.type({
+        erpCompany: t.string,
+        erpBranch: t.string,
         id: t.string,
         erpItem: t.string,
         erpWarehouse: t.string,
         physicalBalance: t.number,
         amoutBooked: t.number,
-        erpId: t.string
+        erpId: t.string,
+        originMessageId: t.string,
+        originEvent: t.string,
+        sentBy: t.string
     }),
     t.partial({
-        erpCompany: nullable(t.string),
-        erpBranch: t.union([t.string, t.null, t.literal(false)]),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
         operation: t.union([t.literal('upsert'), t.literal('delete')])
@@ -37,6 +40,8 @@ export const Converter = {
             ReturnItem.ListOfWarehouseStock.forEach(warehouse => {
                 const { WarehouseStock } = warehouse
                 stockLevel.push({
+                    erpCompany: Header.CompanyId,
+                erpBranch: Header.BranchId,
                     id: '',
                     erpId: '',
                     erpItem: ReturnItem.ItemInternalId,
@@ -47,9 +52,10 @@ export const Converter = {
                     physicalBalance: Number(
                         WarehouseStock.ValueOfCurrentStockAmount
                     ),
-                    erpBranch: Header.BranchId,
-                    erpCompany: Header.CompanyId,
-                    operation: Header.Event
+                    operation: Header.Event,
+                    originMessageId: Header.UUID,
+                    originEvent: Header.Event,
+                    sentBy: Header.ProductName,
                 })
             })
 

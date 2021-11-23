@@ -7,8 +7,13 @@ import { StockLevel } from './internal/stock-level'
 import { StockTurnOver } from './internal/stock-turn-over'
 import { UnitOfMeasure } from './internal/unit-of-measure'
 import { Warehouse } from './internal/warehouse'
+import { ItemError, ItemReturn } from './schema/Item'
 import { RequestError, RequestInfo, RequestReturn } from './schema/Request'
+import { SellerError, SellerReturn } from './schema/Seller'
+import { StockLevelError, StockLevelReturn } from './schema/StockLevel'
 import { StockTurnOverError, StockTurnOverInfo, StockTurnOverReturn } from './schema/StockTurnOver'
+import { UnitOfMeasureError, UnitOfMeasureReturn } from './schema/UnitOfMeasure'
+import { WarehouseError, WarehouseReturn } from './schema/Warehouse'
 
 /**
  * Possible business messages.
@@ -41,7 +46,17 @@ export const SenderResponseMessage = t.union([
         RequestError,
         RequestReturn,
         StockTurnOverError,
-        StockTurnOverReturn
+        StockTurnOverReturn,
+        ItemError,
+        ItemReturn,
+        SellerError,
+        SellerReturn,
+        StockLevelError,
+        StockLevelReturn,
+        UnitOfMeasureError,
+        UnitOfMeasureReturn,
+        WarehouseError,
+        WarehouseReturn
     ])),
     t.intersection([
         t.type({

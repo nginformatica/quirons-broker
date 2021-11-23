@@ -8,14 +8,17 @@ import { datetime, nullable } from '../../custom-types'
  */
 export const Seller = t.intersection([
     t.type({
+        erpCompany: t.string,
+        erpBranch: t.string,
         id: t.string,
         personId: t.string,
         name: t.string,
-        erpId: t.string
+        erpId: t.string,
+        originMessageId: t.string,
+        originEvent: t.string,
+        sentBy: t.string
     }),
     t.partial({
-        erpCompany: nullable(t.string),
-        erpBranch: t.union([t.string, t.null, t.literal(false)]),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
         operation: t.union([t.literal('upsert'), t.literal('delete')])
@@ -30,13 +33,16 @@ export const Converter = {
 
         return {
             /** required */
+            erpCompany: Header.CompanyId,
+            erpBranch: Header.BranchId,
             id: '',
             personId: Content.EmployeeInternalId,
             name: Content.Name,
             erpId: Content.InternalId,
+            originMessageId: Header.UUID,
+            originEvent: Header.Event,
+            sentBy: Header.ProductName,
             /** not required */
-            erpCompany: Header.CompanyId,
-            erpBranch: Header.BranchId,
             operation: Header.Event
         }
     }

@@ -1,5 +1,5 @@
 import * as t from 'io-ts'
-import { datetime, nullable } from '../../custom-types'
+import { date, datetime, nullable } from '../../custom-types'
 
 const MESSAGE = 'STOCKLEVEL'
 
@@ -71,6 +71,52 @@ const StockLevel = t.intersection([
 ])
     
 
+export const StockLevelReturn = t.type({
+    Header,
+    Content: t.type({
+        ReturnContent: t.type({
+            ListOfInternalID: t.array(t.type({
+                Destination: t.string,
+                Name: t.string,
+                Origin: t.string
+            }))
+        }),
+        ProcessingInformation: t.type({
+            Status: t.string,
+            ProcessedOn: t.union([datetime, date])
+        }),
+        ReceivedMessage: t.type({
+            UUID: t.string,
+            Event: t.string,
+            SentBy: t.string
+        })
+    })
+})
+
+export const StockLevelError = t.type({
+    Header,
+    Content: t.type({
+        ReturnContent: t.type({
+            Error: t.string
+        }),
+        ProcessingInformation: t.type({
+            Status: t.string,
+            ProcessedOn: t.union([datetime, date]),
+            Details: t.array(t.type({
+                Code: t.string,
+                Message: t.string,
+                DetailedMessage: t.string,
+                HelpUrl: t.string
+            }))
+        }),
+        ReceivedMessage: t.type({
+            UUID: t.string,
+            Event: t.string,
+            SentBy: t.string
+        })
+    })
+})
+
 export const StockLevelInfo = t.type({
     Header,
     Content: StockLevel
@@ -80,5 +126,7 @@ export const ListStockLevelInfo = t.type({
     Content: t.array(StockLevel)
 })
 
+export type StockLevelReturn = t.TypeOf<typeof StockLevelReturn>
+export type StockLevelError = t.TypeOf<typeof StockLevelError>
 export type StockLevelInfo = t.TypeOf<typeof StockLevelInfo>
 export type ListStockLevelInfo = t.TypeOf<typeof ListStockLevelInfo>
