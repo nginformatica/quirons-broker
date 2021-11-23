@@ -58,7 +58,7 @@ export const WarehouseReturn = t.type({
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
-            Event: t.string,
+            Event: t.union([t.literal('upsert'), t.literal('delete')]),
             SentBy: t.string
         })
     })
@@ -82,7 +82,7 @@ export const WarehouseError = t.type({
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
-            Event: t.string,
+            Event: t.union([t.literal('upsert'), t.literal('delete')]),
             SentBy: t.string
         })
     })
