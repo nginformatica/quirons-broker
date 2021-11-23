@@ -66,7 +66,7 @@ const StockLevel = t.intersection([
         CompanyInternalId: t.string,
         Active: t.string,
         Entity: t.string,
-        Event: t.string
+        Event: t.union([t.literal('upsert'), t.literal('delete')])
     })
 ])
     
@@ -87,7 +87,7 @@ export const StockLevelReturn = t.type({
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
-            Event: t.string,
+            Event: t.union([t.literal('upsert'), t.literal('delete')]),
             SentBy: t.string
         })
     })
@@ -111,7 +111,7 @@ export const StockLevelError = t.type({
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
-            Event: t.string,
+            Event: t.union([t.literal('upsert'), t.literal('delete')]),
             SentBy: t.string
         })
     })

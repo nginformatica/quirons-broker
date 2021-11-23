@@ -76,7 +76,7 @@ export const ItemReturn = t.type({
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
-            Event: t.string,
+            Event: t.union([t.literal('upsert'), t.literal('delete')]),
             SentBy: t.string
         })
     })
@@ -100,7 +100,7 @@ export const ItemError = t.type({
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
-            Event: t.string,
+            Event: t.union([t.literal('upsert'), t.literal('delete')]),
             SentBy: t.string
         })
     })
