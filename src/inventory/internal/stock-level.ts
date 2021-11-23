@@ -17,7 +17,6 @@ export const StockLevel = t.intersection([
         amoutBooked: t.number,
         erpId: t.string,
         originMessageId: t.string,
-        originEvent: t.string,
         sentBy: t.string
     }),
     t.partial({
@@ -41,7 +40,7 @@ export const Converter = {
                 const { WarehouseStock } = warehouse
                 stockLevel.push({
                     erpCompany: Header.CompanyId,
-                erpBranch: Header.BranchId,
+                    erpBranch: Header.BranchId,
                     id: '',
                     erpId: '',
                     erpItem: ReturnItem.ItemInternalId,
@@ -54,7 +53,6 @@ export const Converter = {
                     ),
                     operation: Header.Event,
                     originMessageId: Header.UUID,
-                    originEvent: Header.Event,
                     sentBy: Header.ProductName,
                 })
             })

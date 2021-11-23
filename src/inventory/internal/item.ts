@@ -19,7 +19,6 @@ export const Item = t.intersection([
         dangerous: t.boolean,
         quantity: t.number,
         originMessageId: t.string,
-        originEvent: t.string,
         sentBy: t.string
     }),
     t.partial({
@@ -49,7 +48,6 @@ export const Converter = {
             dangerous: false,
             quantity: 0,
             originMessageId: Header.UUID,
-            originEvent: Header.Event,
             sentBy: Header.ProductName,
             /** not required */
             unitOfMeasureDescription: Content.UnitOfMeasureCode,

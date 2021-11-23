@@ -34,7 +34,7 @@ const WarehouseStock = t.type({
     FutureStockAmount: t.string,
     UnitItemCost: t.string,
     ValueOfCurrentStockAmount: t.string,
-    AvailableStockAmout: t.string,
+    AvailableStockAmount: t.string,
     BookedStockAmount: t.string,
     AverageUnitItemCost: t.string,
     SalesOrderQuantity: t.string,
