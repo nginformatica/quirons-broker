@@ -27,6 +27,31 @@ export const Header = t.intersection([
     })
 ])
 
+
+export const HeaderReturn = t.intersection([
+    t.type({
+        UUID: t.string,
+        Type: t.string,
+        Transaction: t.literal(MESSAGE),
+        StandardVersion: t.string,
+        SourceApplication: t.string,
+        ProductName: t.string,
+        ProductVersion: t.string,
+        CompanyId: t.string,
+        BranchId: t.string,
+        GeneratedOn: datetime,
+        DeliveryType: t.string
+    }),
+    t.partial({
+        Event: t.union([t.literal('upsert'), t.literal('delete')]),
+        SubType: nullable(t.string),
+        Version: nullable(t.string),
+        CompanySharingMode: nullable(t.string),
+        BusinessUnitySharingMode: nullable(t.string),
+        BranchSharingMode: nullable(t.string)
+    })
+])
+
 const Item = t.intersection([
     t.type({
         InternalId: t.string,
@@ -61,7 +86,7 @@ const Item = t.intersection([
 
 
 export const ItemReturn = t.type({
-    Header,
+    Header: HeaderReturn,
     Content: t.type({
         ReturnContent: t.type({
             ListOfInternalID: t.array(t.type({
@@ -83,7 +108,7 @@ export const ItemReturn = t.type({
 })
 
 export const ItemError = t.type({
-    Header,
+    Header: HeaderReturn,
     Content: t.type({
         ReturnContent: t.type({
             Error: t.string
