@@ -74,6 +74,7 @@ const StockTurnOver = t.intersection([
         BranchId: t.string,
         MovementTypeCode: t.union([t.literal('399'), t.literal('599')]),
         RegisterDateTime: t.union([datetime, date]),
+        Type: t.union([t.literal('000'), t.literal('001')]),
         ListofStockTurnoverItem: t.array(t.type({
             StockTurnoverItem: StockTurnoverItem
         }))
@@ -83,8 +84,7 @@ const StockTurnOver = t.intersection([
         CompanyInternalId: t.string,
         Observation: t.string,
         Number: t.string,
-        Series: t.string,
-        Type: t.string
+        Series: t.string
     })
 ])
 

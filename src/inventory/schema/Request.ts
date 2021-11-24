@@ -69,7 +69,7 @@ const RequestItem = t.intersection([
 
 const Request = t.intersection([
     t.type({
-        Type: t.literal('001'),
+        Type: t.union([t.literal('000'), t.literal('001')]),
         InternalId: t.string,
         UserRequesterCode: t.string,
         UserRequesterInternalId: t.string,
