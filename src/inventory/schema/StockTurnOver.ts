@@ -54,6 +54,7 @@ export const HeaderReturn = t.intersection([
 const StockTurnoverItem = t.intersection([
     t.type({
         InternalId: t.string,
+        EmissionDate: t.union([datetime, date]),
         ItemInternalId: t.string,
         UnitPrice: t.number,
         TotalPrice: t.number,
@@ -75,7 +76,7 @@ const StockTurnOver = t.intersection([
         MovementTypeCode: t.union([t.literal('399'), t.literal('599')]),
         RegisterDateTime: t.union([datetime, date]),
         Type: t.union([t.literal('000'), t.literal('001')]),
-        ListofStockTurnoverItem: t.array(t.type({
+        ListOfStockTurnoverItem: t.array(t.type({
             StockTurnoverItem: StockTurnoverItem
         }))
     }),

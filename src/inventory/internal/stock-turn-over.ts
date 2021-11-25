@@ -29,7 +29,7 @@ export const Converter = {
         const { Header, Content } = data
         const stockTurnOver: StockTurnOver[] = []
         
-        Content.ListofStockTurnoverItem.forEach(item => {
+        Content.ListOfStockTurnoverItem.forEach(item => {
             const { StockTurnoverItem } = item
 
             stockTurnOver.push({
