@@ -10,6 +10,7 @@ export const Seller = t.intersection([
     t.type({
         erpCompany: t.string,
         erpBranch: t.string,
+        version: t.string,
         id: t.string,
         personId: t.string,
         name: t.string,
@@ -34,6 +35,7 @@ export const Converter = {
             /** required */
             erpCompany: Header.CompanyId,
             erpBranch: Header.BranchId,
+            version: Header.Version || '1.000',
             id: '',
             personId: Content.EmployeeInternalId,
             name: Content.Name,
