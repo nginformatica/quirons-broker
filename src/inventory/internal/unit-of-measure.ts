@@ -10,6 +10,7 @@ export const UnitOfMeasure = t.intersection([
     t.type({
         erpCompany: t.string,
         erpBranch: t.string,
+        version: t.string,
         id: t.string,
         name: t.string,
         acronym: t.string,
@@ -35,6 +36,7 @@ export const Converter = {
             /** required */
             erpCompany: Header.CompanyId,
             erpBranch: Header.BranchId,
+            version: Header.Version || '1.000',
             id: '',
             name: Content.ShortName,
             description: Content.Description,

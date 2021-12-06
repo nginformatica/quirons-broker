@@ -10,6 +10,7 @@ export const StockTurnOver = t.intersection([
     t.type({
         erpCompany: t.string,
         erpBranch: t.string,
+        version: t.string,
         id: t.string,
         erpId: t.string,
         erpItem: t.string,
@@ -35,6 +36,7 @@ export const Converter = {
             stockTurnOver.push({
                 erpCompany: Header.CompanyId,
                 erpBranch: Header.BranchId,
+                version: Header.Version || '1.000',
                 id: '',
                 erpId: Content.InternalId, 
                 erpItem: StockTurnoverItem.ItemInternalId,

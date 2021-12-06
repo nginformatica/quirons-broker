@@ -10,6 +10,7 @@ export const StockLevel = t.intersection([
     t.type({
         erpCompany: t.string,
         erpBranch: t.string,
+        version: t.string,
         id: t.string,
         erpItem: t.string,
         erpWarehouse: t.string,
@@ -41,6 +42,7 @@ export const Converter = {
                 stockLevel.push({
                     erpCompany: Header.CompanyId,
                     erpBranch: Header.BranchId,
+                    version: Header.Version || '1.000',
                     id: '',
                     erpId: '',
                     erpItem: ReturnItem.ItemInternalId,
