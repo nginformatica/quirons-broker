@@ -82,23 +82,26 @@ export const PostResponseMessage = t.union([
 
 export type PostResponseMessage = t.TypeOf<typeof PostResponseMessage>
 
-export const GetMessage = t.type({
-    verb: t.literal('get'),
-    // Código do TAFTICKET, Obrigatório caso registryKey não seja informado.
-    ticketCode: t.string,
-    // Código do TAFKEY, Obrigatório caso ticketCode não seja informado.
-    registryKey: t.string,
-    // Numero do RecNo Inicial a ser considerado na consulta.
-    startRecNo: t.number,
-    // Modo de pesquisa, quando não informado o response retorna todos os TAFKEYs relacionados a busca, quando igual a 1 retorna a última ocorrência do TAFKEY, quando igual a 2 retorna a última ocorrência válida do TAFKEY. Este parâmetro é útil quando o mesmo TAFKEY é enviado em vários TAFTICKET diferentes.
-    searchMode: t.union([t.literal('1'), t.literal('2')]),
-    // Código Identificador da filial do ERP emissor - *Não há uma validação de obrigatoriedade no retorno da requisição por conta do legado.
-    sourceBranch: t.string,
-    // Determina se o método deve retornar os erros dos registros com statusCode igual a 3 (Erros retornados pelo RET e gravados no TSS), o retorno será atribuído no grupo streamingErrors. Quando a tag não é informada os erros são retornados por Default. Valores validos: 0 - Desabilita, 1 - Habilita.
-    queryElements: t.union([t.literal('0'), t.literal('1')]),
-    // Limita a quantidade de registros a serem retornados na requisição. O tamanho da mensagem não poderá ultrapassar 850Kb, caso isto aconteça será realizado um retorno contendo os registros que já foram incrementados na resposta.
-    lotQuantity: t.number 
-})
+export const GetMessage = t.intersection([
+    t.type({
+        verb: t.literal('get'),
+        // Código do TAFKEY, Obrigatório caso ticketCode não seja informado.
+        registryKey: t.string,
+        // Numero do RecNo Inicial a ser considerado na consulta.
+        startRecNo: t.number,
+        // Código Identificador da filial do ERP emissor - *Não há uma validação de obrigatoriedade no retorno da requisição por conta do legado.
+        sourceBranch: t.string
+    }), t.partial({
+        // Código do TAFTICKET, Obrigatório caso registryKey não seja informado.
+        ticketCode: t.string,
+        // Modo de pesquisa, quando não informado o response retorna todos os TAFKEYs relacionados a busca, quando igual a 1 retorna a última ocorrência do TAFKEY, quando igual a 2 retorna a última ocorrência válida do TAFKEY. Este parâmetro é útil quando o mesmo TAFKEY é enviado em vários TAFTICKET diferentes.
+        searchMode: t.union([t.literal('1'), t.literal('2')]),
+        // Determina se o método deve retornar os erros dos registros com statusCode igual a 3 (Erros retornados pelo RET e gravados no TSS), o retorno será atribuído no grupo streamingErrors. Quando a tag não é informada os erros são retornados por Default. Valores validos: 0 - Desabilita, 1 - Habilita.
+        queryElements: t.union([t.literal('0'), t.literal('1')]),
+        // Limita a quantidade de registros a serem retornados na requisição. O tamanho da mensagem não poderá ultrapassar 850Kb, caso isto aconteça será realizado um retorno contendo os registros que já foram incrementados na resposta.
+        lotQuantity: t.number
+    })
+])
 
 export type GetMessage = t.TypeOf<typeof GetMessage>
 
