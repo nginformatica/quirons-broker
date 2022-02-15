@@ -65,6 +65,8 @@ const StockTurnoverItem = t.intersection([
     }),
     t.partial({
         Code: t.string,
+        CostCenterInternalId: t.string,
+        CostCenterCode: t.string
     })
 ])
 
