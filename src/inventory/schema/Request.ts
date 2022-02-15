@@ -63,7 +63,9 @@ const RequestItem = t.intersection([
         DeliveryDateTime: t.union([datetime, date])
     }), 
     t.partial({
-        Code: t.string
+        Code: t.string,
+        CostCenterInternalId: t.string,
+        CostCenterCode: t.string
     })
 ])
 
@@ -84,7 +86,8 @@ const Request = t.intersection([
         CompanyInternalId: t.string,
         BranchId: t.string,
         Number: t.string,
-        DeliveryDateTime: t.union([datetime, date])
+        DeliveryDateTime: t.union([datetime, date]),
+        SellerInternalId: t.string
     })
 ])
 
