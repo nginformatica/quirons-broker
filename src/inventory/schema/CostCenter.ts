@@ -1,7 +1,7 @@
 import * as t from 'io-ts'
 import { date, datetime, nullable } from '../../custom-types'
 
-const MESSAGE = 'CostCenter'
+const MESSAGE = 'COSTCENTER'
 
 export const Header = t.intersection([
     t.type({
@@ -60,9 +60,9 @@ const CostCenter = t.intersection([
         Name: t.string
     }),
     t.partial({
-        CompanyInternalId: t.string,
-        BranchId: t.string,
-        ShortCode: t.string,
+        CompanyInternalId: nullable(t.string),
+        BranchId: nullable(t.string),
+        ShortCode: nullable(t.string),
         Active: t.string
     })
 ])
