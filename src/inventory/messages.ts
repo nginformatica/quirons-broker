@@ -1,12 +1,14 @@
 import * as t from 'io-ts'
 
 import { userMessage, senderMessage, Identification } from '../constructors'
+import { CostCenter } from './internal/cost-center'
 import { Item } from './internal/item'
 import { Seller } from './internal/seller'
 import { StockLevel } from './internal/stock-level'
 import { StockTurnOver } from './internal/stock-turn-over'
 import { UnitOfMeasure } from './internal/unit-of-measure'
 import { Warehouse } from './internal/warehouse'
+import { CostCenterError, CostCenterReturn } from './schema/CostCenter'
 import { ItemError, ItemReturn } from './schema/Item'
 import { RequestError, RequestInfo, RequestReturn } from './schema/Request'
 import { SellerError, SellerReturn } from './schema/Seller'
@@ -19,6 +21,7 @@ import { WarehouseError, WarehouseReturn } from './schema/Warehouse'
  * Possible business messages.
  */
  export const BusinessMessage = t.union([
+    userMessage('costcenter',    t.array(CostCenter)),
     userMessage('item',          t.array(Item)),
     userMessage('unitofmeasure', t.array(UnitOfMeasure)),
     userMessage('warehouse',     t.array(Warehouse)),
@@ -47,6 +50,8 @@ export const SenderResponseMessage = t.union([
         RequestReturn,
         StockTurnOverError,
         StockTurnOverReturn,
+        CostCenterError,
+        CostCenterReturn,
         ItemError,
         ItemReturn,
         SellerError,

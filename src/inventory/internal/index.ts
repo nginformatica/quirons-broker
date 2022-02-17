@@ -1,3 +1,4 @@
+export { Converter as CostCenterConverter } from './cost-center'
 export { Converter as ItemConverter } from './item'
 export { Converter as SellerConverter } from './seller'
 export { Converter as StockLevelConverter } from './stock-level'
