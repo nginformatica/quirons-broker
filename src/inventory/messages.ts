@@ -21,13 +21,13 @@ import { WarehouseError, WarehouseReturn } from './schema/Warehouse'
  * Possible business messages.
  */
  export const BusinessMessage = t.union([
-    userMessage('costcenter',    t.array(CostCenter)),
-    userMessage('item',          t.array(Item)),
-    userMessage('unitofmeasure', t.array(UnitOfMeasure)),
-    userMessage('warehouse',     t.array(Warehouse)),
-    userMessage('stocklevel',    t.array(StockLevel)),
-    userMessage('stockturnover', t.array(StockTurnOver)),
-    userMessage('seller',        t.array(Seller)),
+    userMessage('costcenterstock', t.array(CostCenter)),
+    userMessage('item',            t.array(Item)),
+    userMessage('unitofmeasure',   t.array(UnitOfMeasure)),
+    userMessage('warehouse',       t.array(Warehouse)),
+    userMessage('stocklevel',      t.array(StockLevel)),
+    userMessage('stockturnover',   t.array(StockTurnOver)),
+    userMessage('seller',          t.array(Seller)),
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 
