@@ -1,5 +1,6 @@
 // Generated from totvs-ttalk-standard-message/PagedPayRollCostCenter_1_000.json
 import * as t from 'io-ts'
+import { nullable } from '../../custom-types'
 import { Paging } from '../apis/types/totvsApiTypesBase'
 
 export const PayRollCostCenterInfo = t.intersection([
@@ -15,7 +16,9 @@ export const PayRollCostCenterInfo = t.intersection([
         /** Código da Filial */
         branchId: t.string,
         /** Código do Centro de Custo da Folha de Pagamento */
-        code: t.string
+        code: t.string,
+        /** Código do Centro de Custo do Estoque */
+        costCenterCode: nullable(t.string)
     })
 ])
 export type PayRollCostCenterInfo = t.TypeOf<typeof PayRollCostCenterInfo>

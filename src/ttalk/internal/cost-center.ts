@@ -13,6 +13,7 @@ export const PayRollCostCenter = t.intersection([
     }),
     t.partial({
         class: nullable(t.string),
+        costCenterCode: nullable(t.string),
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         erpId: nullable(t.string),
@@ -32,7 +33,8 @@ export const Converter = {
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
             erpId: data.code,
-            description: data.name
+            description: data.name,
+            costCenterCode: data.costCenterCode
         }
     }
 }
