@@ -2,11 +2,9 @@ import * as t from 'io-ts'
 import { 
     PostMessage,
     GetMessage,
-    CompanyMessage,
     GetCompanyMessage,
     PostResponseMessage,
     GetResponseMessage,
-    CompanyResponseMessage,
     GetCompanyResponseMessage
 } from './message'
 import { userMessage } from '../constructors'
@@ -15,18 +13,15 @@ import { nullable } from '../custom-types'
 export { 
     PostMessage,
     GetMessage,
-    CompanyMessage,
     GetCompanyMessage,
     PostResponseMessage,
     GetResponseMessage,
-    CompanyResponseMessage,
     GetCompanyResponseMessage
 } from './message'
 
 export const SenderMessageContent = t.union([
     PostMessage,
     GetMessage,
-    CompanyMessage,
     GetCompanyMessage
 ])
 
@@ -41,7 +36,6 @@ export const SenderResponseMessage = t.union([
     userMessage('responseMiddleware', nullable(t.union([
         PostResponseMessage,
         GetResponseMessage,
-        CompanyResponseMessage,
         GetCompanyResponseMessage
     ]))),
     t.type({
