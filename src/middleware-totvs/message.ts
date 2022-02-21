@@ -115,77 +115,30 @@ export const GetResponseMessage = t.type({
 
 export type GetResponseMessage = t.TypeOf<typeof GetResponseMessage>
 
-export const CompanyMessage = t.intersection([
-    t.type({
-        // Tipo de Inscrição (1 – CNPJ , 2 – CPF)
-        registrationType: t.string,
-        // Número da inscrição.
-        registrationNumber: t.string,
-        // Unidade de Federação
-        uf: t.string,
-        // Certificado digital (PFX) em BASE64
-        digitalCertificate: t.string,
-        // senha do certificado digital
-        password: t.string
-    }),
-    t.partial({
-        // Inscrição Estadual 
-        ie: t.string,
-        // Razão Social / Nome
-        companyName: t.string,
-        // Nome Fantasia
-        branchName: t.string,
-        // Código do município
-        countyCode: t.string,
-        // Número de Inscrição do Transmissor (Campo criado para tratar Outorga)
-        grantNumber: t.string,
-        // URL serviço do TSS
-        url: t.string,
-        // Número do Slot ( Utilizado apenas para certificados do tipo A3 )
-        slot: t.string,
-        // Label do certificado digital ( Utilizado apenas para certificados do tipo A3 )
-        label: t.string,
-        // Caminho da DLL da máquina onde o certificado encontra-se instalado ( Utilizado apenas para certificados do tipo A3 ). Esta informação pode ser substituída pelo campo idHex.
-        module: t.string,
-        // Id Hexadecimal ( Utilizado apenas para certificados do tipo A3 ). Esta informação pode ser substituída pelo campo module.
-        idHex: t.string,
-        // Tipo do certificado. Valores válidos “A1” ou “A3”.
-        typeCert: t.string
-    })
-])
-
-export type CompanyMessage = t.TypeOf<typeof CompanyMessage>
-
-export const CompanyResponseMessage = t.type({
-    // ID do registro de empresa do TSS
-    idCompany: t.string,
-    // Mensagem de retorno da solicitação
-    returnMessage: t.string
-})
-
-export type CompanyResponseMessage = t.TypeOf<typeof CompanyResponseMessage>
-
-
 export const GetCompanyMessage = t.intersection([
     t.type({
         // Tipo de Inscrição (1 – CNPJ , 2 – CPF)
         registrationType: t.string,
         // Número da inscrição.
+        // Se registrationType for 1, então deverá ser enviado o CNPJ
+        // Se registrationType for 2, então deverá ser enviado o CPF
         registrationNumber: t.string,
-        // Unidade de Federação
-        uf: t.string
+        // Sigla da Unidade Federativa
+        uf: t.string,
+        // Nome da Pessoa/ Razão Social da Companhia
+        corporateName: t.string,
+        // Código do município conforme tabela do IBGE
+        countyCode: t.string,
+        // URL do TSS (TOTVS Service SOA)
+        url: t.string
     }),
     t.partial({
         // Inscrição Estadual 
         ie: t.string,
-        // Razão Social / Nome
-        corporateName: t.string,
         // Nome Fantasia
-        fancyName: t.string,
-        // Código do município
-        cityCode: t.string,
-        // URL serviço do TSS
-        urlTSS: t.string
+        branchName: t.string,
+        // Número de Inscrição do Transmissor.
+        grantNumber: t.string
     })
 ])
 
@@ -198,4 +151,4 @@ export const GetCompanyResponseMessage = t.type({
     returnMessage: t.string
 })
 
-export type GetCompanyResponseMessage = t.TypeOf<typeof CompanyResponseMessage>
+export type GetCompanyResponseMessage = t.TypeOf<typeof GetCompanyResponseMessage>
