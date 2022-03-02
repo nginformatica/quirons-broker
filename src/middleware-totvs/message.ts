@@ -72,7 +72,7 @@ export const GetMessage = t.type({
         // Código do TAFKEY, Obrigatório caso ticketCode não seja informado.
         registryKey: t.string,
         // Define se deverá ser retornado o XML de retorno do RET
-        returnRetResponse: t.string
+        returnRetResponse: t.boolean
     }))
 })
 
@@ -99,7 +99,7 @@ export const GetResponseMessage = t.type({
             // Descrição do status no TAF, atributo exibido somente quando proccessed for igual a true.
             statusDescription: t.string,
             // Agrupa todos os erros de transmissão retornados do Governo para o TAF. Os erros são listados por streamingErrorCode e streamingErrorDetail.
-            streamingErrors: t.array(t.partial({
+            streamingErrorDetail: t.array(t.partial({
                 // Código do erro retornado pelo Governo para o TAF, após transmissão do registro.
                 streamingErrorCode: t.string,
                 // Descrição do erro retornado pelo Governo para o TAF, após transmissão do registro.
@@ -126,7 +126,7 @@ export const GetCompanyMessage = t.intersection([
         // Sigla da Unidade Federativa
         uf: t.string,
         // Nome da Pessoa/ Razão Social da Companhia
-        corporateName: t.string,
+        companyName: t.string,
         // Código do município conforme tabela do IBGE
         countyCode: t.string,
         // URL do TSS (TOTVS Service SOA)
