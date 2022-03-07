@@ -83,7 +83,7 @@ const Request = t.intersection([
     t.partial({
         CompanyId: t.string,
         Code: t.string,
-        CompanyInternalId: t.string,
+        CompanyInternalId: nullable(t.string),
         BranchId: t.string,
         Number: t.string,
         DeliveryDateTime: t.union([datetime, date]),

@@ -63,7 +63,7 @@ const CostCenter = t.intersection([
         CompanyInternalId: nullable(t.string),
         BranchId: nullable(t.string),
         ShortCode: nullable(t.string),
-        Active: t.string
+        Active: t.union([t.string, t.boolean])
     })
 ])
 

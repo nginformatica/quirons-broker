@@ -58,18 +58,18 @@ const Item = t.intersection([
         CompanyId: t.string,
         Code: t.string,
         Name: t.string,
-        NetWeight: t.string,
-        GrossWeight: t.string,
+        NetWeight: t.union([t.string, t.number]),
+        GrossWeight: t.union([t.string, t.number]),
         Origin: t.string,
         ProductType: t.string,
         UnitOfMeasureCode: t.string,
         UnitOfMeasureInternalId: t.string,
         Values: t.intersection([
             t.type({
-                CostPrice: t.string,
-                SalesPrice: t.string,
-                AverageCostPrice: t.string,
-                StandardCostPrice: t.string
+                CostPrice: t.union([t.string, t.number]),
+                SalesPrice: t.union([t.string, t.number]),
+                AverageCostPrice: t.union([t.string, t.number]),
+                StandardCostPrice: t.union([t.string, t.number]),
             }),
             t.partial({
                 BaseDate: datetime
@@ -77,10 +77,10 @@ const Item = t.intersection([
         ])
     }),
     t.partial({
-        CompanyInternalId: t.string,
+        CompanyInternalId: nullable(t.string),
         BranchId: t.string,
         ShortName: t.string,
-        Active: t.string
+        Active: t.union([t.string, t.boolean])
     })
 ])
 

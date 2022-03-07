@@ -14,11 +14,13 @@ export const Seller = t.intersection([
         id: t.string,
         personId: t.string,
         name: t.string,
+        identification: t.string,
         erpId: t.string,
         originMessageId: t.string,
         sentBy: t.string
     }),
     t.partial({
+        isActive: t.boolean,
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
         operation: t.union([t.literal('upsert'), t.literal('delete')])
@@ -37,13 +39,17 @@ export const Converter = {
             erpBranch: Header.BranchId,
             version: Header.Version || '1.000',
             id: '',
-            personId: Content.EmployeeInternalId,
+            personId: Content.PeopleCode,
             name: Content.Name,
+            identification: Content.PersonalIdentification,
             erpId: Content.InternalId,
             originMessageId: Header.UUID,
             sentBy: Header.ProductName,
             /** not required */
-            operation: Header.Event
+            operation: Header.Event,
+            isActive: typeof Content.Active == 'string'
+                ? Content.Active == 'true'
+                : Content.Active
         }
     }
 }
