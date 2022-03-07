@@ -11,7 +11,8 @@ const ErrorCodeKey = t.keyof({
     UNAUTHENTICATED: null,
     REQUIRED_BRANCH_ID: null,
     REQUIRED_ID_PARAMETER: null,
-    BAD_REQUEST: null
+    BAD_REQUEST: null,
+    DECODED_ERROR: null
 })
 
 type ErrorCode = t.TypeOf<typeof ErrorCodeKey>
@@ -62,6 +63,11 @@ const errorInfoWith = (payload = ''): Record<ErrorCode, ErrorInfo> => ({
         status: 400,
         message: 'The id parameter is required',
         detailedMessage: 'The id parameter is required for the specified method'
+    },
+    DECODED_ERROR: {
+        status: 400,
+        message: 'Decoded error message',
+        detailedMessage: 'The message sent is outside the established format'
     }
 })
 
