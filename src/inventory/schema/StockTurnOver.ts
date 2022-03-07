@@ -84,7 +84,7 @@ const StockTurnOver = t.intersection([
     }),
     t.partial({
         Code: t.string,
-        CompanyInternalId: t.string,
+        CompanyInternalId: nullable(t.string),
         Observation: t.string,
         Number: t.string,
         Series: t.string

@@ -23,6 +23,7 @@ export const Item = t.intersection([
         sentBy: t.string
     }),
     t.partial({
+        isActive: t.boolean,
         warehouseDescription: nullable(t.string),
         unitOfMeasureDescription: nullable(t.string),
         created_at: nullable(datetime),
@@ -53,7 +54,10 @@ export const Converter = {
             sentBy: Header.ProductName,
             /** not required */
             unitOfMeasureDescription: Content.UnitOfMeasureCode,
-            operation: Header.Event
+            operation: Header.Event,
+            isActive: typeof Content.Active == 'string'
+                ? Content.Active == 'true'
+                : Content.Active
         }
     }
 }

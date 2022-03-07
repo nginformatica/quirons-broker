@@ -53,16 +53,8 @@ export const HeaderReturn = t.intersection([
 
 const WarehouseStock = t.type({
     WarehouseInternalId: t.string,
-    CurrentStockAmount: t.string,
-    TransitStockAmount: t.string,
-    FutureStockAmount: t.string,
-    UnitItemCost: t.string,
-    ValueOfCurrentStockAmount: t.string,
-    AvailableStockAmount: t.string,
-    BookedStockAmount: t.string,
-    AverageUnitItemCost: t.string,
-    SalesOrderQuantity: t.string,
-    Amountcommittedstock: t.string
+    ValueOfCurrentStockAmount: t.union([t.string, t.number]),
+    BookedStockAmount: t.union([t.string, t.number]),
 })
 
 const ReturnItem = t.intersection([
@@ -87,7 +79,7 @@ const StockLevel = t.intersection([
     t.partial({
         CompanyId: t.string,
         BranchId: t.string,
-        CompanyInternalId: t.string,
+        CompanyInternalId: nullable(t.string),
         Active: t.string,
         Entity: t.string,
         Event: t.union([t.literal('upsert'), t.literal('delete')])

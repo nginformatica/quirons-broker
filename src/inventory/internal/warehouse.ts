@@ -18,6 +18,7 @@ export const Warehouse = t.intersection([
         sentBy: t.string
     }),
     t.partial({
+        isActive: t.boolean,
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
         operation: t.union([t.literal('upsert'), t.literal('delete')])
@@ -40,7 +41,10 @@ export const Converter = {
             originMessageId: Header.UUID,
             sentBy: Header.ProductName,
             /** not required */
-            operation: Header.Event
+            operation: Header.Event,
+            isActive: typeof Content.Active == 'string'
+                ? Content.Active == 'true'
+                : Content.Active
         }
     }
 }

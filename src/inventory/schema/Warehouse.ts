@@ -58,10 +58,10 @@ const Warehouse = t.intersection([
         Description: t.string,
     }),
     t.partial({
-        CompanyInternalId: t.string,
+        CompanyInternalId: nullable(t.string),
         CompanyId: t.string,
         BranchId: t.string,
-        Active: t.string
+        Active: t.union([t.string, t.boolean])
     })
 ])
 
