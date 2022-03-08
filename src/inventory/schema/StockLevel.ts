@@ -80,7 +80,7 @@ const StockLevel = t.intersection([
         CompanyId: t.string,
         BranchId: t.string,
         CompanyInternalId: nullable(t.string),
-        Active: t.string,
+        Active: t.union([t.string, t.boolean]),
         Entity: t.string,
         Event: t.union([t.literal('upsert'), t.literal('delete')])
     })

@@ -56,7 +56,7 @@ const Seller = t.intersection([
         InternalId: t.string,
         Code: t.string,
         Name: t.string,
-        PeopleCode: t.string,
+        EmployeeInternalId: t.string,
         PersonalIdentification: t.string
     }),
     t.partial({
