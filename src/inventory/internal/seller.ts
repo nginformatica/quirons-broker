@@ -39,7 +39,7 @@ export const Converter = {
             erpBranch: Header.BranchId,
             version: Header.Version || '1.000',
             id: '',
-            personId: Content.PeopleCode,
+            personId: Content.EmployeeInternalId,
             name: Content.Name,
             identification: Content.PersonalIdentification,
             erpId: Content.InternalId,

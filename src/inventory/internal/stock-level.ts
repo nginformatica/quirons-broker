@@ -21,6 +21,7 @@ export const StockLevel = t.intersection([
         sentBy: t.string
     }),
     t.partial({
+        isActive: t.boolean,
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
         operation: t.union([t.literal('upsert'), t.literal('delete')])
@@ -56,6 +57,9 @@ export const Converter = {
                     operation: Header.Event,
                     originMessageId: Header.UUID,
                     sentBy: Header.ProductName,
+                    isActive: typeof Content.Active == 'string'
+                        ? Content.Active == 'true'
+                        : Content.Active
                 })
             })
 
