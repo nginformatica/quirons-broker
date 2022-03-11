@@ -172,7 +172,7 @@ export type DeleteMessage = t.TypeOf<typeof DeleteMessage>
 
 export const DeleteResponseMessage = t.type({
     verb: t.literal('delete'),
-    sucess: t.boolean
+    success: t.boolean
 })
 
 export type DeleteResponseMessage = t.TypeOf<typeof DeleteResponseMessage>
