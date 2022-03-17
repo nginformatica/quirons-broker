@@ -60,9 +60,9 @@ const Seller = t.intersection([
         PersonalIdentification: t.string
     }),
     t.partial({
-        CompanyId: t.string,
+        CompanyId: nullable(t.string),
         CompanyInternalId: nullable(t.string),
-        BranchId: t.string,
+        BranchId: nullable(t.string),
         Active: t.union([t.string, t.boolean])
     })
 ])

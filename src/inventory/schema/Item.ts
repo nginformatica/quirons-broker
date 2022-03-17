@@ -57,7 +57,6 @@ const Item = t.intersection([
         InternalId: t.string,
         CompanyId: t.string,
         Code: t.string,
-        Name: t.string,
         NetWeight: t.union([t.string, t.number]),
         GrossWeight: t.union([t.string, t.number]),
         Origin: t.string,
@@ -79,7 +78,8 @@ const Item = t.intersection([
     t.partial({
         CompanyInternalId: nullable(t.string),
         BranchId: t.string,
-        ShortName: t.string,
+        Name: nullable(t.string),
+        ShortName: nullable(t.string),
         Active: t.union([t.string, t.boolean])
     })
 ])

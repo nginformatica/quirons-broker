@@ -43,7 +43,7 @@ export const Converter = {
             erpBranch: Header.BranchId,
             version: Header.Version || '1.000',
             id: '',
-            description: Content.Name,
+            description: Content.ShortName || Content.Name || '',
             erpId: Content.InternalId,
             erpWarehouse: '',
             erpUnitOfMeasure: Content.UnitOfMeasureInternalId,
