@@ -36,23 +36,22 @@ export const Converter = {
         const stockLevel: StockLevel[] = []
 
         Content.ListOfReturnItem.forEach(item => {
-            const { ReturnItem } = item
+            const { ListOfWarehouseStock } = item
 
-            ReturnItem.ListOfWarehouseStock.forEach(warehouse => {
-                const { WarehouseStock } = warehouse
+            ListOfWarehouseStock.forEach(warehouse => {
                 stockLevel.push({
-                    erpCompany: Header.CompanyId,
-                    erpBranch: Header.BranchId,
+                    erpCompany: Content.CompanyId,
+                    erpBranch: Content.BranchId || '',
                     version: Header.Version || '1.000',
                     id: '',
                     erpId: '',
-                    erpItem: ReturnItem.ItemInternalId,
-                    erpWarehouse: WarehouseStock.WarehouseInternalId,
+                    erpItem: item.ItemInternalId,
+                    erpWarehouse: warehouse.WarehouseInternalId,
                     amoutBooked: Number(
-                        WarehouseStock.BookedStockAmount
+                        warehouse.BookedStockAmount
                     ),
                     physicalBalance: Number(
-                        WarehouseStock.ValueOfCurrentStockAmount
+                        warehouse.ValueOfCurrentStockAmount
                     ),
                     operation: Header.Event,
                     originMessageId: Header.UUID,

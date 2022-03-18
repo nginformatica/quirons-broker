@@ -76,9 +76,7 @@ const Request = t.intersection([
         UserRequesterCode: t.string,
         UserRequesterInternalId: t.string,
         RegisterDateTime: t.union([datetime, date]),
-        ListOfRequestItem: t.array(t.type({
-            RequestItem: RequestItem
-        }))
+        ListOfRequestItem: t.array(RequestItem)
     }),
     t.partial({
         CompanyId: t.string,
