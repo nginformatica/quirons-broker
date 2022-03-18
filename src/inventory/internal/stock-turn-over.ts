@@ -31,15 +31,13 @@ export const Converter = {
         const stockTurnOver: StockTurnOver[] = []
         
         Content.ListOfStockTurnoverItem.forEach(item => {
-            const { StockTurnoverItem } = item
-
             stockTurnOver.push({
-                erpCompany: Header.CompanyId,
-                erpBranch: Header.BranchId,
+                erpCompany: Content.CompanyId,
+                erpBranch: Content.BranchId || '',
                 version: Header.Version || '1.000',
                 id: '',
                 erpId: Content.InternalId, 
-                erpItem: StockTurnoverItem.InternalId,
+                erpItem: item.InternalId,
                 operation: Header.Event,
                 originMessageId: Header.UUID,
                 sentBy: Header.ProductName,

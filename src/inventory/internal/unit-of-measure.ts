@@ -35,8 +35,8 @@ export const Converter = {
 
         return {
             /** required */
-            erpCompany: Header.CompanyId,
-            erpBranch: Header.BranchId,
+            erpCompany: Content.CompanyId || '',
+            erpBranch: Content.BranchId || '',
             version: Header.Version || '1.000',
             id: '',
             name: Content.ShortName,
