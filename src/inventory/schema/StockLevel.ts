@@ -59,28 +59,20 @@ const WarehouseStock = t.type({
 
 const ReturnItem = t.intersection([
     t.type({
+        CompanyId: t.string,
         ItemInternalId: t.string,
         ListOfWarehouseStock: t.array(WarehouseStock)
     }),
     t.partial({
         UnitItemCost: t.string,
-        WarehouseInternalId: t.string        
+        WarehouseInternalId: t.string,
+        BranchId: nullable(t.string),
     })
 ])
 
-const StockLevel = t.intersection([
-    t.type({
-        CompanyId: t.string,
-        ListOfReturnItem: t.array(ReturnItem)
-    }),
-    t.partial({
-        BranchId: t.string,
-        CompanyInternalId: nullable(t.string),
-        Active: t.union([t.string, t.boolean]),
-        Entity: t.string,
-        Event: t.union([t.literal('upsert'), t.literal('delete')])
-    })
-])
+const StockLevel = t.type({
+    ListOfReturnItem: t.array(ReturnItem)
+})
     
 
 export const StockLevelReturn = t.type({
