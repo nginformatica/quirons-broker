@@ -40,25 +40,22 @@ export const Converter = {
 
             ListOfWarehouseStock.forEach(warehouse => {
                 stockLevel.push({
-                    erpCompany: Content.CompanyId,
-                    erpBranch: Content.BranchId || '',
+                    erpCompany: item.CompanyId || '',
+                    erpBranch: item.BranchId || '',
                     version: Header.Version || '1.000',
                     id: '',
                     erpId: '',
                     erpItem: item.ItemInternalId,
                     erpWarehouse: warehouse.WarehouseInternalId,
-                    amoutBooked: Number(
-                        warehouse.BookedStockAmount
+                    amoutBooked: parseInt(
+                        `${warehouse.BookedStockAmount}`
                     ),
-                    physicalBalance: Number(
-                        warehouse.ValueOfCurrentStockAmount
+                    physicalBalance: parseInt(
+                        `${warehouse.ValueOfCurrentStockAmount}`
                     ),
                     operation: Header.Event,
                     originMessageId: Header.UUID,
-                    sentBy: Header.ProductName,
-                    isActive: typeof Content.Active == 'string'
-                        ? Content.Active == 'true'
-                        : Content.Active
+                    sentBy: Header.ProductName
                 })
             })
 
