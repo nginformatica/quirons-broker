@@ -77,9 +77,7 @@ const StockTurnOver = t.intersection([
         BranchId: t.string,
         RegisterDateTime: t.union([datetime, date]),
         Type: t.string,
-        ListOfStockTurnoverItem: t.array(t.type({
-            StockTurnoverItem: StockTurnoverItem
-        }))
+        ListOfStockTurnoverItem: t.array(StockTurnoverItem)
     }),
     t.partial({
         MovementTypeCode: nullable(t.string),
