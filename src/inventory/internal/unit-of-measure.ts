@@ -2,6 +2,7 @@ import * as t from 'io-ts'
 
 import * as inventoryUM from '../'
 import { datetime, nullable } from '../../custom-types'
+import { Event } from '../schema/Header'
 
 /**
  * Our internal model for Item.
@@ -23,7 +24,7 @@ export const UnitOfMeasure = t.intersection([
         description: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
-        operation: t.union([t.literal('upsert'), t.literal('delete')])
+        operation: Event
     })
 ])
 export type UnitOfMeasure = t.TypeOf<typeof UnitOfMeasure>
