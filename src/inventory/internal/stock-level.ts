@@ -2,7 +2,6 @@ import * as t from 'io-ts'
 
 import * as inventoryUM from '../'
 import { datetime, nullable } from '../../custom-types'
-import { Event } from '../schema/Header'
 
 /**
  * Our internal model for Item.
@@ -25,7 +24,14 @@ export const StockLevel = t.intersection([
         isActive: t.boolean,
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
-        operation: Event
+        operation: t.union([
+            t.literal('upsert'),
+            t.literal('delete'),
+            t.literal('Upsert'),
+            t.literal('Delete'),
+            t.literal('UPSERT'),
+            t.literal('DELETE')
+        ])
     })
 ])
 export type StockLevel = t.TypeOf<typeof StockLevel>
