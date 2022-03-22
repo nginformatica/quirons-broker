@@ -1,5 +1,6 @@
 import * as t from 'io-ts'
 import { date, datetime, nullable } from '../../custom-types'
+import { Event } from './Header'
 
 const MESSAGE = 'REQUEST'
 
@@ -16,7 +17,7 @@ export const Header = t.intersection([
         BranchId: t.string,
         GeneratedOn: datetime,
         DeliveryType: t.string,
-        Event: t.union([t.literal('upsert'), t.literal('delete')])
+        Event: Event
     }),
     t.partial({
         SubType: nullable(t.string),
@@ -42,7 +43,7 @@ export const HeaderReturn = t.intersection([
         DeliveryType: t.string
     }),
     t.partial({
-        Event: t.union([t.literal('upsert'), t.literal('delete')]),
+        Event: Event,
         SubType: nullable(t.string),
         Version: nullable(t.string),
         CompanySharingMode: nullable(t.string),
@@ -53,7 +54,7 @@ export const HeaderReturn = t.intersection([
 
 const RequestItem = t.intersection([
     t.type({
-        Event: t.union([t.literal('upsert'), t.literal('delete')]),
+        Event: Event,
         InternalId: t.string,
         ItemInternalid: t.string,
         TotalPrice: t.string,
@@ -93,7 +94,7 @@ export const RequestReturn = t.type({
     Header: HeaderReturn,
     Content: t.type({
         ReturnContent: t.type({
-            ListOfInternalID: t.array(t.type({
+            ListOfInternalId: t.array(t.type({
                 Destination: t.string,
                 Name: t.string,
                 Origin: t.string
@@ -105,7 +106,7 @@ export const RequestReturn = t.type({
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
-            Event: t.union([t.literal('upsert'), t.literal('delete')]),
+            Event: Event,
             SentBy: t.string
         })
     })
@@ -129,7 +130,7 @@ export const RequestError = t.type({
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
-            Event: t.union([t.literal('upsert'), t.literal('delete')]),
+            Event: Event,
             SentBy: t.string
         })
     })
