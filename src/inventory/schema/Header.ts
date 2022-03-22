@@ -18,12 +18,3 @@ export const Header = t.union([
     UnitOfMeasureHeader,
     WarehouseHeader
 ])
-
-export const Event = t.union([
-    t.literal('upsert'),
-    t.literal('delete'),
-    t.literal('Upsert'),
-    t.literal('Delete'),
-    t.literal('UPSERT'),
-    t.literal('DELETE')
-])

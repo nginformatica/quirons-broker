@@ -1,6 +1,5 @@
 import * as t from 'io-ts'
 import { date, datetime, nullable } from '../../custom-types'
-import { Event } from './Header'
 
 const MESSAGE = 'SELLER'
 
@@ -17,7 +16,14 @@ export const Header = t.intersection([
         BranchId: t.string,
         GeneratedOn: datetime,
         DeliveryType: t.string,
-        Event: Event
+        Event: t.union([
+            t.literal('upsert'),
+            t.literal('delete'),
+            t.literal('Upsert'),
+            t.literal('Delete'),
+            t.literal('UPSERT'),
+            t.literal('DELETE')
+        ])
     }),
     t.partial({
         SubType: nullable(t.string),
@@ -43,7 +49,14 @@ export const HeaderReturn = t.intersection([
         DeliveryType: t.string
     }),
     t.partial({
-        Event: Event,
+        Event: t.union([
+            t.literal('upsert'),
+            t.literal('delete'),
+            t.literal('Upsert'),
+            t.literal('Delete'),
+            t.literal('UPSERT'),
+            t.literal('DELETE')
+        ]),
         SubType: nullable(t.string),
         Version: nullable(t.string),
         CompanySharingMode: nullable(t.string),
@@ -85,7 +98,14 @@ export const SellerReturn = t.type({
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
-            Event: Event,
+            Event: t.union([
+                t.literal('upsert'),
+                t.literal('delete'),
+                t.literal('Upsert'),
+                t.literal('Delete'),
+                t.literal('UPSERT'),
+                t.literal('DELETE')
+            ]),
             SentBy: t.string
         })
     })
@@ -109,7 +129,14 @@ export const SellerError = t.type({
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
-            Event: Event,
+            Event: t.union([
+                t.literal('upsert'),
+                t.literal('delete'),
+                t.literal('Upsert'),
+                t.literal('Delete'),
+                t.literal('UPSERT'),
+                t.literal('DELETE')
+            ]),
             SentBy: t.string
         })
     })
