@@ -114,11 +114,18 @@ export const CostCenterReturn = t.type({
 export const CostCenterError = t.type({
     Header: HeaderReturn,
     Content: t.type({
-        ReturnContent: t.type({
-            Error: t.string
-        }),
+        ReturnContent: t.union([
+            t.string,
+            t.type({
+                Error: t.string
+            })
+        ]),
         ProcessingInformation: t.type({
-            Status: t.string,
+            Status: t.union([
+                t.literal('Error'),
+                t.literal('ERROR'),
+                t.literal('error')
+            ]),
             ProcessedOn: t.union([datetime, date]),
             Details: t.array(t.type({
                 Code: t.string,
