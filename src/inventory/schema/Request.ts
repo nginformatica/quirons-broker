@@ -106,7 +106,7 @@ const Request = t.intersection([
         BranchId: t.string,
         Number: t.string,
         DeliveryDateTime: t.union([datetime, date]),
-        SellerInternalId: t.string
+        SellerInternalId: nullable(t.string)
     })
 ])
 
