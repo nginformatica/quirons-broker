@@ -100,7 +100,7 @@ const StockTurnOver = t.intersection([
         Observation: nullable(t.string),
         Number: nullable(t.string),
         Series: nullable(t.string),
-        SellerInternalId: t.string
+        SellerInternalId: nullable(t.string)
     })
 ])
 
