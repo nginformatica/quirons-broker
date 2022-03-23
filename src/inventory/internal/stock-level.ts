@@ -58,7 +58,7 @@ export const Converter = {
                         `${warehouse.BookedStockAmount}`
                     ),
                     physicalBalance: parseInt(
-                        `${warehouse.ValueOfCurrentStockAmount}`
+                        `${warehouse.CurrentStockAmount}`
                     ),
                     operation: Header.Event,
                     originMessageId: Header.UUID,

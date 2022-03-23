@@ -127,12 +127,17 @@ export const UnitOfMeasureError = t.type({
                 t.literal('error')
             ]),
             ProcessedOn: t.union([datetime, date]),
-            Details: t.array(t.type({
-                Code: t.string,
-                Message: t.string,
-                DetailedMessage: t.string,
-                HelpUrl: t.string
-            }))
+            Details: t.array(t.intersection([
+                t.type({
+                    Code: t.string,
+                    Message: t.string,
+                }),
+                t.partial({
+                    DetailedMessage: nullable(t.string),
+                    HelpUrl: nullable(t.string),
+                    helpUrl: nullable(t.string)
+                })
+            ]))
         }),
         ReceivedMessage: t.type({
             UUID: t.string,
