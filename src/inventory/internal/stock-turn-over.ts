@@ -44,7 +44,7 @@ export const Converter = {
                 version: Header.Version || '1.000',
                 id: '',
                 erpId: Content.InternalId, 
-                erpItem: item.InternalId,
+                erpItem: item.RequestItemInternalId,
                 operation: Header.Event,
                 originMessageId: Header.UUID,
                 sentBy: Header.ProductName,
