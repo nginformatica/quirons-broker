@@ -78,7 +78,7 @@ const ReturnItem = t.intersection([
         ListOfWarehouseStock: t.array(WarehouseStock)
     }),
     t.partial({
-        UnitItemCost: t.string,
+        UnitItemCost: t.union([t.string, t.number]),
         WarehouseInternalId: t.string,
         BranchId: nullable(t.string),
     })
