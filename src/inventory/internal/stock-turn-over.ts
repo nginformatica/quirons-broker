@@ -13,6 +13,7 @@ export const StockTurnOver = t.intersection([
         version: t.string,
         id: t.string,
         erpId: t.string,
+        erpItemInternalId: t.string,
         erpItem: t.string,
         originMessageId: t.string,
         sentBy: t.string
@@ -44,6 +45,7 @@ export const Converter = {
                 version: Header.Version || '1.000',
                 id: '',
                 erpId: Content.InternalId, 
+                erpItemInternalId: item.InternalId,
                 erpItem: item.RequestItemInternalId,
                 operation: Header.Event,
                 originMessageId: Header.UUID,
