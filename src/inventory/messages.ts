@@ -33,7 +33,21 @@ export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 
 export const SenderMessageContent = t.union([
     senderMessage('request',       RequestInfo),
-    senderMessage('stockturnover', StockTurnOverInfo)
+    senderMessage('stockturnover', StockTurnOverInfo),
+    senderMessage('stockturnover', StockTurnOverError),
+    senderMessage('stockturnover', StockTurnOverReturn),
+    senderMessage('costcenter', CostCenterError),
+    senderMessage('costcenter', CostCenterReturn),
+    senderMessage('item', ItemError),
+    senderMessage('item', ItemReturn),
+    senderMessage('seller', SellerError),
+    senderMessage('seller', SellerReturn),
+    senderMessage('stocklevel', StockLevelError),
+    senderMessage('stocklevel', StockLevelReturn),
+    senderMessage('unitofmeasure', UnitOfMeasureError),
+    senderMessage('unitofmeasure', UnitOfMeasureReturn),
+    senderMessage('warehouse', WarehouseError),
+    senderMessage('warehouse', WarehouseReturn)
 ])
 export type SenderMessageContent = t.TypeOf<typeof SenderMessageContent>
 
