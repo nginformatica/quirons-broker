@@ -8,6 +8,8 @@ import { datetime, nullable } from '../../custom-types'
  */
 export const Warehouse = t.intersection([
     t.type({
+        headerErpCompany: t.string,
+        headerErpBranch: t.string,
         erpCompany: t.string,
         erpBranch: t.string,
         version: t.string,
@@ -39,6 +41,8 @@ export const Converter = {
 
         return {
             /** required */
+            headerErpCompany: Header.CompanyId,
+            headerErpBranch: Header.BranchId,
             erpCompany: Content.CompanyId,
             erpBranch: Content.BranchId || '',
             version: Header.Version || '1.000',

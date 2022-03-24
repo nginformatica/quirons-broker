@@ -8,6 +8,8 @@ import { datetime, nullable } from '../../custom-types'
  */
 export const StockTurnOver = t.intersection([
     t.type({
+        headerErpCompany: t.string,
+        headerErpBranch: t.string,
         erpCompany: t.string,
         erpBranch: t.string,
         version: t.string,
@@ -40,6 +42,8 @@ export const Converter = {
         
         Content.ListOfStockTurnoverItem.forEach(item => {
             stockTurnOver.push({
+                headerErpCompany: Header.CompanyId,
+                headerErpBranch: Header.BranchId,
                 erpCompany: Content.CompanyId,
                 erpBranch: Content.BranchId || '',
                 version: Header.Version || '1.000',

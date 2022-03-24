@@ -8,6 +8,8 @@ import { datetime, nullable } from '../../custom-types'
  */
 export const StockLevel = t.intersection([
     t.type({
+        headerErpCompany: t.string,
+        headerErpBranch: t.string,
         erpCompany: t.string,
         erpBranch: t.string,
         version: t.string,
@@ -47,6 +49,8 @@ export const Converter = {
 
             ListOfWarehouseStock.forEach(warehouse => {
                 stockLevel.push({
+                    headerErpCompany: Header.CompanyId,
+                    headerErpBranch: Header.BranchId,
                     erpCompany: item.CompanyId || '',
                     erpBranch: item.BranchId || '',
                     version: Header.Version || '1.000',
