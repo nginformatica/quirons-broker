@@ -42,7 +42,9 @@ export const LeaveOfAbsenceInfo = t.intersection([
         /** Tipo de Processo */
         typeOfProcess: t.union([t.literal('1'), t.literal('2'), t.literal('3')]),
         /** Número do Processo*/
-        processNumber: t.string
+        processNumber: t.string,
+        /** Sequência de Outro Atestado*/
+        sequence: t.string
     })
 ])
 export type LeaveOfAbsenceInfo = t.TypeOf<typeof LeaveOfAbsenceInfo>

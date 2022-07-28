@@ -302,10 +302,15 @@ export const Department = t.type({
 
 export type Department = t.TypeOf<typeof Department>
 
-export const Position = t.type({
-    id: t.string,
-    description: t.string
-})
+export const Position = t.intersection([
+    t.type({
+        id: t.string,
+        description: t.string
+    }),
+    t.partial({ 
+        observation: nullable(t.string)
+    })
+])
 
 export type Position = t.TypeOf<typeof Position>
 
