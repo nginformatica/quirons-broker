@@ -1,5 +1,6 @@
 // Generated from jsonschema/schemas/Positions_1_000.json
 import * as t from 'io-ts'
+import { cbo } from '../../custom-types'
 import { Paging } from '../apis/types/totvsApiTypesBase'
 
 export const PositionInfo = t.intersection([
@@ -17,7 +18,7 @@ export const PositionInfo = t.intersection([
         /** Código da Função */
         positionCode: t.string,
         /** CBO da Função */
-        cbo: t.string,
+        cbo: cbo,
         /** Detalhamento das Atividades da Função */
         activityDetails: t.string
     })

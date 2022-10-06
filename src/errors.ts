@@ -117,19 +117,32 @@ class APIBadRequestError extends APIError {
 
 const raiseErrorFromDecode = <T>(result: Either<t.Errors, T>) => {
     const errors = PathReporter.report(result)
+    const left = result._tag === 'Left' ? result.left : []
     const attributes: string[] = []
 
-    for (const error of errors) {
+    
+    for (let index = 0; index < errors.length; index++) {
+        const error = errors[index]
+        const message = left.length >= index ? left[index].message : undefined
         // 'Invalid value undefined supplied to... /id: string'
         // It will match 'id' and 'string'
-        const [, attribute, type] =
-            error.match(/.+\/(.+): (.+)$/) || []
 
-        if (!attribute && !type) {
-            continue
+        if (message) {
+            attributes.push(message)
+        } else {
+            const [, attribute, type] =
+                error.match(/.+\/(.+): (.+)$/) || []
+    
+            if (
+                (!attribute && !type) 
+                || attribute === 'null' || type === 'null'
+                || attribute === 'undefined' || type === 'undefined'
+            ) {
+                continue
+            }
+    
+            attributes.push(`(${attribute}: ${type})`)
         }
-
-        attributes.push(`(${attribute}: ${type})`)
     }
 
     if (!attributes.length) {

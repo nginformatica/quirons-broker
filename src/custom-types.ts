@@ -62,6 +62,23 @@ export const time = new t.Type<string, string>(
     a => a
 )
 
+export const cbo = new t.Type<string, string>(
+    'CBO',
+    // Type guard
+    (u): u is string => /(\d\d\d\d)-?(\d\.?\d)/.test(u as string),
+    (u, c) => 
+        either.chain(t.string.validate(u, c), s => {
+            const isValidCBO = /(\d\d\d\d)-?(\d\.?\d)/.test(s)
+            // @ts-ignore
+            console.log(isValidCBO)
+            return !isValidCBO
+                ? t.failure(u, c, '(cbo: string)')
+                : t.success(s)
+        }),
+    // Encoder: string -> string
+    a => a
+)
+
 /**
  * Make a nullable type.
  */
