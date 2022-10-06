@@ -13,7 +13,7 @@ import { StabilityControlInfo } from './schemas/StabilityControl_1_000'
 import { StabilityTypeInfo } from './schemas/StabilityType_1_000'
 import { TrainingNecessityInfo } from './schemas/TrainingNecessity_1_000'
 import { WorkingShiftInfo } from './schemas/WorkingShift_1_000'
-import { datetime, nullable } from '../custom-types'
+import { cbo, datetime, nullable } from '../custom-types'
 import { SickNoteInfo } from './schemas/SickNote'
 import { MedicalConsultationInfo } from './schemas/MedicalConsultation'
 
@@ -257,7 +257,7 @@ export const Occupation = t.intersection([
         description: t.string
     }),
     t.partial({
-        cbo: nullable(t.string),
+        cbo: nullable(cbo),
         activityDetails: nullable(t.string)
     })
 ])

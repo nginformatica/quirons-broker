@@ -1,8 +1,8 @@
 import * as t from 'io-ts'
 
 import * as ttalk from '../'
-import { datetime, nullable } from '../../custom-types'
-import { APIValidationError } from '../../errors'
+import { cbo, datetime, nullable } from '../../custom-types'
+import { raiseErrorFromDecode } from '../../errors'
 
 /**
  * Our internal model for occupations.
@@ -16,7 +16,7 @@ export const Positions = t.intersection([
         erpId: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         erpCompany: nullable(t.string),
-        cbo: nullable(t.string),
+        cbo: nullable(cbo),
         activityDetails: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime)
@@ -29,15 +29,10 @@ export type Positions = t.TypeOf<typeof Positions>
  */
 export const Converter = {
     fromTTalk(data: ttalk.PositionInfo): Positions {
-        // Validate CBO format (if any)
-        if (data.cbo) {
-            // TODO: move this to a io-ts validator
-            const match = data.cbo.match(/(\d\d\d\d)-?(\d\.?\d)/)
-            if (match) {
-                data.cbo = match[1] + match[2]
-            } else {
-                throw new APIValidationError('Invalid CBO format on Positions')
-            }
+        const result = ttalk.PositionInfo.decode(data)
+
+        if (result._tag === 'Left') {
+            throw raiseErrorFromDecode(result)
         }
 
         return {
