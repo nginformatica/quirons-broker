@@ -2,6 +2,7 @@ import * as t from 'io-ts'
 
 import * as ttalk from '../'
 import { datetime, nullable } from '../../custom-types'
+import { parseTime } from '../../fns/time-converter'
 
 /**
  * Our internal model for cost centers.
@@ -35,8 +36,7 @@ export const Converter = {
             erpId: data.workShiftCode,
             description: data.name,
             productiveHours: data.monthlyWorkingHours
-                // TODO: TOTVS gives us "hh:mm", properly convert that
-                ? parseFloat(data.monthlyWorkingHours)
+                ? parseTime(data.monthlyWorkingHours)
                 : null,
             relaySchema: data.relaySchema
         }
