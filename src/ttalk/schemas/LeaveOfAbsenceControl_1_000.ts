@@ -44,7 +44,9 @@ export const LeaveOfAbsenceInfo = t.intersection([
         /** Número do Processo*/
         processNumber: t.string,
         /** Sequência de Outro Atestado*/
-        sequence: t.string
+        sequence: t.string,
+        /** Remove pagamento de benefício */
+        removal: t.union([t.literal('0'), t.literal('1')])
     })
 ])
 export type LeaveOfAbsenceInfo = t.TypeOf<typeof LeaveOfAbsenceInfo>
