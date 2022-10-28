@@ -1,10 +1,11 @@
 import * as t from 'io-ts'
 export { Payment } from './payment'
-export { Organization } from './organization'
+export { Organization, OrganizationConvert } from './organization'
 import { Payment } from './payment'
-import { Organization } from './organization'
+import { Organization, OrganizationConvert } from './organization'
 import { metaMessage, userMessage } from '../constructors'
 import { pick, datetime } from '../custom-types'
+import { TError } from '../ttalk/messages'
 
 export const BusinessMessage = t.union([
     metaMessage('organization', Organization),
@@ -57,7 +58,9 @@ export const Message = t.union([
     BusinessMessage,
     BusinessRequestMessage,
     metaMessage('deleteInternal', Delete),
-    metaMessage('deletedInternal', Deleted)
+    metaMessage('deletedInternal', Deleted),
+    metaMessage('error', TError),
+    metaMessage('organizationConvert', OrganizationConvert)
 ])
 
 export type Message = t.TypeOf<typeof Message>
