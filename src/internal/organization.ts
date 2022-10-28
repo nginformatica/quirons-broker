@@ -11,3 +11,8 @@ export const Organization = t.partial({
     cnae: t.string
 })
 export type Organization = t.TypeOf<typeof Organization>
+
+export const OrganizationConvert = t.type({
+    documentNumber: t.string
+})
+export type OrganizationConvert = t.TypeOf<typeof OrganizationConvert>
