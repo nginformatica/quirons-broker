@@ -86,7 +86,8 @@ const RequestItem = t.intersection([
     t.partial({
         Code: t.string,
         CostCenterInternalId: t.string,
-        CostCenterCode: t.string
+        CostCenterCode: t.string,
+        Observation: nullable(t.string)
     })
 ])
 
