@@ -15,6 +15,7 @@ export const eSocial = t.type({
     /// REGRA:REGRA_ENVIO_PROC_FECHAMENTO
     /// REGRA:REGRA_EVENTOS_EXTEMP
     /// REGRA:REGRA_EVENTO_EXT_SEM_IMPACTO_FOPAG
+    /// REGRA:REGRA_EVENTO_POSTERIOR_CAT_OBITO
     /// REGRA:REGRA_EXISTE_INFO_EMPREGADOR
     /// REGRA:REGRA_EXTEMP_REINTEGRACAO
     /// REGRA:REGRA_GERAL_VALIDA_DADOS_TABCONTRIB
@@ -31,13 +32,17 @@ export const eSocial = t.type({
         ideVinculo: tipos.T_ideVinculo_sst,
         /// Ambiente de trabalho, atividades desempenhadas e exposição a agentes nocivos
         /// DESCRICAO_COMPLETA:Informações sobre o ambiente de trabalho, atividades desempenhadas e exposição a agentes nocivos.
-        /// CHAVE_GRUPO: {dtIniCondicao}
+        /// REGRA:REGRA_PERIODO_EXPOSICAO_RISCO
+        /// CHAVE_GRUPO: {dtIniCondicao*}
         infoExpRisco: t.intersection([
             t.type({
                 /// Informar a data em que o trabalhador iniciou as atividades nas condições descritas ou a data de início da obrigatoriedade deste evento para o empregador no eSocial, a que for mais recente.
                 /// Validação: Deve ser uma data válida, igual ou posterior à data de admissão do vínculo a que se refere. Não pode ser anterior à data de início da obrigatoriedade deste evento para o empregador no eSocial, nem pode ser posterior a 30 (trinta) dias da data atual.
                 dtIniCondicao: tipos.date,
                 /// Informações relativas ao ambiente de trabalho.
+                /// DESCRICAO_COMPLETA:Informações relativas ao ambiente de trabalho. Somente no caso de trabalhador avulso (código de categoria no RET igual a [2XX]) é possível declarar mais de um ambiente.
+                /// CHAVE_GRUPO: {tpInsc}, {nrInsc}
+                /// REGRA:REGRA_AMBIENTE_TRABALHO
                 infoAmb: t.type({
                     /// Informar o tipo de estabelecimento do ambiente de trabalho.
                     localAmb: t.union([
@@ -71,8 +76,9 @@ export const eSocial = t.type({
                     t.partial({
                         /// Descrição do agente nocivo.
                         /// Validação: Preenchimento obrigatório se {codAgNoc}(./codAgNoc) = [01.01.001, 01.02.001, 01.03.001, 01.04.001, 01.05.001, 01.06.001, 01.07.001, 01.08.001, 01.09.001, 01.10.001, 01.12.001, 01.13.001, 01.14.001, 01.15.001, 01.16.001, 01.17.001, 01.18.001, 05.01.001].
-                        dscAgNoc: tipos.TS_texto_999,
+                        dscAgNoc: tipos.TS_texto_100,
                         /// Tipo de avaliação do agente nocivo.
+                        /// Validação: Preenchimento obrigatório e exclusivo se {codAgNoc}(./codAgNoc) for diferente de [09.01.001].
                         tpAval: t.union([
                             /// Critério quantitativo
                             t.literal(1),
@@ -154,6 +160,7 @@ export const eSocial = t.type({
                         tecMedicao: t.string,
                         /// EPC e EPI
                         /// DESCRICAO_COMPLETA:Informações relativas a Equipamentos de Proteção Coletiva - EPC e Equipamentos de Proteção Individual - EPI.
+                        /// CONDICAO_GRUPO: N (se {codAgNoc}(../codAgNoc) = [09.01.001]); O (nos demais casos)
                         epcEpi: t.intersection([
                             t.type({
                                 /// O empregador implementa medidas de proteção coletiva (EPC) para eliminar ou reduzir a exposição dos trabalhadores ao agente nocivo?
@@ -176,22 +183,22 @@ export const eSocial = t.type({
                                 ])
                             }),
                             t.partial({
-                                /// Os EPCs são eficazes na neutralização dos riscos ao trabalhador?
+                                /// Os EPCs são eficazes na neutralização do risco ao trabalhador?
                                 /// Validação: Preenchimento obrigatório e exclusivo se {utilizEPC}(./utilizEPC) = [2].
                                 eficEpc: tipos.TS_sim_nao,
-                                /// O EPI é eficaz na neutralização do risco ao trabalhador?
+                                /// Os EPIs são eficazes na neutralização do risco ao trabalhador?
+                                /// Validação: Preenchimento obrigatório e exclusivo se {utilizEPI}(./utilizEPI) = [2].
                                 eficEpi: tipos.TS_sim_nao,
                                 /// EPI.
                                 /// CONDICAO_GRUPO: O (se {utilizEPI}(../utilizEPI) = [2]); N (nos demais casos)
                                 /// CHAVE_GRUPO: {docAval}, {dscEPI}
                                 epi: t.array(t.intersection([
                                     t.type({
+                                        /// Certificado de Aprovação - CA ou documento de avaliação do EPI.
+                                        docAval: tipos.TS_texto_255
                                     }),
                                     t.partial({
-                                        /// Certificado de Aprovação - CA ou documento de avaliação do EPI.
-                                        docAval: tipos.TS_texto_255,
                                         /// Descrição do EPI.
-                                        /// Validação: Preenchimento obrigatório e exclusivo se {docAval}(./docAval) não for informado.
                                         dscEPI: tipos.TS_texto_999
                                     })
                                 ])),
@@ -218,12 +225,16 @@ export const eSocial = t.type({
                 ])),
                 /// Responsável pelos registros ambientais
                 /// DESCRICAO_COMPLETA:Informações relativas ao responsável pelos registros ambientais.
+                /// CHAVE_GRUPO: {cpfResp}
                 respReg: t.array(t.intersection([
                     t.type({
                         /// Preencher com o CPF do responsável pelos registros ambientais.
                         /// Validação: Deve ser um CPF válido.
-                        cpfResp: tipos.TS_cpf,
+                        cpfResp: tipos.TS_cpf
+                    }),
+                    t.partial({
                         /// Órgão de classe ao qual o responsável pelos registros ambientais está vinculado.
+                        /// Validação: Preenchimento obrigatório se {codAgNoc}(../agNoc_codAgNoc) for diferente de [09.01.001].
                         ideOC: t.union([
                             /// Conselho Regional de Medicina - CRM
                             t.literal(1),
@@ -232,19 +243,22 @@ export const eSocial = t.type({
                             /// Outros
                             t.literal(9)
                         ]),
-                        /// Número de inscrição no órgão de classe.
-                        nrOC: t.string,
-                        /// Sigla da Unidade da Federação - UF do órgão de classe.
-                        ufOC: tipos.TS_uf
-                    }),
-                    t.partial({
                         /// Descrição (sigla) do órgão de classe ao qual o responsável pelos registros ambientais está vinculado.
                         /// Validação: Preenchimento obrigatório e exclusivo se {ideOC}(./ideOC) = [9].
-                        dscOC: t.string
+                        dscOC: t.string,
+                        /// Número de inscrição no órgão de classe.
+                        /// Validação: Preenchimento obrigatório se {codAgNoc}(../agNoc_codAgNoc) for diferente de [09.01.001].
+                        nrOC: t.string,
+                        /// Sigla da Unidade da Federação - UF do órgão de classe.
+                        /// Validação: Preenchimento obrigatório se {codAgNoc}(../agNoc_codAgNoc) for diferente de [09.01.001].
+                        ufOC: tipos.TS_uf
                     })
                 ]))
             }),
             t.partial({
+                /// Informar a data em que o trabalhador terminou as atividades nas condições descritas.
+                /// Validação: Preenchimento obrigatório e exclusivo para trabalhador avulso (código de categoria no RET igual a [2XX]) e se {dtIniCondicao}(./dtIniCondicao) for igual ou posterior a [2023-01-16]. Se informada, deve ser uma data válida, igual ou posterior a {dtIniCondicao}(./dtIniCondicao) e igual ou anterior a {dtTerm}(2399_infoTSVTermino_dtTerm) de S-2399, se existente.
+                dtFimCondicao: tipos.date,
                 /// Observações relativas a registros ambientais.
                 /// CONDICAO_GRUPO: OC
                 obs: t.type({

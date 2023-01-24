@@ -15,6 +15,7 @@ export const eSocial = t.type({
     /// REGRA:REGRA_ENVIO_PROC_FECHAMENTO
     /// REGRA:REGRA_EVENTOS_EXTEMP
     /// REGRA:REGRA_EVENTO_EXT_SEM_IMPACTO_FOPAG
+    /// REGRA:REGRA_EVENTO_POSTERIOR_CAT_OBITO
     /// REGRA:REGRA_EXISTE_EVENTO_TSV_INICIO
     /// REGRA:REGRA_EXISTE_INFO_EMPREGADOR
     /// REGRA:REGRA_EXISTE_VINCULO
@@ -29,7 +30,7 @@ export const eSocial = t.type({
         ideEmpregador: tipos.T_ideEmpregador,
         ideVinculo: tipos.T_ideVinculo_sst,
         /// Informações do exame médico ocupacional.
-        /// CHAVE_GRUPO: {tpExameOcup}
+        /// CHAVE_GRUPO: {tpExameOcup*}
         exMedOcup: t.intersection([
             t.type({
                 /// Tipo do exame médico ocupacional.
@@ -41,7 +42,7 @@ export const eSocial = t.type({
                     t.literal(1),
                     /// Exame médico de retorno ao trabalho
                     t.literal(2),
-                    /// Exame médico de mudança de função
+                    /// Exame médico de mudança de função ou de mudança de risco ocupacional
                     t.literal(3),
                     /// Exame médico de monitoração pontual, não enquadrado nos demais casos
                     t.literal(4),
@@ -50,63 +51,69 @@ export const eSocial = t.type({
                 ]),
                 /// ASO
                 /// DESCRICAO_COMPLETA:Detalhamento das informações do Atestado de Saúde Ocupacional - ASO.
-                /// CHAVE_GRUPO: {dtAso}
-                aso: t.type({
-                    /// Data de emissão do ASO.
-                    /// Validação: Deve ser uma data válida, igual ou anterior à data atual e igual ou posterior à data de início da obrigatoriedade deste evento para o empregador no eSocial.
-                    dtAso: tipos.date,
-                    /// Resultado do ASO.
-                    resAso: t.union([
-                        /// Apto
-                        t.literal(1),
-                        /// Inapto
-                        t.literal(2)
-                    ]),
-                    /// Avaliações clínicas e exames complementares realizados
-                    /// DESCRICAO_COMPLETA:Grupo que detalha as avaliações clínicas e os exames complementares porventura realizados pelo trabalhador em virtude do determinado nos Quadros I e II da NR-07, além de outros solicitados pelo médico e os referentes ao ASO.
-                    /// CHAVE_GRUPO: {dtExm}, {procRealizado}
+                /// CHAVE_GRUPO: {dtAso*}
+                aso: t.intersection([
+                    t.type({
+                        /// Data de emissão do ASO.
+                        /// Validação: Deve ser uma data válida, igual ou anterior à data atual e igual ou posterior à data de início da obrigatoriedade deste evento para o empregador no eSocial. Se {tpExameOcup}(../tpExameOcup) for diferente de [0], também deve ser igual ou posterior à data de admissão/exercício ou de início.
+                        dtAso: tipos.date,
+                        /// Avaliações clínicas e exames complementares realizados
+                        /// DESCRICAO_COMPLETA:Grupo que detalha as avaliações clínicas e os exames complementares porventura realizados pelo trabalhador em virtude do determinado nos Anexos da NR-07, além de outros solicitados pelo médico e os referentes ao ASO.
+                        /// CHAVE_GRUPO: {dtExm}, {procRealizado}
                     exame: t.array(t.intersection([
-                        t.type({
-                            /// Data do exame realizado.
-                            /// Validação: Deve ser uma data válida, igual ou anterior à data do ASO informada em {dtAso}(../dtAso).
-                            dtExm: tipos.date,
-                            /// Código do procedimento diagnóstico.
-                            /// Validação: Deve ser um código válido e existente na Tabela 27.
-                            procRealizado: t.string,
-                            /// Ordem do exame.
-                            ordExame: t.union([
-                                /// Inicial
-                                t.literal(1),
-                                /// Sequencial
-                                t.literal(2)
-                            ])
-                        }),
-                        t.partial({
-                            /// Observação sobre o procedimento diagnóstico realizado.
-                            obsProc: tipos.TS_texto_999,
-                            /// Indicação dos resultados.
-                            indResult: t.union([
-                                /// Normal
-                                t.literal(1),
-                                /// Alterado
-                                t.literal(2),
-                                /// Estável
-                                t.literal(3),
-                                /// Agravamento
-                                t.literal(4)
-                            ])
-                        })
-                    ])),
-                    /// Informações sobre o médico emitente do ASO.
-                    medico: t.type({
-                        /// Preencher com o nome do médico emitente do ASO.
-                        nmMed: tipos.TS_nome,
-                        /// Número de inscrição do médico emitente do ASO no Conselho Regional de Medicina - CRM.
+                            t.type({
+                                /// Data do exame realizado.
+                                /// Validação: Deve ser uma data válida, igual ou anterior à data do ASO informada em {dtAso}(../dtAso).
+                                dtExm: tipos.date,
+                                /// Código do procedimento diagnóstico.
+                                /// Validação: Deve ser um código válido e existente na Tabela 27.
+                                procRealizado: t.number
+                            }),
+                            t.partial({
+                                /// Observação sobre o procedimento diagnóstico realizado.
+                                /// Validação: Preenchimento obrigatório se {procRealizado}(./procRealizado) = [0583, 0998, 0999, 1128, 1230, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 9999].
+                                obsProc: tipos.TS_texto_999,
+                                /// Ordem do exame.
+                                /// Validação: Preenchimento obrigatório se {procRealizado}(./procRealizado) = [0281].
+                                ordExame: t.union([
+                                    /// Inicial
+                                    t.literal(1),
+                                    /// Sequencial
+                                    t.literal(2)
+                                ]),
+                                /// Indicação dos resultados.
+                                indResult: t.union([
+                                    /// Normal
+                                    t.literal(1),
+                                    /// Alterado
+                                    t.literal(2),
+                                    /// Estável
+                                    t.literal(3),
+                                    /// Agravamento
+                                    t.literal(4)
+                                ])
+                            })
+                        ])),
+                        /// Informações sobre o médico emitente do ASO.
+                        medico: t.type({
+                            /// Preencher com o nome do médico emitente do ASO.
+                            nmMed: tipos.TS_nome,
+                            /// Número de inscrição do médico emitente do ASO no Conselho Regional de Medicina - CRM.
                         nrCRM: tipos.TS_crm,
-                        /// Preencher com a sigla da Unidade da Federação - UF de expedição do CRM.
+                            /// Preencher com a sigla da Unidade da Federação - UF de expedição do CRM.
                         ufCRM: tipos.TS_uf
+                        })
+                    }),
+                    t.partial({
+                        /// Resultado do ASO.
+                        resAso: t.union([
+                            /// Apto
+                            t.literal(1),
+                            /// Inapto
+                            t.literal(2)
+                        ])
                     })
-                })
+                ])
             }),
             t.partial({
                 /// Informações sobre o médico responsável/coordenador do PCMSO.
