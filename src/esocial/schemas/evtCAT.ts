@@ -68,7 +68,7 @@ export const eSocial = t.type({
                 indComunPolicia: tipos.TS_sim_nao,
                 /// Preencher com o código da situação geradora do acidente ou da doença profissional.
                 /// Validação: Deve ser um código válido e existente na Tabela 15 ou na Tabela 16.
-                codSitGeradora: t.string,
+                codSitGeradora: t.number,
                 /// Iniciativa da CAT.
                 iniciatCAT: t.union([
                     /// Empregador
@@ -143,7 +143,7 @@ export const eSocial = t.type({
                 parteAtingida: t.type({
                     /// Preencher com o código correspondente à parte atingida.
                     /// Validação: Deve ser um código válido e existente na Tabela 13.
-                    codParteAting: t.string,
+                    codParteAting: t.number,
                     /// Lateralidade da(s) parte(s) atingida(s).
                     /// Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, assinalar o lado (direito ou esquerdo). Ex.: Caso o órgão atingido seja perna, apontar qual foi a atingida (perna direita, perna esquerda ou ambas). Se o órgão atingido é único (como, por exemplo, a cabeça), assinalar este campo como não aplicável.
                     lateralidade: t.union([
@@ -162,7 +162,7 @@ export const eSocial = t.type({
                 agenteCausador: t.type({
                     /// Preencher com o código correspondente ao agente causador do acidente.
                     /// Validação: Deve ser um código válido e existente na Tabela 14 ou na Tabela 15.
-                    codAgntCausador: t.string
+                    codAgntCausador: t.number
                 }),
                 /// Atestado médico.
                 /// CONDICAO_GRUPO: OC
@@ -183,28 +183,33 @@ export const eSocial = t.type({
                         indAfast: tipos.TS_sim_nao,
                         /// Preencher com a descrição da natureza da lesão.
                         /// Validação: Deve ser um código válido e existente na Tabela 17.
-                        dscLesao: t.string,
+                        dscLesao: t.number,
                         /// Informar o código da tabela de Classificação Internacional de Doenças - CID.
                         /// Validação: Deve ser preenchido com caracteres alfanuméricos, conforme opções constantes na tabela CID.
                         codCID: t.string,
                         /// Médico/Dentista que emitiu o atestado.
-                        emitente: t.type({
-                            /// Nome do médico/dentista que emitiu o atestado.
-                            nmEmit: tipos.TS_nome,
-                            /// Órgão de classe.
-                            ideOC: t.union([
-                                /// Conselho Regional de Medicina - CRM
-                                t.literal(1),
-                                /// Conselho Regional de Odontologia - CRO
-                                t.literal(2),
-                                /// Registro do Ministério da Saúde - RMS
-                                t.literal(3)
-                            ]),
-                            /// Número de inscrição no órgão de classe.
-                            nrOC: t.string,
-                            /// Sigla da UF do órgão de classe.
-                            ufOC: tipos.TS_uf
-                        })
+                        emitente: t.intersection([
+                            t.type({
+                                /// Nome do médico/dentista que emitiu o atestado.
+                                nmEmit: tipos.TS_nome,
+                                /// Órgão de classe.
+                                ideOC: t.union([
+                                    /// Conselho Regional de Medicina - CRM
+                                    t.literal(1),
+                                    /// Conselho Regional de Odontologia - CRO
+                                    t.literal(2),
+                                    /// Registro do Ministério da Saúde - RMS
+                                    t.literal(3)
+                                ]),
+                                /// Número de inscrição no órgão de classe ou Registro do Ministério da Saúde (RMS).
+                                nrOC: t.string
+                            }),
+                            t.partial({
+                                /// Sigla da UF do órgão de classe.
+                                /// Validação: Preenchimento obrigatório se {ideOC}(./ideOC) = [1, 2].
+                                ufOC: tipos.TS_uf
+                            })
+                        ])
                     }),
                     t.partial({
                         /// Descrição complementar da lesão.
@@ -229,6 +234,13 @@ export const eSocial = t.type({
                 dtObito: tipos.date,
                 /// Observação.
                 obsCAT: tipos.TS_texto_999,
+                /// Último dia trabalhado.
+                /// Validação: Preenchimento obrigatório se {dtAcid}(./dtAcid) >= [2023-01-16]). Se informada, deve ser uma data igual ou anterior à data atual e igual ou posterior à data de admissão do trabalhador.
+                /// Se {tpCat}(./tpCat) = [2], deve ser informada data posterior à data preenchida no evento de CAT anterior, quando informada em {nrRecCatOrig}(./catOrigem_nrRecCatOrig).
+                ultDiaTrab: tipos.date,
+                /// Houve afastamento?
+                /// Validação: Preenchimento obrigatório se {dtAcid}(./dtAcid) >= [2023-01-16]).
+                houveAfast: tipos.TS_sim_nao,
                 /// CAT de origem
                 /// DESCRICAO_COMPLETA:Grupo que indica a CAT anterior, no caso de CAT de reabertura ou de comunicação de óbito.
                 /// CHAVE_GRUPO: {nrRecCatOrig}
