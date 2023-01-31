@@ -67,7 +67,7 @@ export const eSocial = t.type({
                                 dtExm: tipos.date,
                                 /// Código do procedimento diagnóstico.
                                 /// Validação: Deve ser um código válido e existente na Tabela 27.
-                                procRealizado: t.number
+                                procRealizado: t.string
                             }),
                             t.partial({
                                 /// Observação sobre o procedimento diagnóstico realizado.
