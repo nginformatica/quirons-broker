@@ -111,45 +111,49 @@ export const WarehouseReturn = t.type({
 
 export const WarehouseError = t.type({
     Header: HeaderReturn,
-    Content: t.type({
-        ReturnContent: t.union([
-            t.string,
-            t.type({
-                Error: t.string
+    Content: t.intersection([
+        t.type({
+            ProcessingInformation: t.type({
+                Status: t.union([
+                    t.literal('Error'),
+                    t.literal('ERROR'),
+                    t.literal('error')
+                ]),
+                ProcessedOn: t.union([datetime, date]),
+                Details: t.array(t.intersection([
+                    t.type({
+                        Code: t.string,
+                        Message: t.string,
+                    }),
+                    t.partial({
+                        DetailedMessage: nullable(t.string),
+                        HelpUrl: nullable(t.string),
+                        helpUrl: nullable(t.string)
+                    })
+                ]))
+            }),
+            ReceivedMessage: t.type({
+                UUID: t.string,
+                Event: t.union([
+                    t.literal('upsert'),
+                    t.literal('delete'),
+                    t.literal('Upsert'),
+                    t.literal('Delete'),
+                    t.literal('UPSERT'),
+                    t.literal('DELETE')
+                ]),
+                SentBy: t.string
             })
-        ]),
-        ProcessingInformation: t.type({
-            Status: t.union([
-                t.literal('Error'),
-                t.literal('ERROR'),
-                t.literal('error')
-            ]),
-            ProcessedOn: t.union([datetime, date]),
-            Details: t.array(t.intersection([
-                t.type({
-                    Code: t.string,
-                    Message: t.string,
-                }),
-                t.partial({
-                    DetailedMessage: nullable(t.string),
-                    HelpUrl: nullable(t.string),
-                    helpUrl: nullable(t.string)
-                })
-            ]))
         }),
-        ReceivedMessage: t.type({
-            UUID: t.string,
-            Event: t.union([
-                t.literal('upsert'),
-                t.literal('delete'),
-                t.literal('Upsert'),
-                t.literal('Delete'),
-                t.literal('UPSERT'),
-                t.literal('DELETE')
+        t.partial({
+            ReturnContent: t.union([
+                t.string,
+                t.type({
+                    Error: t.string
+                })
             ]),
-            SentBy: t.string
         })
-    })
+    ])
 })
 
 export const WarehouseInfo = t.type({
