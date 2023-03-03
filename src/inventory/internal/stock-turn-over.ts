@@ -18,7 +18,8 @@ export const StockTurnOver = t.intersection([
         erpItemInternalId: t.string,
         erpItem: t.string,
         originMessageId: t.string,
-        sentBy: t.string
+        sentBy: t.string,
+        quantity: t.number
     }),
     t.partial({
         created_at: nullable(datetime),
@@ -54,6 +55,7 @@ export const Converter = {
                 operation: Header.Event,
                 originMessageId: Header.UUID,
                 sentBy: Header.ProductName,
+                quantity: item.Quantity
             })
         })
 
