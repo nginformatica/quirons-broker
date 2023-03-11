@@ -19,21 +19,33 @@ export const Response = metaMessage('eSocialResponse', t.union([
 
 export type Response = t.TypeOf<typeof Response>
 
-export const ESocialRequest = t.type({
-    action: t.union([
-        t.literal('build'),
-        t.literal('validate')
-    ]),
-    message: t.union([
-        dataMessage('evtCAT',            evtCAT),
-        dataMessage('evtMonit',          evtMonit),
-        dataMessage('evtExclusao',       evtExclusao),
-        dataMessage('evtExpRisco',       evtExpRisco),
-        dataMessage('evtInfoEmpregador', evtInfoEmpregador)
-    ])
-})
+export const ESocialVersion = t.union([
+    t.literal('1.0.0'),
+    t.literal('1.1.0'),
+])
+
+export const ESocialRequest = t.intersection([
+    t.type({
+        action: t.union([
+            t.literal('build'),
+            t.literal('validate')
+        ]),
+        message: t.union([
+            dataMessage('evtCAT',            evtCAT),
+            dataMessage('evtMonit',          evtMonit),
+            dataMessage('evtExclusao',       evtExclusao),
+            dataMessage('evtExpRisco',       evtExpRisco),
+            dataMessage('evtInfoEmpregador', evtInfoEmpregador)
+        ])
+    }),
+    t.partial({
+        version: ESocialVersion
+    })
+])
 
 export type ESocialRequest = t.TypeOf<typeof ESocialRequest>
+
+export type ESocialVersion = t.TypeOf<typeof ESocialVersion>
 
 export const Message = t.union([
     Response,
