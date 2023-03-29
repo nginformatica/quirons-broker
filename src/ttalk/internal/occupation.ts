@@ -21,7 +21,8 @@ export const Positions = t.intersection([
         cbo: nullable(cbo),
         activityDetails: nullable(t.string),
         created_at: nullable(datetime),
-        updated_at: nullable(datetime)
+        updated_at: nullable(datetime),
+        observation: nullable(t.string)
     })
 ])
 export type Positions = t.TypeOf<typeof Positions>
