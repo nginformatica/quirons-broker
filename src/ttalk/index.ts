@@ -295,10 +295,16 @@ export const WorkingShift = t.intersection([
 
 export type WorkingShift = t.TypeOf<typeof WorkingShift>
 
-export const Department = t.type({
-    id: t.string,
-    description: t.string
-})
+export const Department = t.intersection([
+    t.type({
+        id: t.string,
+        description: t.string
+    }),
+    t.partial({ 
+        companyId: nullable(t.string),
+        branchId: t.union([t.string, t.null, t.literal(false)])
+    })
+])
 
 export type Department = t.TypeOf<typeof Department>
 
