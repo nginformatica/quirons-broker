@@ -16,6 +16,8 @@ export const Positions = t.intersection([
         erpId: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         erpCompany: nullable(t.string),
+        companyId: nullable(t.string),
+        branchId: t.union([t.string, t.null, t.literal(false)]),
         cbo: nullable(cbo),
         activityDetails: nullable(t.string),
         created_at: nullable(datetime),

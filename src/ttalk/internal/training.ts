@@ -15,6 +15,8 @@ export const Classes = t.intersection([
         erpId: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
         erpCompany: nullable(t.string),
+        companyId: nullable(t.string),
+        branchId: t.union([t.string, t.null, t.literal(false)]),
         eSocialCode: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime)

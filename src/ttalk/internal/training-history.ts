@@ -16,6 +16,8 @@ export const TrainingHistory = t.intersection([
     t.partial({
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
+        companyId: nullable(t.string),
+        branchId: t.union([t.string, t.null, t.literal(false)]),
         trainingDescription: nullable(t.string),
         approval: nullable(t.number),
         completionDate: nullable(datetime),

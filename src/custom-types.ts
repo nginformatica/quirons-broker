@@ -69,8 +69,6 @@ export const cbo = new t.Type<string, string>(
     (u, c) => 
         either.chain(t.string.validate(u, c), s => {
             const isValidCBO = /(\d\d\d\d)-?(\d\.?\d)/.test(s)
-            // @ts-ignore
-            console.log(isValidCBO)
             return !isValidCBO
                 ? t.failure(u, c, '(cbo: string)')
                 : t.success(s)

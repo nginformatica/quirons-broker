@@ -17,6 +17,8 @@ export const Employee = t.intersection([
         erpOccupation: t.string
     }),
     t.partial({
+        companyId: nullable(t.string),
+        branchId: t.union([t.string, t.null, t.literal(false)]),
         workshiftDescription: nullable(t.string),
         costCenterDescription: nullable(t.string),
         occupationDescription: nullable(t.string),
