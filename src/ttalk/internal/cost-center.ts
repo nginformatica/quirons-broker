@@ -16,6 +16,8 @@ export const PayRollCostCenter = t.intersection([
         costCenterCode: nullable(t.string),
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
+        companyId: nullable(t.string),
+        branchId: t.union([t.string, t.null, t.literal(false)]),
         erpId: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime)

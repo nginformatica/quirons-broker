@@ -17,6 +17,8 @@ export const FunctionalHistory = t.intersection([
     t.partial({
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
+        companyId: nullable(t.string),
+        branchId: t.union([t.string, t.null, t.literal(false)]),
         costCenterDescription: nullable(t.string),
         erpDepartment: nullable(t.string),
         departmentDescription: nullable(t.string),

@@ -17,6 +17,8 @@ export const Person = t.intersection([
     t.partial({
         erpCompany: nullable(t.string),
         erpBranch: t.union([t.string, t.null, t.literal(false)]),
+        companyId: nullable(t.string),
+        branchId: t.union([t.string, t.null, t.literal(false)]),
         socialName: nullable(t.string),
         registration: nullable(t.string),
         rg: nullable(t.string),
