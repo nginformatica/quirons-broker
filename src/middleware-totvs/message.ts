@@ -51,7 +51,7 @@ export const PostResponseMessage = t.type({
         })
     ])),
     // Número de registros enviados no POST.
-    keyAmount: t.number
+    keyAmount: t.union([t.number, t.string])
 })
 
 export type PostResponseMessage = t.TypeOf<typeof PostResponseMessage>
