@@ -99,7 +99,7 @@ export const GetResponseMessage = t.type({
             // Descrição do status no TAF, atributo exibido somente quando proccessed for igual a true.
             statusDescription: t.string,
             // Agrupa todos os erros de transmissão retornados do Governo para o TAF. Os erros são listados por streamingErrorCode e streamingErrorDetail.
-            streamingErrorDetail: t.array(t.partial({
+            streamingErrors: t.array(t.partial({
                 // Código do erro retornado pelo Governo para o TAF, após transmissão do registro.
                 streamingErrorCode: t.string,
                 // Descrição do erro retornado pelo Governo para o TAF, após transmissão do registro.
