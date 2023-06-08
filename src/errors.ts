@@ -12,7 +12,8 @@ const ErrorCodeKey = t.keyof({
     REQUIRED_BRANCH_ID: null,
     REQUIRED_ID_PARAMETER: null,
     BAD_REQUEST: null,
-    DECODED_ERROR: null
+    DECODED_ERROR: null,
+    TOO_MANY_REQUESTS: null
 })
 
 type ErrorCode = t.TypeOf<typeof ErrorCodeKey>
@@ -68,6 +69,11 @@ const errorInfoWith = (payload = ''): Record<ErrorCode, ErrorInfo> => ({
         status: 400,
         message: 'Decoded error message',
         detailedMessage: 'The message sent is outside the established format'
+    },
+    TOO_MANY_REQUESTS: {
+        status: 429,
+        message: 'Too many requests',
+        detailedMessage: 'You have exceeded the request limits, please wait and try again later.'
     }
 })
 
