@@ -107,7 +107,7 @@ const StockTurnOver = t.intersection([
 export const StockTurnOverReturn = t.type({
     Header: HeaderReturn,
     Content: t.type({
-        ReturnContent: t.type({
+        ReturnContent: t.partial({
             ListOfInternalId: t.array(t.type({
                 Destination: t.string,
                 Name: t.string,
