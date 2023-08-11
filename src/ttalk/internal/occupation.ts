@@ -44,7 +44,7 @@ export const Converter = {
             erpBranch: data.branchId || false,
             erpId: data.positionCode,
             description: data.name,
-            cbo: data.cbo || undefined,
+            cbo: data.cbo?.replace('-', '') || undefined,
             activityDetails: data.activityDetails || undefined
         }
     }
