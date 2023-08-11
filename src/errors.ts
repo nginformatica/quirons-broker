@@ -2,6 +2,8 @@ import { Either } from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 import { PathReporter } from 'io-ts/lib/PathReporter'
 
+type Language = 'en' | 'ptBR'
+
 // Recomendation of io-ts docs to create an union of literal strings
 const ErrorCodeKey = t.keyof({
     ENTITY_ALREADY_EXIST: null,
@@ -24,56 +26,123 @@ interface ErrorInfo {
     message: string
 }
 
-const errorInfoWith = (payload = ''): Record<ErrorCode, ErrorInfo> => ({
+const englishMessages: Record<ErrorCode, string> = {
+    ENTITY_ALREADY_EXIST: `The provided entity already exists`,
+    ENTITY_DOES_NOT_EXIST: 'The provided entity doesn\'t exist',
+    BAD_REQUEST: 'An error has occurred in the request data processing.',
+    VALIDATION_ERROR: 'The provided body data has an invalid format.',
+    INTERNAL_SERVER_ERROR: 'Unexpected error',
+    UNAUTHENTICATED: 'You must provide the correct credentials and branchId to access this resource',
+    REQUIRED_BRANCH_ID: 'You must provide a branchId as query parameter (?branchId=...)',
+    REQUIRED_ID_PARAMETER: 'The id parameter is required for the specified method',
+    DECODED_ERROR: 'The message sent is outside the established format',
+    TOO_MANY_REQUESTS: 'You have exceeded the request limits, please wait and try again later.'
+}
+
+const brazilianPortugueseMessages: Record<ErrorCode, string> = {
+    ENTITY_ALREADY_EXIST: `A entidade fornecida já existe`,
+    ENTITY_DOES_NOT_EXIST: 'A entidade fornecida não existe',
+    BAD_REQUEST: 'Ocorreu um erro ao processar as informações da requisição.',
+    VALIDATION_ERROR: 'As informações do corpo da mensagem possuem um formato inválido.',
+    INTERNAL_SERVER_ERROR: 'Erro inesperado.',
+    UNAUTHENTICATED: 'Você deve informar as credenciais corretas de acesso (usuário e senha) e possuir acesso a filial desejada',
+    REQUIRED_BRANCH_ID: 'Você deve informar o branchId como parâmetro de busca (?branchId=...)',
+    REQUIRED_ID_PARAMETER: 'O id é um parâmetro obrigatório neste método específico',
+    DECODED_ERROR: 'A mensagem enviada está fora dos padrões estabelecidos',
+    TOO_MANY_REQUESTS: 'Você excedeu o limite de requisições, por favor aguarde e tente novamente mais tarde.'
+}
+
+const getMessage = (language: Language) => {
+    if (language === 'ptBR') {
+        return brazilianPortugueseMessages
+    }
+
+    return englishMessages
+}
+const getDetailedMessage = (payload: string, language: Language) => {
+    const englisDetailedhMessages: Record<ErrorCode, string> = {
+        ENTITY_ALREADY_EXIST:  `Already exists an entity (${payload}) with the provided id`,
+        ENTITY_DOES_NOT_EXIST:  `Doesn't exist the entity (${payload}) with the specified id`,
+        BAD_REQUEST:  `It was returned the following message: "${payload}"`,
+        VALIDATION_ERROR:  `${payload || 'A Validation error has occurred, verify the body data format'}`,
+        INTERNAL_SERVER_ERROR:  englishMessages['INTERNAL_SERVER_ERROR'],
+        UNAUTHENTICATED:  englishMessages['UNAUTHENTICATED'],
+        REQUIRED_BRANCH_ID:  englishMessages['REQUIRED_BRANCH_ID'],
+        REQUIRED_ID_PARAMETER:  englishMessages['REQUIRED_ID_PARAMETER'],
+        DECODED_ERROR:  englishMessages['DECODED_ERROR'],
+        TOO_MANY_REQUESTS:  englishMessages['TOO_MANY_REQUESTS']
+    }
+    
+    const brazilianPortugueseDetailedMessages: Record<ErrorCode, string> = {
+        ENTITY_ALREADY_EXIST:  `Já existe uma entidade (${payload}) com o id informado`,
+        ENTITY_DOES_NOT_EXIST:  `Não existe a entidade (${payload}) com o id informado`,
+        BAD_REQUEST:  `Foi retornada a seguinte mensagem: "${payload}"`,
+        VALIDATION_ERROR:  `${payload || 'Ocorreu um erro de validação, verifique o formato das informações do corpo da mensagem'}`,
+        INTERNAL_SERVER_ERROR: brazilianPortugueseMessages['INTERNAL_SERVER_ERROR'],
+        UNAUTHENTICATED: brazilianPortugueseMessages['UNAUTHENTICATED'],
+        REQUIRED_BRANCH_ID: brazilianPortugueseMessages['REQUIRED_BRANCH_ID'],
+        REQUIRED_ID_PARAMETER: brazilianPortugueseMessages['REQUIRED_ID_PARAMETER'],
+        DECODED_ERROR: brazilianPortugueseMessages['DECODED_ERROR'],
+        TOO_MANY_REQUESTS: brazilianPortugueseMessages['TOO_MANY_REQUESTS']
+    }
+
+    if (language === 'ptBR') {
+        return brazilianPortugueseDetailedMessages
+    }
+
+    return englisDetailedhMessages
+}
+
+const errorInfoWith = (payload = '', language: Language = 'en'): Record<ErrorCode, ErrorInfo> => ({
     ENTITY_ALREADY_EXIST: {
         status: 400,
-        detailedMessage: `Already exists an entity (${payload}) with the provided id`,
-        message: `The provided entity already exists`
+        message: getMessage(language)['ENTITY_ALREADY_EXIST'],
+        detailedMessage: getDetailedMessage(payload, language)['ENTITY_ALREADY_EXIST']
     },
     ENTITY_DOES_NOT_EXIST: {
         status: 404,
-        detailedMessage: `Doesn't exist the entity (${payload}) with the specified id`,
-        message: 'The provided entity doesn\'t exist'
+        message: getMessage(language)['ENTITY_DOES_NOT_EXIST'],
+        detailedMessage: getDetailedMessage(payload, language)['ENTITY_DOES_NOT_EXIST']
     },
     BAD_REQUEST: {
         status: 400,
-        detailedMessage: `It was returned the following message: "${payload}"`,
-        message: 'An error has occurred in the request data processing.'
+        message: getMessage(language)['BAD_REQUEST'],
+        detailedMessage: getDetailedMessage(payload, language)['BAD_REQUEST']
     },
     VALIDATION_ERROR: {
         status: 400,
-        detailedMessage: `${payload || 'A Validation error has occurred, verify the body data format'}`,
-        message: 'The provided body data has an invalid format.'
+        message: getMessage(language)['VALIDATION_ERROR'],
+        detailedMessage: getDetailedMessage(payload, language)['VALIDATION_ERROR']
     },
     INTERNAL_SERVER_ERROR: {
         status: 500,
-        message: 'An unexpected error has occurred in the request processing',
-        detailedMessage: 'Unexpected error'
+        message: getMessage(language)['INTERNAL_SERVER_ERROR'],
+        detailedMessage: getDetailedMessage(payload, language)['INTERNAL_SERVER_ERROR']
     },
     UNAUTHENTICATED: {
         status: 401,
-        message: 'Unauthenticated',
-        detailedMessage: 'You must provide the correct credentials and branchId to access this resource'
+        message: getMessage(language)['UNAUTHENTICATED'],
+        detailedMessage: getDetailedMessage(payload, language)['UNAUTHENTICATED']
     },
     REQUIRED_BRANCH_ID: {
         status: 400,
-        message: 'The branchId query parameter is required',
-        detailedMessage: 'You must provide a branchId as query parameter (?branchId=...)'
+        message: getMessage(language)['REQUIRED_BRANCH_ID'],
+        detailedMessage: getDetailedMessage(payload, language)['REQUIRED_BRANCH_ID']
     },
     REQUIRED_ID_PARAMETER: {
         status: 400,
-        message: 'The id parameter is required',
-        detailedMessage: 'The id parameter is required for the specified method'
+        message: getMessage(language)['REQUIRED_ID_PARAMETER'],
+        detailedMessage: getDetailedMessage(payload, language)['REQUIRED_ID_PARAMETER']
     },
     DECODED_ERROR: {
         status: 400,
-        message: 'Decoded error message',
-        detailedMessage: 'The message sent is outside the established format'
+        message: getMessage(language)['DECODED_ERROR'],
+        detailedMessage: getDetailedMessage(payload, language)['DECODED_ERROR']
     },
     TOO_MANY_REQUESTS: {
         status: 429,
-        message: 'Too many requests',
-        detailedMessage: 'You have exceeded the request limits, please wait and try again later.'
+        message: getMessage(language)['TOO_MANY_REQUESTS'],
+        detailedMessage: getDetailedMessage(payload, language)['TOO_MANY_REQUESTS']
     }
 })
 
@@ -85,9 +154,9 @@ class APIError extends Error {
     readonly detailedMessage: string
     readonly usedPayload?: string
 
-    constructor(errorCode: ErrorCode, payload = '') {
+    constructor(errorCode: ErrorCode, payload = '', language: Language = 'en') {
         const { status, message, detailedMessage } =
-            errorInfoWith(payload)[errorCode]
+            errorInfoWith(payload, language)[errorCode]
 
         super(message)
         this.code = errorCode
@@ -121,7 +190,10 @@ class APIBadRequestError extends APIError {
 
 }
 
-const raiseErrorFromDecode = <T>(result: Either<t.Errors, T>) => {
+const raiseErrorFromDecode = <T>(
+    result: Either<t.Errors, T>,
+    language: Language = 'en'
+) => {
     const errors = PathReporter.report(result)
     const left = result._tag === 'Left' ? result.left : []
     const attributes: string[] = []
@@ -159,8 +231,11 @@ const raiseErrorFromDecode = <T>(result: Either<t.Errors, T>) => {
     const attributesDetails = attributes.join(', ')
 
     const s = attributes.length > 1 ? 's' : ''
+    const es = attributes.length > 1 ? 'es' : ''
 
-    const message = `Invalid or missing value${s} for the attribute${s}: `
+    const message = language == 'ptBR' 
+        ? `Valor${es} inválido${s} ou faltante${s} para o${s} atributo${s}:`
+        : `Invalid or missing value${s} for the attribute${s}: `
         + `${attributesDetails}`
 
     throw new APIValidationError(message)
