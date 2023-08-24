@@ -2,7 +2,11 @@ import { Either } from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 import { PathReporter } from 'io-ts/lib/PathReporter'
 
-type Language = 'en' | 'pt-BR'
+const Language = t.union([
+    t.literal('en-US'),
+    t.literal('pt-BR')
+])
+type Language = t.TypeOf<typeof Language>
 
 // Recomendation of io-ts docs to create an union of literal strings
 const ErrorCodeKey = t.keyof({
@@ -93,7 +97,7 @@ const getDetailedMessage = (payload: string, language: Language) => {
     return englisDetailedhMessages
 }
 
-const errorInfoWith = (payload = '', language: Language = 'en'): Record<ErrorCode, ErrorInfo> => ({
+const errorInfoWith = (payload = '', language: Language = 'en-US'): Record<ErrorCode, ErrorInfo> => ({
     ENTITY_ALREADY_EXIST: {
         status: 400,
         message: getMessage(language)['ENTITY_ALREADY_EXIST'],
@@ -154,7 +158,7 @@ class APIError extends Error {
     readonly detailedMessage: string
     readonly usedPayload?: string
 
-    constructor(errorCode: ErrorCode, payload = '', language: Language = 'en') {
+    constructor(errorCode: ErrorCode, payload = '', language: Language = 'en-US') {
         const { status, message, detailedMessage } =
             errorInfoWith(payload, language)[errorCode]
 
@@ -176,7 +180,7 @@ class APIError extends Error {
 
 class APIValidationError extends APIError {
 
-    constructor(payload?: string, language: Language = 'en') {
+    constructor(payload?: string, language: Language = 'en-US') {
         super('VALIDATION_ERROR', payload, language)
     }
 
@@ -184,7 +188,7 @@ class APIValidationError extends APIError {
 
 class APIBadRequestError extends APIError {
 
-    constructor(payload?: string, language: Language = 'en') {
+    constructor(payload?: string, language: Language = 'en-US') {
         super('BAD_REQUEST', payload, language)
     }
 
@@ -192,7 +196,7 @@ class APIBadRequestError extends APIError {
 
 const raiseErrorFromDecode = <T>(
     result: Either<t.Errors, T>,
-    language: Language = 'en'
+    language: Language = 'en-US'
 ) => {
     const errors = PathReporter.report(result)
     const left = result._tag === 'Left' ? result.left : []
