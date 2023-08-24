@@ -2,7 +2,7 @@ import { Either } from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 import { PathReporter } from 'io-ts/lib/PathReporter'
 
-type Language = 'en' | 'ptBR'
+type Language = 'en' | 'pt-BR'
 
 // Recomendation of io-ts docs to create an union of literal strings
 const ErrorCodeKey = t.keyof({
@@ -53,7 +53,7 @@ const brazilianPortugueseMessages: Record<ErrorCode, string> = {
 }
 
 const getMessage = (language: Language) => {
-    if (language === 'ptBR') {
+    if (language === 'pt-BR') {
         return brazilianPortugueseMessages
     }
 
@@ -86,7 +86,7 @@ const getDetailedMessage = (payload: string, language: Language) => {
         TOO_MANY_REQUESTS: brazilianPortugueseMessages['TOO_MANY_REQUESTS']
     }
 
-    if (language === 'ptBR') {
+    if (language === 'pt-BR') {
         return brazilianPortugueseDetailedMessages
     }
 
@@ -176,16 +176,16 @@ class APIError extends Error {
 
 class APIValidationError extends APIError {
 
-    constructor(payload?: string) {
-        super('VALIDATION_ERROR', payload)
+    constructor(payload?: string, language: Language = 'en') {
+        super('VALIDATION_ERROR', payload, language)
     }
 
 }
 
 class APIBadRequestError extends APIError {
 
-    constructor(payload?: string) {
-        super('BAD_REQUEST', payload)
+    constructor(payload?: string, language: Language = 'en') {
+        super('BAD_REQUEST', payload, language)
     }
 
 }
@@ -233,7 +233,7 @@ const raiseErrorFromDecode = <T>(
     const s = attributes.length > 1 ? 's' : ''
     const es = attributes.length > 1 ? 'es' : ''
 
-    const message = language == 'ptBR' 
+    const message = language == 'pt-BR' 
         ? `Valor${es} inválido${s} ou faltante${s} para o${s} atributo${s}:`
         : `Invalid or missing value${s} for the attribute${s}: `
         + `${attributesDetails}`
