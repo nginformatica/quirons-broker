@@ -68,6 +68,10 @@ export const cbo = new t.Type<string, string>(
     (u): u is string => /(\d\d\d\d)-?(\d\.?\d)/.test(u as string),
     (u, c) => 
         either.chain(t.string.validate(u, c), s => {
+            if (s.trim() === '') {
+                return t.success(s)
+            }
+
             const isValidCBO = /(\d\d\d\d)-?(\d\.?\d)/.test(s)
             return !isValidCBO
                 ? t.failure(u, c, '(cbo: string)')
