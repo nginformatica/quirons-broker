@@ -29,7 +29,10 @@ export const Warehouse = t.intersection([
             t.literal('Upsert'),
             t.literal('Delete'),
             t.literal('UPSERT'),
-            t.literal('DELETE')
+            t.literal('DELETE'),
+            t.literal('LocalEstoque.Incluido'),
+            t.literal('LocalEstoque.Alterado'),
+            t.literal('LocalEstoque.Excluído')
         ])
     })
 ])

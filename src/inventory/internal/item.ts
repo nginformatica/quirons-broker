@@ -36,7 +36,10 @@ export const Item = t.intersection([
             t.literal('Upsert'),
             t.literal('Delete'),
             t.literal('UPSERT'),
-            t.literal('DELETE')
+            t.literal('DELETE'),
+            t.literal('Produto.Incluido'),
+            t.literal('Produto.Alterado'),
+            t.literal('Produto.Excluído')
         ])
     })
 ])
