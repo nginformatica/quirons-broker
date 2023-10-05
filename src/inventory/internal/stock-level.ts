@@ -32,7 +32,8 @@ export const StockLevel = t.intersection([
             t.literal('Upsert'),
             t.literal('Delete'),
             t.literal('UPSERT'),
-            t.literal('DELETE')
+            t.literal('DELETE'),
+            t.literal('Produto.MovimentacaoEstoque')
         ])
     })
 ])
