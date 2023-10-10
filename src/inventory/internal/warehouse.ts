@@ -32,7 +32,7 @@ export const Warehouse = t.intersection([
             t.literal('DELETE'),
             t.literal('LocalEstoque.Incluido'),
             t.literal('LocalEstoque.Alterado'),
-            t.literal('LocalEstoque.Excluído')
+            t.literal('LocalEstoque.Excluido')
         ])
     })
 ])
