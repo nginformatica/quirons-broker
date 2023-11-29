@@ -158,6 +158,7 @@ export const eSocial = t.type({
                         /// Técnica utilizada para medição da intensidade ou concentração.
                         /// Validação: Preenchimento obrigatório e exclusivo se {tpAval}(./tpAval) = [1].
                         tecMedicao: t.string,
+                        nrProcJud: t.string,
                         /// EPC e EPI
                         /// DESCRICAO_COMPLETA:Informações relativas a Equipamentos de Proteção Coletiva - EPC e Equipamentos de Proteção Individual - EPI.
                         /// CONDICAO_GRUPO: N (se {codAgNoc}(../codAgNoc) = [09.01.001]); O (nos demais casos)
