@@ -22,6 +22,7 @@ export type Response = t.TypeOf<typeof Response>
 export const ESocialVersion = t.union([
     t.literal('1.0.0'),
     t.literal('1.1.0'),
+    t.literal('1.2.0'),
 ])
 
 export const ESocialRequest = t.intersection([
