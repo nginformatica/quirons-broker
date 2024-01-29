@@ -48,9 +48,23 @@ export const ESocialSend = t.type({
     message: t.string
 })
 
+export const ESocialSendResponse = t.type({
+    protocol: t.string
+})
+
 export const ESocialQuery = t.type({
     protocol: t.string
 })
+
+export const ESocialQueryResponse = t.intersection([
+    t.type({
+        protocol: t.string
+    }),
+    t.partial({
+        errors: t.array(t.string),
+        receiptNumber: t.string
+    })
+])
 
 export type ESocialRequest = t.TypeOf<typeof ESocialRequest>
 
@@ -58,13 +72,26 @@ export type ESocialVersion = t.TypeOf<typeof ESocialVersion>
 
 export type ESocialSend = t.TypeOf<typeof ESocialSend>
 
+export type ESocialSendResponse = t.TypeOf<typeof ESocialSendResponse>
+
 export type ESocialQuery = t.TypeOf<typeof ESocialQuery>
+
+export type ESocialQueryResponse = t.TypeOf<typeof ESocialQueryResponse>
 
 export const Message = t.union([
     Response,
     userMessage('eSocial', ESocialRequest),
     userMessage('sendGov', ESocialSend),
-    userMessage('getGov', ESocialQuery)
+    userMessage('getGov', ESocialQuery),
+    userMessage('responseGov', t.union([
+        ESocialSendResponse,
+        ESocialQueryResponse
+    ])),
+    t.type({
+        // This should match the tag above
+        kind: t.literal('responseTAF'),
+        errorMessage: t.string
+    })
 ])
 
 export type Message = t.TypeOf<typeof Message>
