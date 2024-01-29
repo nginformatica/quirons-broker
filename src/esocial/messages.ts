@@ -44,13 +44,27 @@ export const ESocialRequest = t.intersection([
     })
 ])
 
+export const ESocialSend = t.type({
+    message: t.string
+})
+
+export const ESocialQuery = t.type({
+    protocol: t.string
+})
+
 export type ESocialRequest = t.TypeOf<typeof ESocialRequest>
 
 export type ESocialVersion = t.TypeOf<typeof ESocialVersion>
 
+export type ESocialSend = t.TypeOf<typeof ESocialSend>
+
+export type ESocialQuery = t.TypeOf<typeof ESocialQuery>
+
 export const Message = t.union([
     Response,
-    userMessage('eSocial', ESocialRequest)
+    userMessage('eSocial', ESocialRequest),
+    userMessage('sendGov', ESocialSend),
+    userMessage('getGov', ESocialQuery)
 ])
 
 export type Message = t.TypeOf<typeof Message>
