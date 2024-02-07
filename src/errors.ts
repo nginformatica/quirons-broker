@@ -248,6 +248,7 @@ const raiseErrorFromDecode = <T>(
 
     const message = language == 'pt-BR' 
         ? `Valor${es} inválido${s} ou faltante${s} para o${s} atributo${s}:`
+        + `${attributesDetails}`
         : `Invalid or missing value${s} for the attribute${s}: `
         + `${attributesDetails}`
 
