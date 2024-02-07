@@ -2,7 +2,7 @@ import * as t from 'io-ts'
 
 import * as ttalk from '../'
 import { cbo, datetime, nullable } from '../../custom-types'
-import { raiseErrorFromDecode } from '../../errors'
+import { raiseErrorFromDecode, Language } from '../../errors'
 
 /**
  * Our internal model for occupations.
@@ -31,11 +31,14 @@ export type Positions = t.TypeOf<typeof Positions>
  * Standard message converter.
  */
 export const Converter = {
-    fromTTalk(data: ttalk.PositionInfo): Positions {
+    fromTTalk(
+        data: ttalk.PositionInfo,
+        language: Language = 'en-US'
+    ): Positions {
         const result = ttalk.PositionInfo.decode(data)
 
         if (result._tag === 'Left') {
-            throw raiseErrorFromDecode(result)
+            throw raiseErrorFromDecode(result, language)
         }
 
         return {

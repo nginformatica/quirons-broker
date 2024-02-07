@@ -89,7 +89,7 @@ export const Message = t.union([
     ])),
     t.type({
         // This should match the tag above
-        kind: t.literal('responseTAF'),
+        kind: t.literal('responseGov'),
         errorMessage: t.string
     })
 ])
