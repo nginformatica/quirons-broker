@@ -2,11 +2,11 @@ import { Either } from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 import { PathReporter } from 'io-ts/lib/PathReporter'
 
-const Language = t.union([
+export const Language = t.union([
     t.literal('en-US'),
     t.literal('pt-BR')
 ])
-type Language = t.TypeOf<typeof Language>
+export type Language = t.TypeOf<typeof Language>
 
 // Recomendation of io-ts docs to create an union of literal strings
 const ErrorCodeKey = t.keyof({
@@ -206,11 +206,16 @@ const raiseErrorFromDecode = <T>(
     for (let index = 0; index < errors.length; index++) {
         const error = errors[index]
         const message = left.length >= index ? left[index].message : undefined
+        const value = left.length >= index ? left[index].value : undefined
         // 'Invalid value undefined supplied to... /id: string'
         // It will match 'id' and 'string'
 
         if (message) {
-            attributes.push(message)
+            attributes.push(
+                value
+                    ? `${message} - ${value}`
+                    : message
+            )
         } else {
             const [, attribute, type] =
                 error.match(/.+\/(.+): (.+)$/) || []
@@ -223,7 +228,11 @@ const raiseErrorFromDecode = <T>(
                 continue
             }
     
-            attributes.push(`(${attribute}: ${type})`)
+            attributes.push(
+                value
+                    ? `(${attribute}: ${type}) - ${value}`
+                    : `(${attribute}: ${type})`
+            )
         }
     }
 
