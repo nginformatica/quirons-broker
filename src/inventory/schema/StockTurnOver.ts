@@ -69,8 +69,6 @@ const StockTurnoverItem = t.intersection([
     t.type({
         InternalId: t.string,
         ItemInternalId: t.string,
-        UnitPrice: t.number,
-        TotalPrice: t.number,
         Quantity: t.number,
         UnitOfMeasureInternalId: t.string,
         WarehouseInternalId: t.string,
@@ -80,7 +78,9 @@ const StockTurnoverItem = t.intersection([
         EmissionDate: t.union([datetime, date, t.null]),
         Code: nullable(t.string),
         CostCenterInternalId: nullable(t.string),
-        CostCenterCode: nullable(t.string)
+        CostCenterCode: nullable(t.string),
+        UnitPrice: nullable(t.number),
+        TotalPrice: nullable(t.number)
     })
 ])
 
