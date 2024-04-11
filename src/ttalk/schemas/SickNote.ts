@@ -50,7 +50,9 @@ export const SickNoteInfo = t.intersection([
         /** Data de Previsão de Termino do Benefício */
         expectedEndDate: datetime,
         /** */
-        numberOfBenefit: t.string
+        numberOfBenefit: t.string,
+        /** Chave única do registro */
+        erpId: t.string
     })
 ])
 export type SickNoteInfo = t.TypeOf<typeof SickNoteInfo>

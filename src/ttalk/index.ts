@@ -17,6 +17,18 @@ import { cbo, datetime, nullable } from '../custom-types'
 import { SickNoteInfo } from './schemas/SickNote'
 import { MedicalConsultationInfo } from './schemas/MedicalConsultation'
 
+/** SST imports informations */
+import { AccreditedInfo } from './schemas/Accredited'
+import { ClinicalQuizInfo } from './schemas/ClinicalQuiz'
+import { DeficienciesInfo } from './schemas/Deficiencies'
+import { DocumentInfo } from './schemas/Document'
+import { IpeDeliveryInfo } from './schemas/IpeDelivery'
+import { MedicalRecordInfo  } from './schemas/MedicalRecord'
+import { OccupationInfo } from './schemas/Occupation'
+import { QuizInfo } from './schemas/Quiz'
+import { RiskInfo } from './schemas/Risk'
+import { VaccineInfo } from './schemas/Vaccine'
+
 /**
  * An object as returned by TOTVS' TTalk API.
  */
@@ -35,7 +47,17 @@ export const Object = t.union([
     StabilityControlInfo,
     AllowanceInfo,
     SickNoteInfo,
-    MedicalConsultationInfo
+    MedicalConsultationInfo,
+    AccreditedInfo,
+    ClinicalQuizInfo,
+    DeficienciesInfo,
+    DocumentInfo,
+    IpeDeliveryInfo,
+    MedicalRecordInfo,
+    OccupationInfo,
+    QuizInfo,
+    RiskInfo,
+    VaccineInfo
 ])
 export type Object = t.TypeOf<typeof Object>
 
@@ -83,7 +105,17 @@ export {
     StabilityControlInfo,
     TrainingNecessityInfo,
     SickNoteInfo,
-    MedicalConsultationInfo
+    MedicalConsultationInfo,
+    AccreditedInfo,
+    ClinicalQuizInfo,
+    DeficienciesInfo,
+    DocumentInfo,
+    IpeDeliveryInfo,
+    MedicalRecordInfo,
+    OccupationInfo,
+    QuizInfo,
+    RiskInfo,
+    VaccineInfo,
 }
 
 /**
@@ -327,3 +359,24 @@ export type SickNote = t.TypeOf<typeof SickNote>
 export const MedicalConsultation = MedicalConsultationInfo
 
 export type MedicalConsultation = t.TypeOf<typeof MedicalConsultation>
+
+export const Accredited = AccreditedInfo
+export type Accredited = t.TypeOf<typeof Accredited>
+export const ClinicalQuiz = ClinicalQuizInfo
+export type ClinicalQuiz = t.TypeOf<typeof ClinicalQuiz>
+export const Deficiencies = DeficienciesInfo
+export type Deficiencies = t.TypeOf<typeof Deficiencies>
+export const Document = DocumentInfo
+export type Document = t.TypeOf<typeof Document>
+export const IpeDelivery = IpeDeliveryInfo
+export type IpeDelivery = t.TypeOf<typeof IpeDelivery>
+export const MedicalRecord = MedicalRecordInfo
+export type MedicalRecord = t.TypeOf<typeof MedicalRecord>
+export const SSTOccupation = OccupationInfo
+export type SSTOccupation = t.TypeOf<typeof SSTOccupation>
+export const Quiz = QuizInfo
+export type Quiz = t.TypeOf<typeof Quiz>
+export const Risk = RiskInfo
+export type Risk = t.TypeOf<typeof Risk>
+export const Vaccine = VaccineInfo
+export type Vaccine = t.TypeOf<typeof Vaccine>
