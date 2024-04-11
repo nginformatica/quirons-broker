@@ -20,7 +20,22 @@ import { InformationDeficienciesInfo } from './schemas/InformationDeficiencies'
 import { LeaveOfAbsenceInfo } from './schemas/LeaveOfAbsenceControl_1_000'
 import { StabilityControlInfo } from './schemas/StabilityControl_1_000'
 import { TrainingNecessityInfo } from './schemas/TrainingNecessity_1_000'
-import { Department, MedicalConsultation, Position, SickNote } from './index'
+import {
+    Department,
+    MedicalConsultation,
+    Position,
+    SickNote,
+    Accredited,
+    ClinicalQuiz,
+    Deficiencies,
+    Document,
+    IpeDelivery,
+    MedicalRecord,
+    SSTOccupation,
+    Quiz,
+    Risk,
+    Vaccine
+} from './index'
 import {
     userMessage,
     metaMessage,
@@ -77,7 +92,17 @@ export const BusinessMessage = t.union([
     userMessage('department',          t.array(Department)),
     userMessage('position',            t.array(Position)),
     userMessage('sicknote',            t.array(SickNote)),
-    userMessage('medicalconsultation', t.array(MedicalConsultation))
+    userMessage('medicalconsultation', t.array(MedicalConsultation)),
+    userMessage('accredited',          t.array(Accredited)),
+    userMessage('clinicalquiz',        t.array(ClinicalQuiz)),
+    userMessage('deficiencies',        t.array(Deficiencies)),
+    userMessage('document',            t.array(Document)),
+    userMessage('ipedelivery',         t.array(IpeDelivery)),
+    userMessage('medicalrecord',       t.array(MedicalRecord)),
+    userMessage('sstoccupation',       t.array(SSTOccupation)),
+    userMessage('quiz',                t.array(Quiz)),
+    userMessage('risk',                t.array(Risk)),
+    userMessage('vaccine',             t.array(Vaccine)),
     
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>

@@ -33,8 +33,15 @@ export const ExpandablesType = t.partial({
 })
 export type ExpandablesType = t.TypeOf<typeof ExpandablesType>
 
-export const Paging = t.type({
-  hasNext: t.boolean
-})
+export const Paging = t.intersection([
+  t.type({
+    hasNext: t.boolean
+  }),
+  t.partial({
+    totalAmount: t.number,
+    amount: t.number,
+  })
+])
+
 export type Paging = t.TypeOf<typeof Paging>
 
