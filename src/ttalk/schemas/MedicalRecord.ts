@@ -17,10 +17,12 @@ export const MedicalRecordInfo = t.intersection([
         candidate: t.boolean,
         /** Nome do Prontuário */
         name: t.string,
+        /** CPF do candidato */
+        individualRegistration: t.string,
         /** Indica se é doardo de sangue */
         bloodDonator: t.boolean,
         /** Indica o tipo sanguíneo */
-        type: t.union([
+        bloodType: t.union([
             t.literal(0),
             t.literal(1),
             t.literal(2),

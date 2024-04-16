@@ -26,14 +26,14 @@ export const DeficienciesInfo = t.intersection([
         ]),
         /** Data de Início da Deficiência */
         date: datetime,
-        /** Data de Recuperação da Deficiência */
-        recoveryDate: datetime,
     }),
     t.partial({
         /** C.I.D. */
         icd: t.string,
         /** Observações */
         observation: t.string,
+        /** Data de Recuperação da Deficiência */
+        recoveryDate: datetime,
     })
 ])
 export type DeficienciesInfo = t.TypeOf<typeof DeficienciesInfo>

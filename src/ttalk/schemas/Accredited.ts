@@ -3,14 +3,18 @@ import * as t from 'io-ts'
 import { Paging } from '../apis/types/totvsApiTypesBase'
 import { datetime } from '../../custom-types'
 
-const ExamInfo = t.type({
-    /** Nome do Exame */
-    name: t.string,
-    /** Preço do Exame */
-    price: t.number,
-    /** Código do eSocial */
-    eSocialCode: t.string
-})
+const ExamInfo = t.intersection([
+    t.type({
+        /** Nome do Exame */
+        name: t.string,
+        /** Preço do Exame */
+        price: t.number,
+    }),
+    t.partial({
+        /** Código do eSocial */
+        eSocialCode: t.string,
+    })
+])
 
 export const AccreditedInfo = t.intersection([
     t.type({
