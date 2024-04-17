@@ -74,7 +74,7 @@ const getDetailedMessage = (payload: string, language: Language) => {
         REQUIRED_BRANCH_ID:  englishMessages['REQUIRED_BRANCH_ID'],
         REQUIRED_ID_PARAMETER:  englishMessages['REQUIRED_ID_PARAMETER'],
         DECODED_ERROR:  englishMessages['DECODED_ERROR'],
-        TOO_MANY_REQUESTS:  englishMessages['TOO_MANY_REQUESTS']
+        TOO_MANY_REQUESTS:  payload || englishMessages['TOO_MANY_REQUESTS']
     }
     
     const brazilianPortugueseDetailedMessages: Record<ErrorCode, string> = {
@@ -87,7 +87,7 @@ const getDetailedMessage = (payload: string, language: Language) => {
         REQUIRED_BRANCH_ID: brazilianPortugueseMessages['REQUIRED_BRANCH_ID'],
         REQUIRED_ID_PARAMETER: brazilianPortugueseMessages['REQUIRED_ID_PARAMETER'],
         DECODED_ERROR: brazilianPortugueseMessages['DECODED_ERROR'],
-        TOO_MANY_REQUESTS: brazilianPortugueseMessages['TOO_MANY_REQUESTS']
+        TOO_MANY_REQUESTS: payload || brazilianPortugueseMessages['TOO_MANY_REQUESTS'] 
     }
 
     if (language === 'pt-BR') {
