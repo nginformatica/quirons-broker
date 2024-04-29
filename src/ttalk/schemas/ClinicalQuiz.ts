@@ -21,6 +21,8 @@ export const ClinicalQuizInfo = t.intersection([
         branchId: t.string,
         /** Chave única */
         erpId: t.string,
+        /** Chave do Funcionário */
+        employeeId: t.string,
         /** Data de Realização */
         realizationDate: datetime,
         /** Descrição do Questionário */
