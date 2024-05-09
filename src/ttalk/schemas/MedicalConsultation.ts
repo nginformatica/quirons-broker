@@ -10,7 +10,13 @@ const ExamInfo = t.intersection([
         /** Descrição do Exame */
         examDescription: t.string,
         /** Indicativo de Referência */
-        referentialExam: t.string
+        referentialExam: t.string,
+        /** Nome do Médico */
+        doctor: t.string,
+        /** CRM do Médico */
+        crm: t.string,
+        /** Estado do CRM */
+        state: t.string,
     }),
     t.partial({
         /** Indicativo de Anormalidade */
@@ -24,7 +30,9 @@ const ExamInfo = t.intersection([
         /** Tivo de Alteração */
         alterationType: t.string,
         /** Alteração Ocupacioanl */
-        occupationalActivity: t.string
+        occupationalActivity: t.string,
+        /** Credenciado */
+        accredited: t.string,
     })
 ])
 export const MedicalConsultationInfo = t.intersection([
@@ -38,7 +46,15 @@ export const MedicalConsultationInfo = t.intersection([
         /** Natureza do ASO */
         type: t.string,
         /** Data Prevista da Consulta */
-        expectedDate: datetime
+        expectedDate: datetime,
+        /** Nome do Médico */
+        doctor: t.string,
+        /** CRM do Médico */
+        crm: t.string,
+        /** Estado do CRM */
+        state: t.string,
+        /** Motivo da Consulta */
+        reason: t.string,
     }),
     t.partial({
         /** Data de Cancelamento */
@@ -52,7 +68,9 @@ export const MedicalConsultationInfo = t.intersection([
         /** Lista de Exames */
         examList: t.array(ExamInfo),
         /** Chave única do registro */
-        erpId: t.string
+        erpId: t.string,
+        /** Credenciado */
+        accredited: t.string,
     })
 ])
 export type MedicalConsultationInfo = t.TypeOf<typeof MedicalConsultationInfo>
