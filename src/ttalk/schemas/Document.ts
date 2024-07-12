@@ -38,12 +38,6 @@ export const DocumentInfo = t.intersection([
             t.literal(7),
             t.literal(8),
         ]),
-        /** Finalidade */
-        finality: t.union([
-            t.literal(0),
-            t.literal(1),
-            t.literal(2),
-        ]),
         /** Data de Início */
         startDate: datetime,
         /** Data de Fim */
@@ -70,6 +64,12 @@ export const DocumentInfo = t.intersection([
         costCenter: CostCenter,
         /** Descrição da entidade */
         entityDescription: t.string,
+        /** Finalidade */
+        finality: t.union([
+            t.literal(0),
+            t.literal(1),
+            t.literal(2),
+        ]),
     })
 ])
 export type DocumentInfo = t.TypeOf<typeof DocumentInfo>
