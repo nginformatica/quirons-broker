@@ -2,7 +2,7 @@ import * as t from 'io-ts'
 
 import { eSocial as evtCAT } from './schemas/evtCAT'
 import { eSocial as evtMonit } from './schemas/evtMonit'
-import { eSocial as evtToxic } from './schemas/evtMonit'
+import { eSocial as evtToxic } from './schemas/evtToxic'
 import { eSocial as evtExpRisco } from './schemas/evtExpRisco'
 import { eSocial as evtExclusao } from './schemas/evtExclusao'
 import { eSocial as evtInfoEmpregador } from './schemas/evtInfoEmpregador'
