@@ -90,6 +90,7 @@ export const MedicalRecordInfo = t.intersection([
             t.literal(8),
             t.literal(9),
             t.literal(10),
+            t.null
         ]),
         /** Cor dos Cabelos */
         hairColor: t.union([
@@ -101,6 +102,7 @@ export const MedicalRecordInfo = t.intersection([
             t.literal(5),
             t.literal(6),
             t.literal(7),
+            t.null
         ]),
         /** Cor da Pele */
         skinColor: t.union([
@@ -109,13 +111,14 @@ export const MedicalRecordInfo = t.intersection([
             t.literal(2),
             t.literal(3),
             t.literal(4),
+            t.null
         ]),
         /** Tempo tabagista */
         tamagistPeriod: t.number,
         /** Quantidade de cigarros por dia */
         amountConsumed: t.number,
         /** Histórico */
-        historic: t.string,
+        historic: t.union([t.string, t.null]),
         /** Última medição sistólica */
         systolicPressure: t.number,
         /** Última medição diastólica */
