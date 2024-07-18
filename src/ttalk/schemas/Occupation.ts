@@ -12,7 +12,6 @@ const Periodicity = t.type({
 
 const Exam = t.intersection([
     t.type({
-        description: t.string,
         type: t.union([
             t.literal(0),
             t.literal(1),
@@ -33,6 +32,7 @@ const Exam = t.intersection([
     }),
     t.partial({
         periodicity: Periodicity,
+        description: t.string,
     })
 ])
 
@@ -44,12 +44,12 @@ export const OccupationInfo = t.intersection([
         branchId: t.string,
         /** Chave única */
         erpId: t.string,
+    }),
+    t.partial({
         /** EPIs */
         ipe: t.array(t.string),
         /** Exames */
         exams: t.array(Exam),
-    }),
-    t.partial({
     })
 ])
 export type OccupationInfo = t.TypeOf<typeof OccupationInfo>

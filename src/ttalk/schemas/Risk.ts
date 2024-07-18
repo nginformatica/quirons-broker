@@ -30,11 +30,15 @@ const Person = t.type({
     gender: t.union([t.literal(0), t.literal(1)]),
 })
 
-const Measurement = t.type({
-    date: datetime,
-    value: t.number,
-    instrument: t.string,
-})
+const Measurement = t.intersection([
+    t.type({
+        value: t.number,
+        instrument: t.string,
+    }),
+    t.partial({
+        date:datetime,
+    })
+])
 
 const ControlMeasure = t.type({
     description: t.string,
@@ -68,7 +72,6 @@ const Periodicity = t.type({
 
 const Exam = t.intersection([
     t.type({
-        description: t.string,
         type: t.union([
             t.literal(0),
             t.literal(1),
@@ -89,6 +92,7 @@ const Exam = t.intersection([
     }),
     t.partial({
         periodicity: Periodicity,
+        description: t.string,
     })
 ])
 
@@ -106,16 +110,16 @@ const RiskAgent = t.intersection([
             t.literal(5),
             t.literal(6),
             t.literal(7),
-        ]),
+        ])
+    }),
+    t.partial({
+        /** Código do Agente de Risco no eSocial */
+        eSocialCode: t.string,
         /** Avaliação */
         evaluation: t.union([
             t.literal(0),
             t.literal(1),
         ]),
-    }),
-    t.partial({
-        /** Código do Agente de Risco no eSocial */
-        eSocialCode: t.string
     })
 ])
 
@@ -158,6 +162,8 @@ export const RiskInfo = t.intersection([
         icd: t.string,
         /** Observações */
         observation: t.string,
+        /**Data de eliminação do risco */
+        eliminationDate: datetime,
     })
 ])
 export type RiskInfo = t.TypeOf<typeof RiskInfo>
