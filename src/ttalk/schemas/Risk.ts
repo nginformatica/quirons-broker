@@ -62,13 +62,17 @@ const Training = t.type({
     ])
 })
 
-const Periodicity = t.type({
-    description: t.string,
-    fromAge: t.number,
-    toAge: t.number,
-    periodicity: t.number,
-    postAdmission: t.number,
-})
+const Periodicity = t.intersection([
+    t.type({
+        fromAge: t.number,
+        toAge: t.number,
+        periodicity: t.number,
+        postAdmission: t.number,
+    }),
+    t.partial({
+        description: t.string,   
+    })
+])
 
 const Exam = t.intersection([
     t.type({
@@ -163,7 +167,7 @@ export const RiskInfo = t.intersection([
         /** Observações */
         observation: t.string,
         /**Data de eliminação do risco */
-        eliminationDate: datetime,
+        eliminationDate: t.union([datetime, t.null]),
     })
 ])
 export type RiskInfo = t.TypeOf<typeof RiskInfo>
