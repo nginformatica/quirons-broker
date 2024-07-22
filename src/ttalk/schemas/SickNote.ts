@@ -39,17 +39,17 @@ export const SickNoteInfo = t.intersection([
         /** Observações */
         observation: t.string,
         /** Descrição do Tipo de Afastamento */
-        typeOfAbsence: t.string,
+        typeOfAbsence: t.union([t.string, t.null]),
         /** Descrição do Tipo de Abono */
-        typeOfAllowance: t.string,
+        typeOfAllowance: t.union([t.string, t.null]),
         /** Data de Início do Afastamento */
-        absenceStartDate: datetime,
+        absenceStartDate: t.union([datetime, t.null]),
         /** Data de Termino do Afastamento */
-        absenceEndDate: datetime,
+        absenceEndDate: t.union([datetime, t.null]),
         /** Data de Início do Abono */
-        allowanceStartDate: datetime,
+        allowanceStartDate: t.union([datetime, t.null]),
         /** Data de Termino do Abono */
-        allowanceEndDate: datetime,
+        allowanceEndDate: t.union([datetime, t.null]),
         /** Data da Perícia */
         reviewDate: datetime,
         /** Data de Previsão de Termino do Benefício */

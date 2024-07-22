@@ -21,6 +21,31 @@ export const IpeDeliveryInfo = t.intersection([
         caExpirationDate: datetime,
         /** Quantidade Entregue */
         deliveryAmount: t.number,
+    }),
+    t.partial({
+        /** Indica se é efetivo */
+        effective: t.boolean,
+        /** Data de Devolução */
+        returnDate: t.union([datetime, t.null]),
+        /** Quantidade Devolvida */
+        amountReturned: t.number,
+        /** Motivo da Devolução */
+        returnReason: t.union([
+            t.literal(0),
+            t.literal(1),
+            t.literal(2),
+            t.literal(3),
+            t.literal(4),
+            t.null
+        ]),
+        /** Observações */
+        observation: t.string,
+        /** Data de Assinatura */
+        issueDate: datetime,
+        /** Data da Última Manutenção */
+        lastMaintenanceDate: t.union([datetime, t.null]),
+        /** Custo */
+        cost: t.number,
         /** Motivo */
         reason: t.union([
             t.literal(0),
@@ -34,30 +59,6 @@ export const IpeDeliveryInfo = t.intersection([
             t.literal(8),
             t.literal(9),
         ]),
-        /** Indica se é efetivo */
-        effective: t.boolean,
-    }),
-    t.partial({
-        /** Data de Devolução */
-        returnDate: datetime,
-        /** Quantidade Devolvida */
-        amountReturned: t.number,
-        /** Motivo da Devolução */
-        returnReason: t.union([
-            t.literal(0),
-            t.literal(1),
-            t.literal(2),
-            t.literal(3),
-            t.literal(4),
-        ]),
-        /** Observações */
-        observation: t.string,
-        /** Data de Assinatura */
-        issueDate: datetime,
-        /** Data da Última Manutenção */
-        lastMaintenanceDate: datetime,
-        /** Custo */
-        cost: t.number,
     })
 ])
 export type IpeDeliveryInfo = t.TypeOf<typeof IpeDeliveryInfo>
