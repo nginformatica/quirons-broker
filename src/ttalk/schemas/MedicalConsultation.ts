@@ -44,7 +44,14 @@ export const MedicalConsultationInfo = t.intersection([
         /** Matricula */
         employeeId: t.string,
         /** Natureza do ASO */
-        type: t.string,
+        type: t.union([
+            t.literal(0),
+            t.literal(1),
+            t.literal(2),
+            t.literal(3),
+            t.literal(4),
+            t.literal(5),
+        ]),
         /** Data Prevista da Consulta */
         expectedDate: datetime,
         /** Nome do Médico */
@@ -62,7 +69,11 @@ export const MedicalConsultationInfo = t.intersection([
         /** Data de Emissão */
         issueDate: datetime,
         /** Parecer do ASO */
-        situation: t.string,
+        situation: t.union([
+            t.literal(0),
+            t.literal(1),
+            t.literal(2),
+        ]),
         /** Observações */
         observation: t.string,
         /** Lista de Exames */
