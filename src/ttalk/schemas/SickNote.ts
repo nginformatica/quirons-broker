@@ -16,7 +16,12 @@ export const SickNoteInfo = t.intersection([
         /** Dias de Tratamento */
         length: t.number,
         /** Tipo do Atestado */
-        type: t.string
+        type: t.union([
+            t.literal(0),
+            t.literal(1),
+            t.literal(2),
+            t.literal(3),
+        ])
     }),
     t.partial({
         /** Origem do Atestado */
