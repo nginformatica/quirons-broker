@@ -2,13 +2,22 @@
 import * as t from 'io-ts'
 import { Paging } from '../apis/types/totvsApiTypesBase'
 
-const Periodicity = t.type({
-    description: t.string,
+const Periodicity = t.intersection([ 
+    t.type({
+        gender: t.union([
+            t.literal(1),
+            t.literal(2),
+            t.literal(3),
+    ]),
     fromAge: t.number,
     toAge: t.number,
     periodicity: t.number,
     postAdmission: t.number,
-})
+    }),
+    t.partial({
+        description: t.string,
+    })
+])
 
 const Exam = t.intersection([
     t.type({

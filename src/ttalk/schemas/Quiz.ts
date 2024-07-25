@@ -21,7 +21,7 @@ export const QuizInfo = t.intersection([
         erpId: t.string,
         /** Descrição */
         description: t.string,
-        /** Tipo de Deficiência */
+        /** Grupo da questão */
         questionsGroup: t.array(Group),
     }),
     t.partial({

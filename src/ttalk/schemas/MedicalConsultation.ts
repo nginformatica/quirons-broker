@@ -60,10 +60,10 @@ export const MedicalConsultationInfo = t.intersection([
         crm: t.string,
         /** Estado do CRM */
         state: t.string,
-        /** Motivo da Consulta */
-        reason: t.string,
     }),
     t.partial({
+        /** ID interno */
+        id: t.string,
         /** Data de Cancelamento */
         cancelDate: datetime,
         /** Data de Emissão */
@@ -82,6 +82,8 @@ export const MedicalConsultationInfo = t.intersection([
         erpId: t.string,
         /** Credenciado */
         accredited: t.string,
+        /** Motivo da Consulta */
+        reason: t.string
     })
 ])
 export type MedicalConsultationInfo = t.TypeOf<typeof MedicalConsultationInfo>

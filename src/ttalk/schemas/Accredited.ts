@@ -26,14 +26,14 @@ export const AccreditedInfo = t.intersection([
         erpId: t.string,
         /** Nome do Credenciado */
         name: t.string,
-        /** CNPJ do Credenciado */
-        documentNumber: t.string,
         /** Data de Início do Contrato */
         contractStart: datetime
     }),
     t.partial({
         /** Exames */
         exams: t.array(ExamInfo),
+        /** CNPJ do Credenciado */
+        documentNumber: t.string,
     })
 ])
 export type AccreditedInfo = t.TypeOf<typeof AccreditedInfo>
