@@ -27,7 +27,7 @@ export const ClinicalQuizInfo = t.intersection([
         realizationDate: datetime,
         /** Descrição do Questionário */
         quiz: t.string,
-        /** Tipo de Deficiência */
+        /** Respostas */
         response: t.array(Response),
     }),
     t.partial({
