@@ -16,7 +16,7 @@ export const PostMessage = t.type({
     lote: t.array(
         t.type({
             // Código do Evento
-            registryType: t.union([t.literal('S-2210'), t.literal('S-2220'), t.literal('S-2240'), t.literal('S-3000')]),
+            registryType: t.union([t.literal('S-2210'), t.literal('S-2220'), t.literal('S-2240'),  t.literal('S-2221'), t.literal('S-3000')]),
             // Chave do Registro.
             registryKey: t.string,
             // Arquivo/Evento a ser integrado, a mensagem deve ser enviada com criptografia BASE64.
@@ -66,7 +66,7 @@ export const GetMessage = t.type({
     // Estrutura dos itens (1-50)
     lote: t.array(t.type({
         // Código do Evento
-        registryType: t.union([t.literal('S-2210'), t.literal('S-2220'), t.literal('S-2240'), t.literal('S-3000')]),
+        registryType: t.union([t.literal('S-2210'), t.literal('S-2220'), t.literal('S-2240'),  t.literal('S-2221'), t.literal('S-3000')]),
         // Código do TAFTICKET, Obrigatório caso registryKey não seja informado.
         ticketCode: t.string,
         // Código do TAFKEY, Obrigatório caso ticketCode não seja informado.
