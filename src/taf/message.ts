@@ -17,7 +17,7 @@ export const PostMessage = t.type({
                 // Sequência do arquivo; A Mensagem em TAFMSG pode ser enviada em mais de 1 registro, para isso deve-se repetir as informações dos demais campos e alterar a sequencia de acordo com a ordem das informações enviadas.
                 messageSequential: t.string,
                 // Código do Evento
-                registryType: t.union([t.literal('S-2210'), t.literal('S-2220'), t.literal('S-2240'), t.literal('S-3000')]),
+                registryType: t.union([t.literal('S-2210'), t.literal('S-2220'), t.literal('S-2240'), t.literal('S-2221'), t.literal('S-3000')]),
                 // Chave do Registro.
                 registryKey: t.string,
                 // Arquivo/Evento a ser integrado, a mensagem deve ser enviada com criptografia BASE64.
