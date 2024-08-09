@@ -66,6 +66,18 @@ export const Greeting = t.type({
 })
 export type Greeting = t.TypeOf<typeof Greeting>
 
+export const IntegrationBlocked = t.intersection([
+    t.type({
+        integration: t.string,
+        branchId: t.string,
+    }),
+    t.partial({
+        reason: t.string
+    })
+])
+
+export type IntegrationBlocked = t.TypeOf<typeof IntegrationBlocked>
+
 export const TError = t.intersection([
     t.type({ type: ErrorCodeKey }),
     t.partial({ payload: t.string })
@@ -206,6 +218,8 @@ export type BusinessRequest = t.TypeOf<typeof BusinessRequest>
 export const BusinessRequestMessage = userMessage('request',  BusinessRequest)
 export type BusinessRequestMessage = t.TypeOf<typeof BusinessRequestMessage>
 
+
+
 /**
  * Message protocol used between the broker and the backend.
  */
@@ -214,6 +228,7 @@ export const Message = t.union([
     metaMessage('ping',     t.string),
     metaMessage('pong',     t.string),
     metaMessage('greeting', Greeting),
+    metaMessage('integrationBlocked', IntegrationBlocked),
     BusinessRequestMessage,
     userMessage('delete',   Delete),
     userMessage('deleted',  Deleted),
