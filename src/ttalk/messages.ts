@@ -69,7 +69,9 @@ export type Greeting = t.TypeOf<typeof Greeting>
 export const IntegrationBlocked = t.intersection([
     t.type({
         integration: t.string,
-        branchId: t.string,
+        erpCompany: t.string,
+        erpBranch: t.string,
+        email: t.string
     }),
     t.partial({
         reason: t.string
