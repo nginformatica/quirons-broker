@@ -77,7 +77,7 @@ export const MedicalConsultationInfo = t.intersection([
         /** Observações */
         observation: t.string,
         /** Lista de Exames */
-        examList: t.array(ExamInfo),
+        examList: t.union([t.array(ExamInfo), t.null]),
         /** Chave única do registro */
         erpId: t.string,
         /** Credenciado */
