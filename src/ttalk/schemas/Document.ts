@@ -8,13 +8,18 @@ const CostCenter = t.type({
     description: t.string
 })
 
-const Responsible = t.type({
-    erpId: t.string,
-    name: t.string,
-    individualRegistration: t.string,
-    birthday: datetime,
-    gender: t.union([t.literal(0), t.literal(1)]),
-})
+const Responsible = t.intersection([
+    t.type({
+        erpId: t.string,
+        name: t.string,
+        birthday: datetime,
+    }),
+    t.partial({
+        individualRegistration: t.string,
+        gender: t.union([t.literal(0), t.literal(1)]),
+    })
+])
+
 
 export const DocumentInfo = t.intersection([
     t.type({
@@ -49,15 +54,15 @@ export const DocumentInfo = t.intersection([
         /** Data de Fim */
         endDate: datetime,
         /** Data de Vencimento */
-        expirationDate: datetime,
+        expirationDate: t.union([datetime, t.null]),
         /** Código da Versão */
         review: t.string,
         /** Tipo de Deficiência */
         responsible: Responsible,
         /** Número do documento */
-        documentNumber: t.string,
+        documentNumber: t.union([t.string, t.null]),
         /** Sigla Estado */
-        documentState: t.string,
+        documentState: t.union([t.string, t.null]),
         /** Entidade */
         entityType: t.union([
             t.literal(0),
