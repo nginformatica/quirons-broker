@@ -24,6 +24,7 @@ export const StockLevel = t.intersection([
     }),
     t.partial({
         isActive: t.boolean,
+        lotNumber: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
         operation: t.union([
@@ -46,30 +47,56 @@ export const Converter = {
         const stockLevel: StockLevel[] = []
 
         Content.ListOfReturnItem.forEach(item => {
-            const { ListOfWarehouseStock } = item
+            const { ListOfWarehouseStock, ListOfLotStock } = item
 
-            ListOfWarehouseStock.forEach(warehouse => {
-                stockLevel.push({
-                    headerErpCompany: Header.CompanyId,
-                    headerErpBranch: Header.BranchId,
-                    erpCompany: item.CompanyId || '',
-                    erpBranch: item.BranchId || '',
-                    version: Header.Version || '1.000',
-                    id: '',
-                    erpId: '',
-                    erpItem: item.ItemInternalId,
-                    erpWarehouse: warehouse.WarehouseInternalId,
-                    amoutBooked: parseInt(
-                        `${warehouse.BookedStockAmount}`
-                    ),
-                    physicalBalance: parseInt(
-                        `${warehouse.CurrentStockAmount}`
-                    ),
-                    operation: Header.Event,
-                    originMessageId: Header.UUID,
-                    sentBy: Header.ProductName
+            if (ListOfLotStock && ListOfLotStock.length > 0) {
+                ListOfLotStock.forEach(warehouse => {
+                    stockLevel.push({
+                        headerErpCompany: Header.CompanyId,
+                        headerErpBranch: Header.BranchId,
+                        erpCompany: item.CompanyId || '',
+                        erpBranch: item.BranchId || '',
+                        version: Header.Version || '1.000',
+                        id: '',
+                        erpId: '',
+                        erpItem: item.ItemInternalId,
+                        erpWarehouse: warehouse.WarehouseInternalId,
+                        amoutBooked: parseInt(
+                            `${warehouse.BookedStockAmount}`
+                        ),
+                        physicalBalance: parseInt(
+                            `${warehouse.CurrentStockAmount}`
+                        ),
+                        lotNumber: warehouse.LotNumber,
+                        operation: Header.Event,
+                        originMessageId: Header.UUID,
+                        sentBy: Header.ProductName
+                    })
+                })                
+            } else {
+                ListOfWarehouseStock.forEach(warehouse => {
+                    stockLevel.push({
+                        headerErpCompany: Header.CompanyId,
+                        headerErpBranch: Header.BranchId,
+                        erpCompany: item.CompanyId || '',
+                        erpBranch: item.BranchId || '',
+                        version: Header.Version || '1.000',
+                        id: '',
+                        erpId: '',
+                        erpItem: item.ItemInternalId,
+                        erpWarehouse: warehouse.WarehouseInternalId,
+                        amoutBooked: parseInt(
+                            `${warehouse.BookedStockAmount}`
+                        ),
+                        physicalBalance: parseInt(
+                            `${warehouse.CurrentStockAmount}`
+                        ),
+                        operation: Header.Event,
+                        originMessageId: Header.UUID,
+                        sentBy: Header.ProductName
+                    })
                 })
-            })
+            }
 
         })
 
