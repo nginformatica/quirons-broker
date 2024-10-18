@@ -80,7 +80,8 @@ const StockTurnoverItem = t.intersection([
         CostCenterInternalId: nullable(t.string),
         CostCenterCode: nullable(t.string),
         UnitPrice: nullable(t.number),
-        TotalPrice: nullable(t.number)
+        TotalPrice: nullable(t.number),
+        LotOrSerialNumber: nullable(t.string),
     })
 ])
 
