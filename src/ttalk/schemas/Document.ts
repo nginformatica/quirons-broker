@@ -43,20 +43,12 @@ export const DocumentInfo = t.intersection([
             t.literal(7),
             t.literal(8),
         ]),
-        /** Finalidade */
-        finality: t.union([
-            t.literal(0),
-            t.literal(1),
-            t.literal(2),
-        ]),
         /** Data de Início */
         startDate: datetime,
         /** Data de Fim */
         endDate: datetime,
         /** Data de Vencimento */
         expirationDate: t.union([datetime, t.null]),
-        /** Código da Versão */
-        review: t.string,
         /** Tipo de Deficiência */
         responsible: Responsible,
         /** Número do documento */
@@ -68,6 +60,9 @@ export const DocumentInfo = t.intersection([
             t.literal(0),
             t.literal(1),
             t.literal(2),
+            t.literal(3),
+            t.literal(4),
+            t.literal(5),
         ]),
     }),
     t.partial({
@@ -75,6 +70,14 @@ export const DocumentInfo = t.intersection([
         costCenter: CostCenter,
         /** Descrição da entidade */
         entityDescription: t.string,
+        /** Número de Revisões */
+        review: t.string,
+        /** Finalidade */
+        finality: t.union([
+            t.literal(0),
+            t.literal(1),
+            t.literal(2),
+        ]),
     })
 ])
 export type DocumentInfo = t.TypeOf<typeof DocumentInfo>
