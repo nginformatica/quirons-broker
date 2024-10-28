@@ -42,14 +42,14 @@ export type StockLevel = t.TypeOf<typeof StockLevel>
 
 
 export const Converter = {
-    fromInventoryUM(data: inventoryUM.StockLevelInfo): Array<StockLevel> {
+    fromInventory(data: inventoryUM.StockLevelInfo, useLotNumber: boolean): Array<StockLevel> {
         const { Header, Content } = data
         const stockLevel: StockLevel[] = []
 
         Content.ListOfReturnItem.forEach(item => {
             const { ListOfWarehouseStock, ListOfLotStock } = item
 
-            if (ListOfLotStock && ListOfLotStock.length > 0) {
+            if (useLotNumber && ListOfLotStock && ListOfLotStock.length > 0) {
                 ListOfLotStock.forEach(warehouse => {
                     stockLevel.push({
                         headerErpCompany: Header.CompanyId,
