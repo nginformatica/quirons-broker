@@ -10,7 +10,10 @@ const ExamInfo = t.intersection([
         /** Descrição do Exame */
         examDescription: t.string,
         /** Indicativo de Referência */
-        referentialExam: t.string,
+        referentialExam: t.union([
+            t.literal(0),
+            t.literal(1),
+        ]),
         /** Nome do Médico */
         doctor: t.string,
         /** CRM do Médico */
@@ -26,11 +29,17 @@ const ExamInfo = t.intersection([
         /** Observações do Exame */
         examObservation: t.string,
         /** Resultado */
-        result: t.string,
+        result: t.union([
+            t.literal(0),
+            t.literal(1),
+        ]),
         /** Tivo de Alteração */
         alterationType: t.string,
         /** Alteração Ocupacioanl */
-        occupationalActivity: t.string,
+        occupationalActivity: t.union([
+            t.literal(0),
+            t.literal(1),
+        ]),
         /** Credenciado */
         accredited: t.string,
     })
