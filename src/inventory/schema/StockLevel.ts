@@ -72,7 +72,7 @@ const WarehouseStock = t.type({
 })
 
 const ListOfLotStock = t.intersection([
-        t.type({
+    t.type({
         WarehouseInternalId: t.string,
         LotNumber: t.string,
         CurrentStockAmount: t.union([t.string, t.number]),
@@ -80,8 +80,8 @@ const ListOfLotStock = t.intersection([
         BookedStockAmount: t.union([t.string, t.number]),
     }),
     t.partial({
-        SubLotCode: t.string,
-        LotExpirationDate: t.union([datetime, date]),
+        SubLotCode: nullable(t.string),
+        LotExpirationDate: nullable(t.union([datetime, date])),
     })
 ])
 
