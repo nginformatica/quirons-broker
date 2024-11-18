@@ -76,7 +76,7 @@ const ListOfLotStock = t.intersection([
         WarehouseInternalId: t.string,
         LotNumber: t.string,
         CurrentStockAmount: t.union([t.string, t.number]),
-        AvaliableStockAmount: t.union([t.string, t.number]),
+        AvailableStockAmount: t.union([t.string, t.number]),
         BookedStockAmount: t.union([t.string, t.number]),
     }),
     t.partial({
