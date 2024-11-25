@@ -49,7 +49,12 @@ export const Converter = {
         Content.ListOfReturnItem.forEach(item => {
             const { ListOfWarehouseStock, ListOfLotStock } = item
 
-            if (useLotNumber && ListOfLotStock && ListOfLotStock.length > 0) {
+            if (
+                useLotNumber
+                && ListOfLotStock
+                && Array.isArray(ListOfLotStock)
+                && ListOfLotStock.length > 0
+            ) {
                 ListOfLotStock.forEach(warehouse => {
                     stockLevel.push({
                         headerErpCompany: Header.CompanyId,

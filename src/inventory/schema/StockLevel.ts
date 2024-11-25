@@ -95,7 +95,10 @@ const ReturnItem = t.intersection([
         UnitItemCost: t.union([t.string, t.number]),
         WarehouseInternalId: t.string,
         BranchId: nullable(t.string),
-        ListOfLotStock: nullable(t.array(ListOfLotStock))
+        ListOfLotStock: nullable(t.union([
+            t.type({}),
+            t.array(ListOfLotStock)
+        ]))
     })
 ])
 
