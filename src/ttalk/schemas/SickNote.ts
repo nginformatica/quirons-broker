@@ -29,11 +29,11 @@ export const SickNoteInfo = t.intersection([
         /** Nome do Médico */
         doctorName: t.string,
         /** Código do CRM */
-        classEntityRegistrationCode: t.string,
+        classEntityRegistrationCode: t.union([t.string, t.null]),
         /** Estado do CRM */
-        classEntityState: t.string,
+        classEntityState: t.union([t.string, t.null]),
         /** Código CID */
-        internationalDiseaseClassification: t.string,
+        internationalDiseaseClassification: t.union([t.string, t.null]),
         /** Acidente */
         accident: t.string,
         /** Observações */
