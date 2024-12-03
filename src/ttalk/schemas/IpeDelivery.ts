@@ -18,7 +18,7 @@ export const IpeDeliveryInfo = t.intersection([
         /** Data de Entrega */
         deliveryDate: datetime,
         /** Vencimento do CA */
-        caExpirationDate: datetime,
+        caExpirationDate: t.union([datetime, t.null]),
         /** Quantidade Entregue */
         deliveryAmount: t.number,
     }),
@@ -58,6 +58,7 @@ export const IpeDeliveryInfo = t.intersection([
             t.literal(7),
             t.literal(8),
             t.literal(9),
+            t.null
         ]),
     })
 ])
