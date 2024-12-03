@@ -142,8 +142,8 @@ export const RiskInfo = t.intersection([
         /** Descrição da Fonte Geradora */
         generatingSource: t.string,
         /** Descrição do Ambiente Físico */
-        environment: t.string,
-        /** Centros de Custo */
+        environment: t.union([t.string, t.null]),
+        /** Centros de Custo] */
         costCenter: t.array(CostCenter),
         /** Departamentos */
         department: t.array(Department),
