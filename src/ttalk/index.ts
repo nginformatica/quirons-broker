@@ -28,6 +28,7 @@ import { OccupationInfo } from './schemas/Occupation'
 import { QuizInfo } from './schemas/Quiz'
 import { RiskInfo } from './schemas/Risk'
 import { VaccineInfo } from './schemas/Vaccine'
+import { PreMedicalCertificateInfo } from './internal/pre-medical-certificate'
 
 /**
  * An object as returned by TOTVS' TTalk API.
@@ -380,3 +381,5 @@ export const Risk = RiskInfo
 export type Risk = t.TypeOf<typeof Risk>
 export const Vaccine = VaccineInfo
 export type Vaccine = t.TypeOf<typeof Vaccine>
+export const PreMedicalCertificate = PreMedicalCertificateInfo
+export type PreMedicalCertificate = t.TypeOf<typeof PreMedicalCertificate>
