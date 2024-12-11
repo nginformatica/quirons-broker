@@ -42,6 +42,7 @@ import {
     senderMessage,
     Identification
 } from '../constructors'
+import { PreMedicalCertificateInfo } from './internal/pre-medical-certificate'
 
 /**
  * Greeting message sent by the broker to the backend, specifiying how the
@@ -91,33 +92,33 @@ export type TError = t.TypeOf<typeof TError>
  * Possible business messages.
  */
 export const BusinessMessage = t.union([
-    userMessage('costcenter',          t.array(PayRollCostCenter)),
-    userMessage('occupation',          t.array(Positions)),
-    userMessage('workshift',           t.array(WorkingShifts)),
-    userMessage('training',            t.array(Classes)),
-    userMessage('absencetype',         t.array(LeaveOfAbsenceType)),
-    userMessage('allowancetype',       t.array(AllowanceType)),
-    userMessage('stabilitytype',       t.array(StabilityType)),
-    userMessage('person',              t.array(Person)),
-    userMessage('employee',            t.array(Employee)),
-    userMessage('dependant',           t.array(Dependant)),
-    userMessage('functionalhistory',   t.array(FunctionalHistory)),
-    userMessage('traininghistory',     t.array(TrainingHistory)),
-    userMessage('department',          t.array(Department)),
-    userMessage('position',            t.array(Position)),
-    userMessage('sicknote',            t.array(SickNote)),
-    userMessage('medicalconsultation', t.array(MedicalConsultation)),
-    userMessage('accredited',          t.array(Accredited)),
-    userMessage('clinicalquiz',        t.array(ClinicalQuiz)),
-    userMessage('deficiencies',        t.array(Deficiencies)),
-    userMessage('document',            t.array(Document)),
-    userMessage('ipedelivery',         t.array(IpeDelivery)),
-    userMessage('medicalrecord',       t.array(MedicalRecord)),
-    userMessage('sstoccupation',       t.array(SSTOccupation)),
-    userMessage('quiz',                t.array(Quiz)),
-    userMessage('risk',                t.array(Risk)),
-    userMessage('vaccine',             t.array(Vaccine)),
-    
+    userMessage('costcenter',               t.array(PayRollCostCenter)),
+    userMessage('occupation',               t.array(Positions)),
+    userMessage('workshift',                t.array(WorkingShifts)),
+    userMessage('training',                 t.array(Classes)),
+    userMessage('absencetype',              t.array(LeaveOfAbsenceType)),
+    userMessage('allowancetype',            t.array(AllowanceType)),
+    userMessage('stabilitytype',            t.array(StabilityType)),
+    userMessage('person',                   t.array(Person)),
+    userMessage('employee',                 t.array(Employee)),
+    userMessage('dependant',                t.array(Dependant)),
+    userMessage('functionalhistory',        t.array(FunctionalHistory)),
+    userMessage('traininghistory',          t.array(TrainingHistory)),
+    userMessage('department',               t.array(Department)),
+    userMessage('position',                 t.array(Position)),
+    userMessage('sicknote',                 t.array(SickNote)),
+    userMessage('medicalconsultation',      t.array(MedicalConsultation)),
+    userMessage('accredited',               t.array(Accredited)),
+    userMessage('clinicalquiz',             t.array(ClinicalQuiz)),
+    userMessage('deficiencies',             t.array(Deficiencies)),
+    userMessage('document',                 t.array(Document)),
+    userMessage('ipedelivery',              t.array(IpeDelivery)),
+    userMessage('medicalrecord',            t.array(MedicalRecord)),
+    userMessage('sstoccupation',            t.array(SSTOccupation)),
+    userMessage('quiz',                     t.array(Quiz)),
+    userMessage('risk',                     t.array(Risk)),
+    userMessage('vaccine',                  t.array(Vaccine)),
+    userMessage('premedicalcertificate',    t.array(PreMedicalCertificateInfo)),
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 
