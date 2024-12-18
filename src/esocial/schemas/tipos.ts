@@ -1306,13 +1306,16 @@ export const T_ideEvento_trab_indGuia = t.intersection([
 /// Informações de identificação do evento.
 export const T_ideEvento_trab = t.intersection([
     t.type({
-        indRetif: TS_indRetif,
         tpAmb: TS_tpAmb,
         procEmi: TS_procEmi,
         verProc: TS_verProc
     }),
     t.partial({
-        nrRecibo: TS_nrRecibo
+        nrRecibo: TS_nrRecibo,
+        indRetif: TS_indRetif
+        /* The 'indRetif' field is marked as optional because it will not be included 
+        when the event is sent to TAF. TAF handles rectifications independently, 
+        and including this field in such cases could result in incorrect records. */
     })
 ])
 
