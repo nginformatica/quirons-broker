@@ -8,12 +8,12 @@ const Info = t.intersection([
         gender: t.union([t.literal(0), t.literal(1), t.literal(2)]),
         fromAge: t.number,
         toAge: t.number,
-        reinforcement: t.union([t.literal(0), t.literal(1), t.literal(2)]),
         reinforcementInterval: t.number,
     }),
     t.partial({
         secondDoseInterval: t.number,
         thirdDoseInterval: t.number,
+        reinforcement: t.union([t.literal(0), t.literal(1), t.literal(2), t.null]),
     })
 
 ])
@@ -32,14 +32,14 @@ export const VaccineInfo = t.intersection([
         vaccine: Info,
         /** Data de Aplicação */
         date: t.string,
-        /** Dose Atual */
-        currentDose: t.union([t.literal(0), t.literal(1), t.literal(2), t.literal(3)]),
         /** Dose */
         dose: t.number
     }),
     t.partial({
         /** Lote */
         batch: t.string,
+        /** Dose Atual */
+        currentDose: t.union([t.literal(0), t.literal(1), t.literal(2), t.literal(3), t.null]),
         /** Status */
         status: t.union([t.literal(0), t.literal(1), t.literal(2), t.null]),
     })
