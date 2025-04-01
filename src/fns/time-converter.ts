@@ -1,12 +1,17 @@
-export function parseTime(time: string) {
-    const validTime = new RegExp('^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')
-
-    if (!validTime.test(time)) {
-        return 0
+export function parseTime(time: string): number {
+    const dailyFormat = new RegExp('^([0-9]{1,3}):[0-5][0-9]$')
+    const decimalFormat = new RegExp('^([0-9]+)([.,][0-9]+)?$')
+ 
+    let result = 0
+ 
+    if (dailyFormat.test(time)) {
+        const [hours, minutes] = time.split(':')
+        const decimals = (Number(minutes) / 6) * 10
+        result = parseFloat(`${parseInt(hours, 10)}.${parseInt(decimals.toString(), 10)}`)
+    } else if (decimalFormat.test(time)) {
+        time = time.replace(',', '.')
+        result = parseFloat(time)
     }
-
-    const [hours, minutes] = time.split(':')
-    const decimals = ((Number(minutes) / 6) * 10).toString()
-
-    return parseFloat(parseInt(hours, 10) + '.' + parseInt(decimals, 10))
+ 
+    return parseFloat(result.toFixed(2))
 }
