@@ -1,6 +1,6 @@
 {
   "name": "quirons-broker",
-  "version": "0.0.1-alpha.150",
+  "version": "0.0.1-alpha.151",
   "description": "A small library to expose the broker types",
   "typings": "index.d.ts",
   "types": "index.d.ts",
