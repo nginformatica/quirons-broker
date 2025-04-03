@@ -38,7 +38,7 @@ export const Converter = {
             erpId: data.workShiftCode,
             description: data.name,
             productiveHours: data.monthlyWorkingHours
-                ? parseTime(data.monthlyWorkingHours)
+                ? parseTime(String(data.monthlyWorkingHours))
                 : null,
             relaySchema: data.relaySchema
         }

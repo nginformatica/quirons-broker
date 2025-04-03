@@ -9,7 +9,7 @@ export const WorkingShiftInfo = t.intersection([
         /** Descrição do Horário */
         name: t.string,
         /** Carga de trabalho mensal */
-        monthlyWorkingHours: t.string
+        monthlyWorkingHours: t.union([t.string, t.number])
     }),
     t.partial({
         /** Chave única do registro dentro da entidade */
@@ -34,4 +34,3 @@ export const PagedWorkingShifts = t.intersection([
     WorkingShifts
 ])
 export type PagedWorkingShifts = t.TypeOf<typeof PagedWorkingShifts>
-
