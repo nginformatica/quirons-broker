@@ -2,6 +2,7 @@ import * as t from 'io-ts'
 
 import * as inventoryUM from '../'
 import { datetime, nullable } from '../../custom-types'
+import { parseBoolean } from '../../fns/parse-boolean'
 
 /**
  * Our internal model for Item.
@@ -69,9 +70,7 @@ export const Converter = {
             /** not required */
             unitOfMeasureDescription: Content.UnitOfMeasureCode,
             operation: Header.Event,
-            isActive: typeof Content.Active == 'string'
-                ? Content.Active == 'true'
-                : Content.Active
+            isActive: parseBoolean(Content.Active)
         }
     }
 }
