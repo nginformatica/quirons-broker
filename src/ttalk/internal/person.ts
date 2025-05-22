@@ -30,7 +30,15 @@ export const Person = t.intersection([
         zipCode: nullable(t.string),
         phone: nullable(t.string),
         created_at: nullable(datetime),
-        updated_at: nullable(datetime)
+        updated_at: nullable(datetime),
+        erpWorkshift: nullable(t.string),
+        workshiftDescription: nullable(t.string),
+        erpCostCenter: nullable(t.string),
+        costCenterDescription: nullable(t.string),
+        erpOccupation: nullable(t.string),
+        occupationDescription: nullable(t.string),
+        erpDepartment: nullable(t.string),
+        departmentDescription: nullable(t.string)
     })
 ])
 export type Person = t.TypeOf<typeof Person>
@@ -54,7 +62,15 @@ export const Converter = {
             district: data.district,
             city: data.city,
             zipCode: data.zipCode,
-            phone: data.phone
+            phone: data.phone,
+            erpWorkshift: data.workshift,
+            workshiftDescription: data.workshiftDescription,
+            erpCostCenter: data.costCenter,
+            costCenterDescription: data.costCenterDescription,
+            erpOccupation: data.occupation,
+            occupationDescription: data.occupationDescription,
+            erpDepartment: data.department,
+            departmentDescription: data.departmentDescription
         }
     },
     toTTalk(data: Person): ttalk.Person {
@@ -72,7 +88,15 @@ export const Converter = {
             district: data.district ?? undefined,
             city: data.city ?? undefined,
             zipCode: data.zipCode ?? undefined,
-            phone: data.phone ?? undefined
+            phone: data.phone ?? undefined,
+            workshift: data.erpWorkshift,
+            workshiftDescription: data.workshiftDescription ?? undefined,
+            costCenter: data.erpCostCenter,
+            costCenterDescription: data.costCenterDescription ?? undefined,
+            occupation: data.erpOccupation,
+            occupationDescription: data.occupationDescription ?? undefined,
+            department: data.erpDepartment ?? undefined,
+            departmentDescription: data.departmentDescription ?? undefined
         }
     }
 }
