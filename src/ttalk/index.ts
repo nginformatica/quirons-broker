@@ -139,7 +139,15 @@ export const Person = t.intersection([
         district: nullable(t.string),
         city: nullable(t.string),
         zipCode: nullable(t.string),
-        phone: nullable(t.string)
+        phone: nullable(t.string),
+        workshift: nullable(t.string),
+        workshiftDescription: nullable(t.string),
+        costCenter: nullable(t.string),
+        costCenterDescription: nullable(t.string),
+        occupation: nullable(t.string),
+        occupationDescription: nullable(t.string),
+        department: nullable(t.string),
+        departmentDescription: nullable(t.string)
     })
 ])
 export type Person = t.TypeOf<typeof Person>
