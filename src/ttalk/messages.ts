@@ -213,7 +213,9 @@ export const BusinessRequest = t.intersection([
         /** Number of items per request page. */
         pageSize: t.number,
         /** ERP item to filter. */
-        erpId: t.string
+        erpId: t.string,
+        /** Optional status of the request. */
+        status: t.string
     })
 ])
 export type BusinessRequest = t.TypeOf<typeof BusinessRequest>
