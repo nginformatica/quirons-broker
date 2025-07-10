@@ -147,7 +147,14 @@ export const Person = t.intersection([
         occupation: nullable(t.string),
         occupationDescription: nullable(t.string),
         department: nullable(t.string),
-        departmentDescription: nullable(t.string)
+        departmentDescription: nullable(t.string),
+        external: nullable(t.boolean),
+        situation: nullable(t.number),
+        registration: nullable(t.string),
+        admissionDate: nullable(datetime),
+        dismissalDate: nullable(datetime),
+        lastExamDate: nullable(datetime)
+        
     })
 ])
 export type Person = t.TypeOf<typeof Person>
