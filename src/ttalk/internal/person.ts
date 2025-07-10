@@ -38,7 +38,13 @@ export const Person = t.intersection([
         erpOccupation: nullable(t.string),
         occupationDescription: nullable(t.string),
         erpDepartment: nullable(t.string),
-        departmentDescription: nullable(t.string)
+        departmentDescription: nullable(t.string),
+        external: nullable(t.boolean),
+        situation: nullable(t.number),
+        admissionDate: nullable(datetime),
+        dismissalDate: nullable(datetime),
+        lastExamDate: nullable(datetime)
+
     })
 ])
 export type Person = t.TypeOf<typeof Person>
@@ -70,7 +76,13 @@ export const Converter = {
             erpOccupation: data.occupation,
             occupationDescription: data.occupationDescription,
             erpDepartment: data.department,
-            departmentDescription: data.departmentDescription
+            departmentDescription: data.departmentDescription,
+            external: data.external,
+            situation: data.situation,
+            registration: data.registration,
+            admissionDate: data.admissionDate,
+            dismissalDate: data.dismissalDate,
+            lastExamDate: data.lastExamDate
         }
     },
     toTTalk(data: Person): ttalk.Person {
@@ -96,7 +108,13 @@ export const Converter = {
             occupation: data.erpOccupation,
             occupationDescription: data.occupationDescription ?? undefined,
             department: data.erpDepartment ?? undefined,
-            departmentDescription: data.departmentDescription ?? undefined
+            departmentDescription: data.departmentDescription ?? undefined,
+            external: data.external ?? undefined,
+            situation: data.situation ?? undefined,
+            registration: data.registration ?? undefined,
+            admissionDate: data.admissionDate ?? undefined,
+            dismissalDate: data.dismissalDate ?? undefined,
+            lastExamDate: data.lastExamDate ?? undefined
         }
     }
 }
