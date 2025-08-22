@@ -26,7 +26,9 @@ export const BusinessRequest = t.intersection([
         /** Optional page offset of the request. */
         page: t.number,
         /** Number of items per request page. */
-        pageSize: t.number
+        pageSize: t.number,
+        /** Optional status of the request. */
+        status: t.string
     })
 ])
 export const BusinessRequestMessage = userMessage('requestInternal', BusinessRequest)
