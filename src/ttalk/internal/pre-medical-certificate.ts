@@ -24,7 +24,9 @@ export const PreMedicalCertificateInfo = t.intersection([
             t.null,
             t.string
         ]),
-        status: t.string
+        status: t.string,
+        rejectionReason: nullable(t.string),
+        rejectionDetails: nullable(t.string)
     }),
 ])
 
