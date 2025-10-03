@@ -49,7 +49,7 @@ const brazilianPortugueseMessages: Record<ErrorCode, string> = {
     BAD_REQUEST: 'Ocorreu um erro ao processar as informações da requisição.',
     VALIDATION_ERROR: 'As informações do corpo da mensagem possuem um formato inválido.',
     INTERNAL_SERVER_ERROR: 'Erro inesperado.',
-    UNAUTHENTICATED: 'Você deve informar as credenciais corretas de acesso (usuário e senha) e possuir acesso a filial desejada',
+    UNAUTHENTICATED: 'Você deve informar as credenciais corretas de acesso (usuário e senha), possuir acesso a filial desejada e a filial deve estar configurada para integração.',
     REQUIRED_BRANCH_ID: 'Você deve informar o branchId como parâmetro de busca (?branchId=...)',
     REQUIRED_ID_PARAMETER: 'O id é um parâmetro obrigatório neste método específico',
     DECODED_ERROR: 'A mensagem enviada está fora dos padrões estabelecidos',
