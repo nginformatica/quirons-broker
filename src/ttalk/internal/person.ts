@@ -81,7 +81,7 @@ export const Converter = {
             situation: data.situation,
             registration: data.registration,
             admissionDate: data.admissionDate,
-            dismissalDate: data.dismissalDate,
+            dismissalDate: data.dismissalDate ? data.dismissalDate : undefined,
             lastExamDate: data.lastExamDate
         }
     },
