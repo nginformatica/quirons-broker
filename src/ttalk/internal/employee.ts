@@ -81,7 +81,9 @@ export const Converter = {
             erpDepartment: data.department,
             departmentDescription: data.departmentDescription,
             admissionDate: data.admissionDate,
-            dismissalDate: data.dismissalDate,
+            dismissalDate: data.dismissalDate
+                ? data.dismissalDate
+                : undefined,
             pisCode: data.pisCode,
             eSocialRoleId: data.eSocialRoleId,
             eSocialId: data.eSocialId,

@@ -152,7 +152,7 @@ export const Person = t.intersection([
         situation: nullable(t.number),
         registration: nullable(t.string),
         admissionDate: nullable(datetime),
-        dismissalDate: nullable(datetime),
+        dismissalDate: t.union([datetime, t.null, t.literal('')]),
         lastExamDate: nullable(datetime)
         
     })
@@ -177,7 +177,7 @@ export const Employee = t.intersection([
         department: nullable(t.string),
         departmentDescription: nullable(t.string),
         admissionDate: nullable(datetime),
-        dismissalDate: nullable(datetime),
+        dismissalDate: t.union([datetime, t.null, t.literal('')]),
         pisCode: nullable(t.string),
         eSocialRoleId: nullable(t.string),
         eSocialId: nullable(t.string),
