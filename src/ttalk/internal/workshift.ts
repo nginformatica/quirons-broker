@@ -3,6 +3,7 @@ import * as t from 'io-ts'
 import * as ttalk from '../'
 import { datetime, nullable } from '../../custom-types'
 import { parseTime } from '../../fns/time-converter'
+import { parseBoolean } from '../../fns/parse-boolean'
 
 /**
  * Our internal model for cost centers.
@@ -19,6 +20,7 @@ export const WorkingShifts = t.intersection([
         companyId: nullable(t.string),
         branchId: t.union([t.string, t.null, t.literal(false)]),
         productiveHours: nullable(t.number),
+        isActive: t.boolean,
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
         relaySchema: t.string
@@ -40,7 +42,8 @@ export const Converter = {
             productiveHours: data.monthlyWorkingHours
                 ? parseTime(String(data.monthlyWorkingHours))
                 : null,
-            relaySchema: data.relaySchema
+            relaySchema: data.relaySchema,
+            isActive: parseBoolean(data.active)
         }
     }
 }

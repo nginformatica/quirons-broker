@@ -3,6 +3,7 @@ import * as t from 'io-ts'
 import * as ttalk from '../'
 import { cbo, datetime, nullable } from '../../custom-types'
 import { raiseErrorFromDecode, Language } from '../../errors'
+import { parseBoolean } from '../../fns/parse-boolean'
 
 /**
  * Our internal model for occupations.
@@ -22,7 +23,9 @@ export const Positions = t.intersection([
         activityDetails: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
-        observation: nullable(t.string)
+        observation: nullable(t.string),
+        isActive: t.boolean,
+        details: nullable(t.string)
     })
 ])
 export type Positions = t.TypeOf<typeof Positions>
@@ -48,7 +51,9 @@ export const Converter = {
             erpId: data.positionCode,
             description: data.name,
             cbo: data.cbo?.replace('-', '') || undefined,
-            activityDetails: data.activityDetails || undefined
+            activityDetails: data.activityDetails || undefined,
+            details: data.description || undefined,
+            isActive: parseBoolean(data.active)
         }
     }
 }

@@ -20,7 +20,11 @@ export const PositionInfo = t.intersection([
         /** CBO da Função */
         cbo: cbo,
         /** Detalhamento das Atividades da Função */
-        activityDetails: t.string
+        activityDetails: t.string,
+        /** Descrição da Função */
+        description: t.string,
+        /** Status do registro no ERP */
+        active: t.union([t.string, t.boolean]),
     })
 ])
 export type PositionInfo = t.TypeOf<typeof PositionInfo>

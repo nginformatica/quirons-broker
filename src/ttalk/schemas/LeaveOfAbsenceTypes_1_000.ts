@@ -17,7 +17,9 @@ export const LeaveOfAbsenceTypeInfo = t.intersection([
         /** Codigo do Tipo de Afastamento */
         leaveOfAbsenceCode: t.string,
         /** Codigo de Afastamento do Esocial */
-        esocialLeaveCode: t.string
+        esocialLeaveCode: t.string,
+        /** Status do registro no ERP */
+        active: t.union([t.string, t.boolean]),
     })
 ])
 export type LeaveOfAbsenceTypeInfo = t.TypeOf<typeof LeaveOfAbsenceTypeInfo>
