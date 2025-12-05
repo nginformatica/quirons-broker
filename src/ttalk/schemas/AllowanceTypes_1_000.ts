@@ -15,7 +15,9 @@ export const AllowanceTypesInfo = t.intersection([
         /** Identificador do tipo de abono */
         id: t.string,
         /** Código da Filial */
-        branchId: t.string
+        branchId: t.string,
+        /** Status do registro no ERP */
+        active: t.union([t.string, t.boolean]),
     })
 ])
 export type AllowanceTypesInfo = t.TypeOf<typeof AllowanceTypesInfo>

@@ -2,6 +2,7 @@ import * as t from 'io-ts'
 
 import * as ttalk from '../'
 import { datetime, nullable } from '../../custom-types'
+import { parseBoolean } from '../../fns/parse-boolean'
 
 /**
  * Our internal model for cost centers.
@@ -17,6 +18,7 @@ export const AllowanceType = t.intersection([
         erpCompany: nullable(t.string),
         companyId: nullable(t.string),
         branchId: t.union([t.string, t.null, t.literal(false)]),
+        isActive: t.boolean,
         created_at: nullable(datetime),
         updated_at: nullable(datetime)
     })
@@ -33,7 +35,8 @@ export const Converter = {
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
             erpId: data.code,
-            description: data.name
+            description: data.name,
+            isActive: parseBoolean(data.active)
         }
     }
 }
