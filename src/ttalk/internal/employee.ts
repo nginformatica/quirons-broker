@@ -109,7 +109,8 @@ export const Converter = {
             reabReadap: data.reabReadap,
             lastExamDate: data.lastExamDate,
             newRegistration: data.newRegistration,
-            newEmployeeId: data.newEmployeeId
+            newEmployeeId: data.newEmployeeId,
+            socialName: data.socialName
         }
     },
     toTTalk(data: Employee): ttalk.Employee {
@@ -161,7 +162,8 @@ export const Converter = {
             reabReadap: data.reabReadap ?? undefined,
             lastExamDate: data.lastExamDate ?? undefined,
             newRegistration: data.newRegistration ?? undefined,
-            newEmployeeId: data.newEmployeeId ?? undefined
+            newEmployeeId: data.newEmployeeId ?? undefined,
+            socialName: data.socialName ?? undefined
         }
     }
 }
