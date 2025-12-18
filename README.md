@@ -12,4 +12,4 @@ yarn add quirons-broker
 
 ### Next:
 - [ ] add eslint configuration
-- [ ] add github action to publish package
+- [X] add github action to publish package

@@ -207,7 +207,11 @@ export const Employee = t.intersection([
         /** Identificador de Reabilitação */
         reabReadap: nullable(t.union([t.literal('S'), t.literal('N')])),
         /** Data do Último Exame Médico */
-        lastExamDate: nullable(datetime)
+        lastExamDate: nullable(datetime),
+        /** Nova matrícula */
+        newRegistration: nullable(t.string),
+        /** Novo ID do funcionário */
+        newEmployeeId: nullable(t.string)
     })
 ])
 export type Employee = t.TypeOf<typeof Employee>
