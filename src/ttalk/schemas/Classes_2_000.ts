@@ -17,7 +17,9 @@ export const ClassInfo = t.intersection([
         /** Código da turma */
         classCode: t.string,
         /** Código eSocial */
-        esocialTrainingCode: t.string
+        esocialTrainingCode: t.string,
+        /** Status do registro no ERP */
+        active: t.union([t.string, t.boolean]),
     })
 ])
 export type ClassInfo = t.TypeOf<typeof ClassInfo>

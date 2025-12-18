@@ -16,6 +16,8 @@ export const StabilityTypeInfo = t.intersection([
         branchId: t.string,
         /** Código do Tipo de Estabilidade */
         stabilityCode: t.string,
+        /** Status do registro no ERP */
+        active: t.union([t.string, t.boolean]),
     })
 ])
 export type StabilityTypeInfo = t.TypeOf<typeof StabilityTypeInfo>
