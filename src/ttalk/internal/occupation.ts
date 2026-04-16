@@ -52,8 +52,8 @@ export const Converter = {
             description: data.name,
             cbo: data.cbo?.replace('-', '') || undefined,
             activityDetails: data.activityDetails || undefined,
-            details: data.description || undefined,
-            isActive: parseBoolean(data.active)
+            details: data.details || undefined,
+            isActive: data.isActive ? parseBoolean(data.isActive) : parseBoolean(data.active)
         }
     }
 }
