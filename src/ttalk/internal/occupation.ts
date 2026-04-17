@@ -53,7 +53,7 @@ export const Converter = {
             cbo: data.cbo?.replace('-', '') || undefined,
             activityDetails: data.activityDetails || undefined,
             details: data.details || undefined,
-            isActive: data.isActive ? parseBoolean(data.isActive) : parseBoolean(data.active)
+            isActive: data.isActive != null ? parseBoolean(data.isActive) : parseBoolean(data.active)
         }
     }
 }
