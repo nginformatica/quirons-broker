@@ -214,9 +214,7 @@ export const Employee = t.intersection([
         /** Nova matrícula */
         newRegistration: nullable(t.string),
         /** Novo ID do funcionário */
-        newEmployeeId: nullable(t.string),
-        /** ERP ID do superior imediato */
-        managerId: nullable(t.string)
+        newEmployeeId: nullable(t.string)
     })
 ])
 export type Employee = t.TypeOf<typeof Employee>
