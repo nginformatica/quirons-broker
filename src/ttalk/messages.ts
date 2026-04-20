@@ -43,6 +43,9 @@ import {
     Identification
 } from '../constructors'
 import { PreMedicalCertificateInfo } from './internal/pre-medical-certificate'
+import { ElectionProcessInfo } from './internal/election-process'
+import { CandidateInfo, CandidateListInfo } from './internal/candidate'
+import { VoteInfo } from './internal/vote'
 
 /**
  * Greeting message sent by the broker to the backend, specifiying how the
@@ -119,6 +122,10 @@ export const BusinessMessage = t.union([
     userMessage('risk',                     t.array(Risk)),
     userMessage('vaccine',                  t.array(Vaccine)),
     userMessage('premedicalcertificate',    t.array(PreMedicalCertificateInfo)),
+    userMessage('electionprocess',          t.array(ElectionProcessInfo)),
+    userMessage('candidate',                t.array(CandidateInfo)),
+    userMessage('candidatelist',            t.array(CandidateListInfo)),
+    userMessage('vote',                     t.array(VoteInfo)),
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 
