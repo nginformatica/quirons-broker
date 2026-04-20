@@ -49,7 +49,8 @@ export const Employee = t.intersection([
         reabReadap: nullable(t.union([t.literal('S'), t.literal('N')])),
         lastExamDate: nullable(datetime),
         newRegistration: nullable(t.string),
-        newEmployeeId: nullable(t.string)
+        newEmployeeId: nullable(t.string),
+        managerId: nullable(t.string)
     })
 ])
 export type Employee = t.TypeOf<typeof Employee>
@@ -110,7 +111,8 @@ export const Converter = {
             lastExamDate: data.lastExamDate,
             newRegistration: data.newRegistration,
             newEmployeeId: data.newEmployeeId,
-            socialName: data.socialName
+            socialName: data.socialName,
+            managerId: data.managerId
         }
     },
     toTTalk(data: Employee): ttalk.Employee {
@@ -163,7 +165,8 @@ export const Converter = {
             lastExamDate: data.lastExamDate ?? undefined,
             newRegistration: data.newRegistration ?? undefined,
             newEmployeeId: data.newEmployeeId ?? undefined,
-            socialName: data.socialName ?? undefined
+            socialName: data.socialName ?? undefined,
+            managerId: data.managerId ?? undefined
         }
     }
 }
