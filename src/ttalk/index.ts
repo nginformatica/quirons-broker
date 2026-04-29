@@ -216,7 +216,18 @@ export const Employee = t.intersection([
         /** Novo ID do funcionário */
         newEmployeeId: nullable(t.string),
         /** ERP ID do superior imediato */
-        managerId: nullable(t.string)
+        managerId: nullable(t.string),
+        /**
+         * Status do protocolo do evento RH (S-2190/S-2200) no eSocial.
+         * - 'NI' (default quando ausente): não identificado — retrocompatível
+         * - 'S': S-2190/S-2200 deste colaborador foi recepcionado pelo eSocial
+         * - 'N': enviado pelo ERP mas eSocial ainda não recepcionou — bloqueia eventos SST
+         */
+        eSocialRhEventStatus: nullable(t.union([
+            t.literal('NI'),
+            t.literal('S'),
+            t.literal('N')
+        ]))
     })
 ])
 export type Employee = t.TypeOf<typeof Employee>
