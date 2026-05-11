@@ -32,6 +32,7 @@ import { PreMedicalCertificateInfo } from './internal/pre-medical-certificate'
 import { ElectionProcessInfo } from './internal/election-process'
 import { CandidateInfo, CandidateListInfo } from './internal/candidate'
 import { VoteInfo } from './internal/vote'
+import { BranchInfo, BranchListInfo } from './internal/branch'
 
 /**
  * An object as returned by TOTVS' TTalk API.
@@ -426,3 +427,7 @@ export const CandidateList = CandidateListInfo
 export type CandidateList = t.TypeOf<typeof CandidateList>
 export const Vote = VoteInfo
 export type Vote = t.TypeOf<typeof Vote>
+export const Branch = BranchInfo
+export type Branch = t.TypeOf<typeof Branch>
+export const BranchList = BranchListInfo
+export type BranchList = t.TypeOf<typeof BranchList>

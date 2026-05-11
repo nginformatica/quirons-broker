@@ -46,6 +46,7 @@ import { PreMedicalCertificateInfo } from './internal/pre-medical-certificate'
 import { ElectionProcessInfo } from './internal/election-process'
 import { CandidateInfo, CandidateListInfo } from './internal/candidate'
 import { VoteInfo } from './internal/vote'
+import { BranchInfo } from './internal/branch'
 
 /**
  * Greeting message sent by the broker to the backend, specifiying how the
@@ -169,6 +170,46 @@ export const RequesterResponseMessage = t.intersection([
 export type RequesterResponseMessage = t.TypeOf<typeof SenderResponseMessage>
 
 /**
+ * Onboarding TOTVS — descobrir filiais (com empresa) via TTalk.
+ * Backend → broker → TOTVS → broker → backend (request-reply via RabbitMQ).
+ * O broker faz o HTTP outbound; backend só publica intenção e aguarda reply.
+ * Spec: .docs/totvs-api/discover-branches.md
+ */
+export const DiscoverErpBranchesRequest = t.intersection([
+    t.type({
+        url: t.string
+    }),
+    t.partial({
+        port: t.number,
+        user: t.string,
+        password: t.string
+    })
+])
+export type DiscoverErpBranchesRequest =
+    t.TypeOf<typeof DiscoverErpBranchesRequest>
+
+export const DiscoverErpBranchesError = t.union([
+    t.literal('Timeout'),
+    t.literal('Auth'),
+    t.literal('Unreachable'),
+    t.literal('NotImplemented'),
+    t.literal('Unknown')
+])
+export type DiscoverErpBranchesError =
+    t.TypeOf<typeof DiscoverErpBranchesError>
+
+export const DiscoverErpBranchesResponse = t.intersection([
+    t.type({
+        branches: t.array(BranchInfo)
+    }),
+    t.partial({
+        error: DiscoverErpBranchesError
+    })
+])
+export type DiscoverErpBranchesResponse =
+    t.TypeOf<typeof DiscoverErpBranchesResponse>
+
+/**
  * Common content of a business message.
  */
 export type BusinessObject = BusinessMessage['content'][number]
@@ -241,6 +282,8 @@ export const Message = t.union([
     metaMessage('pong',     t.string),
     metaMessage('greeting', Greeting),
     metaMessage('integrationBlocked', IntegrationBlocked),
+    metaMessage('discoverErpBranchesRequest',  DiscoverErpBranchesRequest),
+    metaMessage('discoverErpBranchesResponse', DiscoverErpBranchesResponse),
     BusinessRequestMessage,
     userMessage('delete',   Delete),
     userMessage('deleted',  Deleted),
