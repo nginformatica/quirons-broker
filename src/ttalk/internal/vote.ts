@@ -13,3 +13,17 @@ export const VoteInfo = t.intersection([
 ])
 
 export type Vote = t.TypeOf<typeof VoteInfo>
+
+export const VoteRecordInfo = t.intersection([
+    t.type({
+        mandateId: t.string,
+        employeeId: t.string,
+        votedAt: t.string
+    }),
+    t.partial({
+        companyId: t.string,
+        branchId: t.string
+    })
+])
+
+export type VoteRecord = t.TypeOf<typeof VoteRecordInfo>

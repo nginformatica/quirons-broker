@@ -45,7 +45,7 @@ import {
 import { PreMedicalCertificateInfo } from './internal/pre-medical-certificate'
 import { ElectionProcessInfo } from './internal/election-process'
 import { CandidateInfo, CandidateListInfo } from './internal/candidate'
-import { VoteInfo } from './internal/vote'
+import { VoteInfo, VoteRecordInfo } from './internal/vote'
 import { BranchInfo } from './internal/branch'
 
 /**
@@ -127,6 +127,7 @@ export const BusinessMessage = t.union([
     userMessage('candidate',                t.array(CandidateInfo)),
     userMessage('candidatelist',            t.array(CandidateListInfo)),
     userMessage('vote',                     t.array(VoteInfo)),
+    userMessage('voterecord',               t.array(VoteRecordInfo)),
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 

@@ -34,7 +34,7 @@ import {
     ElectionProcessInfo
 } from './internal/election-process'
 import { CandidateInfo, CandidateListInfo } from './internal/candidate'
-import { VoteInfo } from './internal/vote'
+import { VoteInfo, VoteRecordInfo } from './internal/vote'
 import { BranchInfo, BranchListInfo } from './internal/branch'
 
 /**
@@ -432,6 +432,8 @@ export const CandidateList = CandidateListInfo
 export type CandidateList = t.TypeOf<typeof CandidateList>
 export const Vote = VoteInfo
 export type Vote = t.TypeOf<typeof Vote>
+export const VoteRecord = VoteRecordInfo
+export type VoteRecord = t.TypeOf<typeof VoteRecord>
 export const Branch = BranchInfo
 export type Branch = t.TypeOf<typeof Branch>
 export const BranchList = BranchListInfo
