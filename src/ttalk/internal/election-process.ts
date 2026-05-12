@@ -2,13 +2,22 @@ import * as t from 'io-ts'
 import { Paging } from '../apis/types/totvsApiTypesBase'
 import { nullable } from '../../custom-types'
 
+export const ElectionPhase = t.union([
+    t.literal('candidacy'),
+    t.literal('voting')
+])
+export type ElectionPhase = t.TypeOf<typeof ElectionPhase>
+
 export const ElectionProcessInfo = t.intersection([
     t.type({
         id: t.string,
         mandateId: t.string,
         status: t.string,
         startDate: t.string,
-        endDate: t.string
+        endDate: t.string,
+        phase: ElectionPhase,
+        phaseStartDate: t.string,
+        phaseEndDate: t.string
     }),
     t.partial({
         companyId: t.string,

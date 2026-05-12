@@ -29,7 +29,10 @@ import { QuizInfo } from './schemas/Quiz'
 import { RiskInfo } from './schemas/Risk'
 import { VaccineInfo } from './schemas/Vaccine'
 import { PreMedicalCertificateInfo } from './internal/pre-medical-certificate'
-import { ElectionProcessInfo } from './internal/election-process'
+import {
+    ElectionPhase as ElectionPhaseT,
+    ElectionProcessInfo
+} from './internal/election-process'
 import { CandidateInfo, CandidateListInfo } from './internal/candidate'
 import { VoteInfo } from './internal/vote'
 import { BranchInfo, BranchListInfo } from './internal/branch'
@@ -421,6 +424,8 @@ export const PreMedicalCertificate = PreMedicalCertificateInfo
 export type PreMedicalCertificate = t.TypeOf<typeof PreMedicalCertificate>
 export const ElectionProcess = ElectionProcessInfo
 export type ElectionProcess = t.TypeOf<typeof ElectionProcess>
+export const ElectionPhase = ElectionPhaseT
+export type ElectionPhase = t.TypeOf<typeof ElectionPhase>
 export const Candidate = CandidateInfo
 export type Candidate = t.TypeOf<typeof Candidate>
 export const CandidateList = CandidateListInfo
