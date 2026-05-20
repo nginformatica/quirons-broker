@@ -28,6 +28,8 @@ export const Header = t.intersection([
     t.partial({
         SubType: nullable(t.string),
         Version: nullable(t.string),
+        Enterprise: nullable(t.string),
+        BusinessUnit: nullable(t.string),
         CompanySharingMode: nullable(t.string),
         BusinessUnitySharingMode: nullable(t.string),
         BranchSharingMode: nullable(t.string)
