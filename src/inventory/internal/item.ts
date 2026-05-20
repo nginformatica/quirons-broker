@@ -29,6 +29,11 @@ export const Item = t.intersection([
         isActive: t.boolean,
         warehouseDescription: nullable(t.string),
         unitOfMeasureDescription: nullable(t.string),
+        enterprise: nullable(t.string),
+        businessUnit: nullable(t.string),
+        companySharingMode: nullable(t.string),
+        businessUnitySharingMode: nullable(t.string),
+        branchSharingMode: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
         operation: t.union([
@@ -69,6 +74,11 @@ export const Converter = {
             sentBy: Header.ProductName,
             /** not required */
             unitOfMeasureDescription: Content.UnitOfMeasureCode,
+            enterprise: Header.Enterprise,
+            businessUnit: Header.BusinessUnit,
+            companySharingMode: Header.CompanySharingMode,
+            businessUnitySharingMode: Header.BusinessUnitySharingMode,
+            branchSharingMode: Header.BranchSharingMode,
             operation: Header.Event,
             isActive: parseBoolean(Content.Active)
         }
