@@ -16,6 +16,12 @@ jobs:
       with:
         node-version: '14.x'
         registry-url: 'https://registry.npmjs.org'
+    - name: Debug lib package.json
+      run: cat lib/package.json
+    - name: Debug npm whoami
+      run: npm whoami
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - run: |
         yarn
         npm run pre:release
