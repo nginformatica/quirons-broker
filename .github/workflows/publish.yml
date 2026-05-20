@@ -16,8 +16,8 @@ jobs:
       with:
         node-version: '14.x'
         registry-url: 'https://registry.npmjs.org'
-    - name: Debug lib package.json
-      run: cat lib/package.json
+    - name: Debug package.json
+      run: cat package.json
     - name: Debug npm whoami
       run: npm whoami
       env:
