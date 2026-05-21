@@ -12,7 +12,12 @@ import { CostCenterError, CostCenterReturn } from './schema/CostCenter'
 import { ItemError, ItemReturn } from './schema/Item'
 import { RequestError, RequestInfo, RequestReturn } from './schema/Request'
 import { SellerError, SellerReturn } from './schema/Seller'
-import { StockLevelError, StockLevelReturn } from './schema/StockLevel'
+import {
+    StockLevelError,
+    StockLevelInfo,
+    StockLevelInquiry,
+    StockLevelReturn
+} from './schema/StockLevel'
 import { StockTurnOverError, StockTurnOverInfo, StockTurnOverReturn } from './schema/StockTurnOver'
 import { UnitOfMeasureError, UnitOfMeasureReturn } from './schema/UnitOfMeasure'
 import { WarehouseError, WarehouseReturn } from './schema/Warehouse'
@@ -43,6 +48,8 @@ export const SenderMessageContent = t.union([
     senderMessage('seller', SellerError),
     senderMessage('seller', SellerReturn),
     senderMessage('stocklevel', StockLevelError),
+    senderMessage('stocklevel', StockLevelInquiry),
+    senderMessage('stocklevel', StockLevelInfo),
     senderMessage('stocklevel', StockLevelReturn),
     senderMessage('unitofmeasure', UnitOfMeasureError),
     senderMessage('unitofmeasure', UnitOfMeasureReturn),
