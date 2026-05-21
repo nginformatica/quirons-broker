@@ -192,7 +192,22 @@ export const ListStockLevelInfo = t.type({
     Content: t.array(StockLevel)
 })
 
+const StockLevelInquiryContent = t.intersection([
+    t.type({
+        ItemInternalId: t.string
+    }),
+    t.partial({
+        WarehouseInternalId: nullable(t.string)
+    })
+])
+
+export const StockLevelInquiry = t.type({
+    Header,
+    Content: StockLevelInquiryContent
+})
+
 export type StockLevelReturn = t.TypeOf<typeof StockLevelReturn>
 export type StockLevelError = t.TypeOf<typeof StockLevelError>
 export type StockLevelInfo = t.TypeOf<typeof StockLevelInfo>
 export type ListStockLevelInfo = t.TypeOf<typeof ListStockLevelInfo>
+export type StockLevelInquiry = t.TypeOf<typeof StockLevelInquiry>
