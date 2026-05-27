@@ -206,8 +206,24 @@ export const StockLevelInquiry = t.type({
     Content: StockLevelInquiryContent
 })
 
+// Protheus product-sb2 REST lookup: GET /MNTNG/product-sb2/{ProductCode}
+export const ProductStockQuery = t.type({
+    ProductCode: t.string
+})
+
+export const ProductStockReturn = t.type({
+    items: t.array(
+        t.type({
+            warehouse: t.string,
+            quantity: t.union([t.string, t.number])
+        })
+    )
+})
+
 export type StockLevelReturn = t.TypeOf<typeof StockLevelReturn>
 export type StockLevelError = t.TypeOf<typeof StockLevelError>
 export type StockLevelInfo = t.TypeOf<typeof StockLevelInfo>
 export type ListStockLevelInfo = t.TypeOf<typeof ListStockLevelInfo>
 export type StockLevelInquiry = t.TypeOf<typeof StockLevelInquiry>
+export type ProductStockQuery = t.TypeOf<typeof ProductStockQuery>
+export type ProductStockReturn = t.TypeOf<typeof ProductStockReturn>

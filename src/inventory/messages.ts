@@ -16,6 +16,7 @@ import {
     StockLevelError,
     StockLevelInfo,
     StockLevelInquiry,
+    ProductStockQuery,
     StockLevelReturn
 } from './schema/StockLevel'
 import { StockTurnOverError, StockTurnOverInfo, StockTurnOverReturn } from './schema/StockTurnOver'
@@ -49,6 +50,7 @@ export const SenderMessageContent = t.union([
     senderMessage('seller', SellerReturn),
     senderMessage('stocklevel', StockLevelError),
     senderMessage('stocklevel', StockLevelInquiry),
+    senderMessage('stocklevel', ProductStockQuery),
     senderMessage('stocklevel', StockLevelInfo),
     senderMessage('stocklevel', StockLevelReturn),
     senderMessage('unitofmeasure', UnitOfMeasureError),
