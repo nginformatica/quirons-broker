@@ -6,6 +6,7 @@ import { AllowanceType } from './internal/allowance-type'
 import { PayRollCostCenter } from './internal/cost-center'
 import { Dependant } from './internal/dependant'
 import { Employee } from './internal/employee'
+import { EmployeesManager } from './internal/employees-manager'
 import { FunctionalHistory } from './internal/functional-history'
 import { Positions } from './internal/occupation'
 import { Person } from './internal/person'
@@ -105,6 +106,7 @@ export const BusinessMessage = t.union([
     userMessage('stabilitytype',            t.array(StabilityType)),
     userMessage('person',                   t.array(Person)),
     userMessage('employee',                 t.array(Employee)),
+    userMessage('employeesmanager',         t.array(EmployeesManager)),
     userMessage('dependant',                t.array(Dependant)),
     userMessage('functionalhistory',        t.array(FunctionalHistory)),
     userMessage('traininghistory',          t.array(TrainingHistory)),
