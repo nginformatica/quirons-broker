@@ -321,7 +321,7 @@ export type AllowanceType = t.TypeOf<typeof AllowanceType>
 
 export const CostCenter = t.type({
     id: t.string,
-    description: t.string
+    name: t.string
 })
 
 export type CostCenter = t.TypeOf<typeof CostCenter>

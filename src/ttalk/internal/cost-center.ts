@@ -9,7 +9,7 @@ import { parseBoolean } from '../../fns/parse-boolean'
 export const PayRollCostCenter = t.intersection([
     t.type({
         id: t.string,
-        description: t.string
+        name: t.string
     }),
     t.partial({
         class: nullable(t.string),
@@ -36,7 +36,7 @@ export const Converter = {
             erpCompany: data.companyId.toString(),
             erpBranch: data.branchId || false,
             erpId: data.code,
-            description: data.name,
+            name: data.name,
             costCenterCode: data.costCenterCode,
             isActive: parseBoolean(data.active)
         }
