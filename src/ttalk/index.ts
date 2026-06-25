@@ -1,6 +1,7 @@
 import * as t from 'io-ts'
 
 import { AdditionalInfo } from './schemas/Additional_1_000'
+import { SpecialRetirementInfo } from './schemas/SpecialRetirement_1_000'
 import { AllowanceInfo } from './schemas/Allowance_1_000'
 import { AllowanceTypesInfo } from './schemas/AllowanceTypes_1_000'
 import { ClassInfo } from './schemas/Classes_2_000'
@@ -52,6 +53,7 @@ export const Object = t.union([
     WorkingShiftInfo,
     LeaveOfAbsenceInfo,
     AdditionalInfo,
+    SpecialRetirementInfo,
     InformationDeficienciesInfo,
     TrainingNecessityInfo,
     StabilityControlInfo,
@@ -110,6 +112,7 @@ export {
     ClassInfo,
     WorkingShiftInfo,
     AdditionalInfo,
+    SpecialRetirementInfo,
     InformationDeficienciesInfo,
     AllowanceInfo,
     LeaveOfAbsenceInfo,
