@@ -49,6 +49,11 @@ import { ElectionProcessInfo } from './internal/election-process'
 import { CandidateInfo, CandidateListInfo } from './internal/candidate'
 import { VoteInfo, VoteRecordInfo } from './internal/vote'
 import { BranchInfo } from './internal/branch'
+import {
+    EmployeeConsultationInfo,
+    EmployeeIpeInfo,
+    EmployeeRiskInfo
+} from './internal/employee-self-service'
 
 /**
  * Greeting message sent by the broker to the backend, specifiying how the
@@ -131,6 +136,9 @@ export const BusinessMessage = t.union([
     userMessage('candidatelist',            t.array(CandidateListInfo)),
     userMessage('vote',                     t.array(VoteInfo)),
     userMessage('voterecord',               t.array(VoteRecordInfo)),
+    userMessage('employeeconsultation',     t.array(EmployeeConsultationInfo)),
+    userMessage('employeeipe',              t.array(EmployeeIpeInfo)),
+    userMessage('employeerisk',             t.array(EmployeeRiskInfo)),
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 
