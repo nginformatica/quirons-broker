@@ -306,7 +306,7 @@ export type TrainingHistory = t.TypeOf<typeof TrainingHistory>
 export const AbsenceType = t.intersection([
     t.type({
         id: t.string,
-        description: t.string
+        name: t.string
     }),
     t.partial({
         eSocialCode: nullable(t.string)
@@ -317,7 +317,7 @@ export type AbsenceType = t.TypeOf<typeof AbsenceType>
 
 export const AllowanceType = t.type({
     id: t.string,
-    description: t.string
+    name: t.string
 })
 
 export type AllowanceType = t.TypeOf<typeof AllowanceType>
@@ -332,7 +332,7 @@ export type CostCenter = t.TypeOf<typeof CostCenter>
 export const Occupation = t.intersection([
     t.type({
         id: t.string,
-        description: t.string
+        name: t.string
     }),
     t.partial({
         cbo: nullable(cbo),
@@ -344,7 +344,7 @@ export type Occupation = t.TypeOf<typeof Occupation>
 
 export const StabilityType = t.type({
     id: t.string,
-    description: t.string
+    name: t.string
 })
 
 export type StabilityType = t.TypeOf<typeof StabilityType>
@@ -352,7 +352,7 @@ export type StabilityType = t.TypeOf<typeof StabilityType>
 export const Training = t.intersection([
     t.type({
         id: t.string,
-        description: t.string
+        name: t.string
     }),
     t.partial({
         eSocialCode: nullable(t.string)
@@ -364,7 +364,7 @@ export type Training = t.TypeOf<typeof Training>
 export const WorkingShift = t.intersection([
     t.type({
         id: t.string,
-        description: t.string
+        name: t.string
     }),
     t.partial({
         productiveHours: nullable(t.number)
