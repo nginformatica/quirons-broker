@@ -64,8 +64,11 @@ export const time = new t.Type<string, string>(
 
 export const cbo = new t.Type<string, string>(
     'CBO',
-    // Type guard
-    (u): u is string => /(\d\d\d\d)-?(\d\.?\d)/.test(u as string),
+    // Type guard — mantém paridade com o validate abaixo: CBO vazio e' valido
+    // (funcao sem CBO). Sem isso, `.is()` reprova '' e derruba TTalkMessage.is.
+    (u): u is string =>
+        typeof u === 'string' &&
+        (u.trim() === '' || /(\d\d\d\d)-?(\d\.?\d)/.test(u)),
     (u, c) => 
         either.chain(t.string.validate(u, c), s => {
             if (s.trim() === '') {
