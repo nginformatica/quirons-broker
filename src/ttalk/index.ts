@@ -40,49 +40,6 @@ import { VoteInfo, VoteRecordInfo } from './internal/vote'
 import { BranchInfo, BranchListInfo } from './internal/branch'
 
 /**
- * An object as returned by TOTVS' TTalk API.
- */
-export const Object = t.union([
-    EmployeesManagerInfo,
-    PayRollCostCenterInfo,
-    LeaveOfAbsenceTypeInfo,
-    AllowanceTypesInfo,
-    PositionInfo,
-    StabilityTypeInfo,
-    ClassInfo,
-    WorkingShiftInfo,
-    LeaveOfAbsenceInfo,
-    AdditionalInfo,
-    SpecialRetirementInfo,
-    InformationDeficienciesInfo,
-    TrainingNecessityInfo,
-    StabilityControlInfo,
-    AllowanceInfo,
-    SickNoteInfo,
-    MedicalConsultationInfo,
-    AccreditedInfo,
-    ClinicalQuizInfo,
-    DeficienciesInfo,
-    DocumentInfo,
-    IpeDeliveryInfo,
-    MedicalRecordInfo,
-    OccupationInfo,
-    QuizInfo,
-    RiskInfo,
-    VaccineInfo
-])
-export type Object = t.TypeOf<typeof Object>
-
-/**
- * A paginated array of objects as returned by TOTVS' TTalk API.
- */
-export const PaginatedObject = t.type({
-    hasNext: t.boolean,
-    items: t.array(Object)
-})
-export type PaginatedObject = t.TypeOf<typeof PaginatedObject>
-
-/**
  * A converter interface, meant to convert between TOTVS' models and ours.
  */
 export interface Converter<From, To> {
@@ -395,6 +352,57 @@ export const Position = t.intersection([
         observation: nullable(t.string)
     })
 ])
+
+
+/**
+ * An object as returned by TOTVS' TTalk API.
+ */
+export const Object = t.union([
+    EmployeesManagerInfo,
+    PayRollCostCenterInfo,
+    LeaveOfAbsenceTypeInfo,
+    AllowanceTypesInfo,
+    PositionInfo,
+    StabilityTypeInfo,
+    ClassInfo,
+    WorkingShiftInfo,
+    LeaveOfAbsenceInfo,
+    AdditionalInfo,
+    SpecialRetirementInfo,
+    InformationDeficienciesInfo,
+    TrainingNecessityInfo,
+    StabilityControlInfo,
+    AllowanceInfo,
+    SickNoteInfo,
+    MedicalConsultationInfo,
+    AccreditedInfo,
+    ClinicalQuizInfo,
+    DeficienciesInfo,
+    DocumentInfo,
+    IpeDeliveryInfo,
+    MedicalRecordInfo,
+    OccupationInfo,
+    QuizInfo,
+    RiskInfo,
+    VaccineInfo,
+    Person,
+    Department,
+    Position,
+    Employee,
+    Dependant,
+    FunctionalHistory,
+    TrainingHistory
+])
+export type Object = t.TypeOf<typeof Object>
+
+/**
+ * A paginated array of objects as returned by TOTVS' TTalk API.
+ */
+export const PaginatedObject = t.type({
+    hasNext: t.boolean,
+    items: t.array(Object)
+})
+export type PaginatedObject = t.TypeOf<typeof PaginatedObject>
 
 export type Position = t.TypeOf<typeof Position>
 
