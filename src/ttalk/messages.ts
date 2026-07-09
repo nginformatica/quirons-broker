@@ -187,6 +187,10 @@ export type RequesterResponseMessage = t.TypeOf<typeof SenderResponseMessage>
  * Backend → broker → TOTVS → broker → backend (request-reply via RabbitMQ).
  * O broker faz o HTTP outbound; backend só publica intenção e aguarda reply.
  * Spec: .docs/totvs-api/discover-branches.md
+ *
+ * `erpLine` seleciona path e mapper no broker (valores lowercase do enum
+ * ErpLine do backend). Ausente = Protheus (retrocompat). Datasul não tem
+ * API de Branches → broker responde NotImplemented sem chamada HTTP.
  */
 export const DiscoverErpBranchesRequest = t.intersection([
     t.type({
@@ -195,7 +199,12 @@ export const DiscoverErpBranchesRequest = t.intersection([
     t.partial({
         port: t.number,
         user: t.string,
-        password: t.string
+        password: t.string,
+        erpLine: t.union([
+            t.literal('protheus'),
+            t.literal('rm'),
+            t.literal('datasul')
+        ])
     })
 ])
 export type DiscoverErpBranchesRequest =
