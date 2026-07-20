@@ -232,6 +232,102 @@ export type DiscoverErpBranchesResponse =
     t.TypeOf<typeof DiscoverErpBranchesResponse>
 
 /**
+ * Onboarding TOTVS bidirecional (ONB-02) — Direção B (Protheus → Quírons).
+ * O Protheus envia os "Dados de acesso ao ERP" (§6 do contrato) para a rota
+ * inbound do broker (`PUT /api/integracao/erp/config`); o broker resolve a
+ * organização pela credencial de integração e encaminha ao backend, que grava
+ * o Endpoint na matriz. broker → backend (request-reply via RabbitMQ).
+ */
+export const SaveErpAccessConfigRequest = t.type({
+    organizationId: t.string,
+    urlRest: t.string,
+    usuario: t.string,
+    senha: t.string
+})
+export type SaveErpAccessConfigRequest =
+    t.TypeOf<typeof SaveErpAccessConfigRequest>
+
+export const SaveErpAccessConfigError = t.union([
+    t.literal('InvalidOrg'),
+    t.literal('Unknown')
+])
+export type SaveErpAccessConfigError =
+    t.TypeOf<typeof SaveErpAccessConfigError>
+
+export const SaveErpAccessConfigResponse = t.intersection([
+    t.type({
+        ok: t.boolean
+    }),
+    t.partial({
+        error: SaveErpAccessConfigError
+    })
+])
+export type SaveErpAccessConfigResponse =
+    t.TypeOf<typeof SaveErpAccessConfigResponse>
+
+/**
+ * Onboarding TOTVS bidirecional (ONB-02) — Direção A (Quírons → Protheus).
+ * O backend gera a credencial de integração (api_access) e pede ao broker que
+ * grave no ERP a URL do Quírons + a credencial, via
+ * `PUT {erpUrl}/api/rh/v1/integrationcheck/quirons/config` (Basic do ERP).
+ * `accessKey`/`accessSecret` viajam nos campos `usuario`/`senha` do body §3
+ * (accessKey não tem `@` → o inbound do broker roteia para api_access).
+ * backend → broker → Protheus → broker → backend (request-reply).
+ */
+export const SendQuironsConfigToErpRequest = t.intersection([
+    t.type({
+        erpUrl: t.string,
+        erpUser: t.string,
+        erpPassword: t.string,
+        quironsUrl: t.string,
+        accessKey: t.string,
+        accessSecret: t.string
+    }),
+    t.partial({
+        erpPort: t.number
+    })
+])
+export type SendQuironsConfigToErpRequest =
+    t.TypeOf<typeof SendQuironsConfigToErpRequest>
+
+// Item do laudo do Verificador (contrato §3). `status` fica como string pra
+// não quebrar o decode do fio caso o ERP devolva um valor fora de ok/aviso/erro.
+export const ErpLaudoItem = t.intersection([
+    t.type({
+        id: t.string,
+        titulo: t.string,
+        status: t.string,
+        mensagem: t.string
+    }),
+    t.partial({
+        categoria: t.string
+    })
+])
+export type ErpLaudoItem = t.TypeOf<typeof ErpLaudoItem>
+
+export const SendQuironsConfigToErpError = t.union([
+    t.literal('Auth'),
+    t.literal('Timeout'),
+    t.literal('Unreachable'),
+    t.literal('Unknown')
+])
+export type SendQuironsConfigToErpError =
+    t.TypeOf<typeof SendQuironsConfigToErpError>
+
+export const SendQuironsConfigToErpResponse = t.intersection([
+    t.type({
+        gravado: t.boolean,
+        mensagem: t.string,
+        items: t.array(ErpLaudoItem)
+    }),
+    t.partial({
+        error: SendQuironsConfigToErpError
+    })
+])
+export type SendQuironsConfigToErpResponse =
+    t.TypeOf<typeof SendQuironsConfigToErpResponse>
+
+/**
  * Common content of a business message.
  */
 export type BusinessObject = BusinessMessage['content'][number]
@@ -306,6 +402,10 @@ export const Message = t.union([
     metaMessage('integrationBlocked', IntegrationBlocked),
     metaMessage('discoverErpBranchesRequest',  DiscoverErpBranchesRequest),
     metaMessage('discoverErpBranchesResponse', DiscoverErpBranchesResponse),
+    metaMessage('saveErpAccessConfigRequest',  SaveErpAccessConfigRequest),
+    metaMessage('saveErpAccessConfigResponse', SaveErpAccessConfigResponse),
+    metaMessage('sendQuironsConfigToErpRequest',  SendQuironsConfigToErpRequest),
+    metaMessage('sendQuironsConfigToErpResponse', SendQuironsConfigToErpResponse),
     BusinessRequestMessage,
     userMessage('delete',   Delete),
     userMessage('deleted',  Deleted),
