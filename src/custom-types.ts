@@ -2,15 +2,25 @@ import { either } from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 
 /**
+ * Protheus TTalk sends datetimes in basic ISO format (20260101T00:00:00),
+ * which new Date() cannot parse — normalize to the extended format.
+ */
+const normalizeBasicIsoDate = (value: string): string => {
+    const match = /^(\d{4})(\d{2})(\d{2})T(.*)$/.exec(value)
+
+    return match ? `${match[1]}-${match[2]}-${match[3]}T${match[4]}` : value
+}
+
+/**
  * Validator for datetime expressions.
- * e.g: 2001-11-02T02:00:00.000Z
+ * e.g: 2001-11-02T02:00:00.000Z or 20011102T02:00:00 (Protheus basic ISO)
  */
 export const datetime = new t.Type<Date, string>(
     'DateTime',
     (u): u is Date => u instanceof Date,
     (u, c) =>
         either.chain(t.string.validate(u, c), s => {
-            const d = new Date(s)
+            const d = new Date(normalizeBasicIsoDate(s))
 
             return isNaN(d.getTime()) ? t.failure(u, c) : t.success(d)
         }),
