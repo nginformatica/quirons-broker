@@ -14,7 +14,7 @@
     "build": "tsc",
     "copy": "cp package.json lib/package.json && cp README.md lib/README.md",
     "pre:release": "rm -rf ./lib && yarn build && yarn copy",
-    "release": "npm publish lib --scope=@quirons --tag alpha --access public"
+    "release": "npm publish ./lib --tag alpha --access public"
   },
   "devDependencies": {
     "fp-ts": "2.6.1",
