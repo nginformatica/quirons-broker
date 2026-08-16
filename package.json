@@ -11,6 +11,9 @@
   "author": "void",
   "license": "MIT",
   "scripts": {
+    "i18n:scan": "node scripts/i18n-scan.mjs",
+    "i18n:report": "node scripts/i18n-scan.mjs --report",
+    "i18n:baseline": "node scripts/i18n-scan.mjs --baseline",
     "build": "tsc",
     "copy": "cp package.json lib/package.json && cp README.md lib/README.md",
     "pre:release": "rm -rf ./lib && yarn build && yarn copy",
