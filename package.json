@@ -1,6 +1,6 @@
 {
   "name": "quirons-broker",
-  "version": "0.0.1-alpha.182",
+  "version": "0.0.1-alpha.183",
   "description": "A small library to expose the broker types",
   "typings": "index.d.ts",
   "types": "index.d.ts",
@@ -11,6 +11,9 @@
   "author": "void",
   "license": "MIT",
   "scripts": {
+    "i18n:scan": "node scripts/i18n-scan.mjs",
+    "i18n:report": "node scripts/i18n-scan.mjs --report",
+    "i18n:baseline": "node scripts/i18n-scan.mjs --baseline",
     "build": "tsc",
     "copy": "cp package.json lib/package.json && cp README.md lib/README.md",
     "pre:release": "rm -rf ./lib && yarn build && yarn copy",
