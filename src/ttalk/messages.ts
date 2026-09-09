@@ -182,6 +182,14 @@ export const RequesterResponseMessage = t.intersection([
 ])
 export type RequesterResponseMessage = t.TypeOf<typeof SenderResponseMessage>
 
+// Reply that hermes hands back to the ERP client instead of echoing the
+// request. Content stays untyped: hermes decodes it as t.array(UnknownRecord).
+export const ResponseToClientMessage = userMessage(
+    'responseToClient',
+    t.array(t.UnknownRecord)
+)
+export type ResponseToClientMessage = t.TypeOf<typeof ResponseToClientMessage>
+
 /**
  * Onboarding TOTVS — descobrir filiais (com empresa) via TTalk.
  * Backend → broker → TOTVS → broker → backend (request-reply via RabbitMQ).
@@ -412,7 +420,8 @@ export const Message = t.union([
     BusinessMessage,
     SenderMessage,
     SenderResponseMessage,
-    RequesterResponseMessage
+    RequesterResponseMessage,
+    ResponseToClientMessage
 ])
 export type Message = t.TypeOf<typeof Message>
 
