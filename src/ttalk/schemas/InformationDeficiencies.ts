@@ -27,7 +27,13 @@ export const InformationDeficienciesInfo = t.intersection([
         /** Identificador de Deficiência Intelectual */
         DefIntelectual: t.string,
         /** Identificador de Reabilitação */
-        ReabReadap: t.string
+        ReabReadap: t.string,
+        /**
+         * Preenche cota de PcD (Lei 8.213/91, art. 93) — infoCota do eSocial
+         * S-2200/S-2205. 'S' | 'N'. Opcional: só é enviado por endpoint
+         * erp_line = 'rm' + erp_type = 'ttalk'; ausente mantém o padrão do ERP.
+         */
+        hasQuota: t.string
     })
 ])
 export type InformationDeficienciesInfo = t.TypeOf<typeof InformationDeficienciesInfo>
