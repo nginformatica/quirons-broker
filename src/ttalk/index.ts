@@ -40,49 +40,6 @@ import { VoteInfo, VoteRecordInfo } from './internal/vote'
 import { BranchInfo, BranchListInfo } from './internal/branch'
 
 /**
- * An object as returned by TOTVS' TTalk API.
- */
-export const Object = t.union([
-    EmployeesManagerInfo,
-    PayRollCostCenterInfo,
-    LeaveOfAbsenceTypeInfo,
-    AllowanceTypesInfo,
-    PositionInfo,
-    StabilityTypeInfo,
-    ClassInfo,
-    WorkingShiftInfo,
-    LeaveOfAbsenceInfo,
-    AdditionalInfo,
-    SpecialRetirementInfo,
-    InformationDeficienciesInfo,
-    TrainingNecessityInfo,
-    StabilityControlInfo,
-    AllowanceInfo,
-    SickNoteInfo,
-    MedicalConsultationInfo,
-    AccreditedInfo,
-    ClinicalQuizInfo,
-    DeficienciesInfo,
-    DocumentInfo,
-    IpeDeliveryInfo,
-    MedicalRecordInfo,
-    OccupationInfo,
-    QuizInfo,
-    RiskInfo,
-    VaccineInfo
-])
-export type Object = t.TypeOf<typeof Object>
-
-/**
- * A paginated array of objects as returned by TOTVS' TTalk API.
- */
-export const PaginatedObject = t.type({
-    hasNext: t.boolean,
-    items: t.array(Object)
-})
-export type PaginatedObject = t.TypeOf<typeof PaginatedObject>
-
-/**
  * A converter interface, meant to convert between TOTVS' models and ours.
  */
 export interface Converter<From, To> {
@@ -306,7 +263,7 @@ export type TrainingHistory = t.TypeOf<typeof TrainingHistory>
 export const AbsenceType = t.intersection([
     t.type({
         id: t.string,
-        description: t.string
+        name: t.string
     }),
     t.partial({
         eSocialCode: nullable(t.string)
@@ -317,7 +274,7 @@ export type AbsenceType = t.TypeOf<typeof AbsenceType>
 
 export const AllowanceType = t.type({
     id: t.string,
-    description: t.string
+    name: t.string
 })
 
 export type AllowanceType = t.TypeOf<typeof AllowanceType>
@@ -332,7 +289,7 @@ export type CostCenter = t.TypeOf<typeof CostCenter>
 export const Occupation = t.intersection([
     t.type({
         id: t.string,
-        description: t.string
+        name: t.string
     }),
     t.partial({
         cbo: nullable(cbo),
@@ -344,7 +301,7 @@ export type Occupation = t.TypeOf<typeof Occupation>
 
 export const StabilityType = t.type({
     id: t.string,
-    description: t.string
+    name: t.string
 })
 
 export type StabilityType = t.TypeOf<typeof StabilityType>
@@ -352,7 +309,7 @@ export type StabilityType = t.TypeOf<typeof StabilityType>
 export const Training = t.intersection([
     t.type({
         id: t.string,
-        description: t.string
+        name: t.string
     }),
     t.partial({
         eSocialCode: nullable(t.string)
@@ -364,7 +321,7 @@ export type Training = t.TypeOf<typeof Training>
 export const WorkingShift = t.intersection([
     t.type({
         id: t.string,
-        description: t.string
+        name: t.string
     }),
     t.partial({
         productiveHours: nullable(t.number)
@@ -395,6 +352,56 @@ export const Position = t.intersection([
         observation: nullable(t.string)
     })
 ])
+
+/**
+ * An object as returned by TOTVS' TTalk API.
+ */
+export const Object = t.union([
+    EmployeesManagerInfo,
+    PayRollCostCenterInfo,
+    LeaveOfAbsenceTypeInfo,
+    AllowanceTypesInfo,
+    PositionInfo,
+    StabilityTypeInfo,
+    ClassInfo,
+    WorkingShiftInfo,
+    LeaveOfAbsenceInfo,
+    AdditionalInfo,
+    SpecialRetirementInfo,
+    InformationDeficienciesInfo,
+    TrainingNecessityInfo,
+    StabilityControlInfo,
+    AllowanceInfo,
+    SickNoteInfo,
+    MedicalConsultationInfo,
+    AccreditedInfo,
+    ClinicalQuizInfo,
+    DeficienciesInfo,
+    DocumentInfo,
+    IpeDeliveryInfo,
+    MedicalRecordInfo,
+    OccupationInfo,
+    QuizInfo,
+    RiskInfo,
+    VaccineInfo,
+    Person,
+    Department,
+    Position,
+    Employee,
+    Dependant,
+    FunctionalHistory,
+    TrainingHistory
+])
+export type Object = t.TypeOf<typeof Object>
+
+/**
+ * A paginated array of objects as returned by TOTVS' TTalk API.
+ */
+export const PaginatedObject = t.type({
+    hasNext: t.boolean,
+    items: t.array(Object)
+})
+export type PaginatedObject = t.TypeOf<typeof PaginatedObject>
 
 export type Position = t.TypeOf<typeof Position>
 
