@@ -33,7 +33,7 @@ export const InformationDeficienciesInfo = t.intersection([
          * S-2200/S-2205. 'S' | 'N'. Opcional: só é enviado por endpoint
          * erp_line = 'rm' + erp_type = 'ttalk'; ausente mantém o padrão do ERP.
          */
-        PreencheCota: t.string
+        hasQuota: t.string
     })
 ])
 export type InformationDeficienciesInfo = t.TypeOf<typeof InformationDeficienciesInfo>
