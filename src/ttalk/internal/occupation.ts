@@ -1,7 +1,7 @@
 import * as t from 'io-ts'
 
 import * as ttalk from '../'
-import { cbo, datetime, nullable } from '../../custom-types'
+import { datetime, nullable } from '../../custom-types'
 import { raiseErrorFromDecode, Language } from '../../errors'
 import { parseBoolean } from '../../fns/parse-boolean'
 
@@ -19,7 +19,7 @@ export const Positions = t.intersection([
         erpCompany: nullable(t.string),
         companyId: nullable(t.string),
         branchId: t.union([t.string, t.null, t.literal(false)]),
-        cbo: nullable(cbo),
+        cbo: nullable(t.string),
         activityDetails: nullable(t.string),
         created_at: nullable(datetime),
         updated_at: nullable(datetime),
