@@ -1,6 +1,28 @@
+import { either } from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 
-import { datetime, nullable } from '../../custom-types'
+import { datetime } from '../../custom-types'
+
+/**
+ * ERPs send "" for an absence with no end (INSS leave still open) as often
+ * as null; both decode to null.
+ */
+const blankAsNull = <A, O>(codec: t.Type<A, O, unknown>) =>
+    new t.Type<A | null, O | null, unknown>(
+        `${codec.name} | blank`,
+        (u): u is A | null => u === null || codec.is(u),
+        (u, c) =>
+            // undefined stays undefined so t.partial leaves the key out
+            u === undefined
+                ? t.success(undefined as unknown as A | null)
+                : u === null || (typeof u === 'string' && u.trim() === '')
+                ? t.success(null)
+                : either.map(codec.validate(u, c), (a: A): A | null => a),
+        a => (a === null ? null : codec.encode(a))
+    )
+
+const optionalDatetime = blankAsNull(datetime)
+const optionalText = blankAsNull(t.string)
 
 /**
  * Absence (vacation / leave) history pushed by the ERP. The ERP owns the
@@ -24,10 +46,10 @@ export const EmployeeAbsence = t.intersection([
         amount: t.number
     }),
     t.partial({
-        /** Null = still open. Must be >= startDate. */
-        endDate: nullable(datetime),
+        /** Null (or blank) = still open. Must be >= startDate. */
+        endDate: optionalDatetime,
         /** ICD code. Sensitive health data: never logged. */
-        icdCode: nullable(t.string)
+        icdCode: optionalText
     })
 ])
 export type EmployeeAbsence = t.TypeOf<typeof EmployeeAbsence>
@@ -41,11 +63,11 @@ export const EmployeeAbsenceUpdate = t.intersection([
     }),
     t.partial({
         startDate: datetime,
-        endDate: nullable(datetime),
+        endDate: optionalDatetime,
         type: t.string,
         reason: t.string,
         amount: t.number,
-        icdCode: nullable(t.string)
+        icdCode: optionalText
     })
 ])
 export type EmployeeAbsenceUpdate = t.TypeOf<typeof EmployeeAbsenceUpdate>
