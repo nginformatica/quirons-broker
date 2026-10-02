@@ -54,6 +54,12 @@ import {
     EmployeeIpeInfo,
     EmployeeRiskInfo
 } from './internal/employee-self-service'
+import {
+    EmployeeAbsence,
+    EmployeeAbsencePage,
+    EmployeeAbsenceRecord,
+    EmployeeAbsenceUpdate
+} from './internal/employee-absence'
 
 /**
  * Greeting message sent by the broker to the backend, specifiying how the
@@ -139,6 +145,7 @@ export const BusinessMessage = t.union([
     userMessage('employeeconsultation',     t.array(EmployeeConsultationInfo)),
     userMessage('employeeipe',              t.array(EmployeeIpeInfo)),
     userMessage('employeerisk',             t.array(EmployeeRiskInfo)),
+    userMessage('absence',                  t.array(EmployeeAbsence)),
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 
@@ -389,13 +396,27 @@ export const BusinessRequest = t.intersection([
         /** ERP item to filter. */
         erpId: t.string,
         /** Optional status of the request. */
-        status: t.string
+        status: t.string,
+        /** Employee (ERP id or registration) to filter, e.g. absences. */
+        employeeId: t.string,
+        /** Optional end of the period, paired with `date`. */
+        endDate: datetime
     })
 ])
 export type BusinessRequest = t.TypeOf<typeof BusinessRequest>
 
 export const BusinessRequestMessage = userMessage('request',  BusinessRequest)
 export type BusinessRequestMessage = t.TypeOf<typeof BusinessRequestMessage>
+
+/** Partial update of absences (PUT). Not a BusinessMessage: cannot be deleted/requested. */
+export const AbsenceUpdateMessage = userMessage('absenceupdate', t.array(EmployeeAbsenceUpdate))
+export type AbsenceUpdateMessage = t.TypeOf<typeof AbsenceUpdateMessage>
+
+/** Backend answer to an absence GET: a single stored record or a page. */
+export const AbsenceRecordMessage = userMessage('absencerecord', t.array(EmployeeAbsenceRecord))
+export type AbsenceRecordMessage = t.TypeOf<typeof AbsenceRecordMessage>
+export const AbsencePageMessage = userMessage('absencepage', EmployeeAbsencePage)
+export type AbsencePageMessage = t.TypeOf<typeof AbsencePageMessage>
 
 
 
@@ -417,6 +438,9 @@ export const Message = t.union([
     BusinessRequestMessage,
     userMessage('delete',   Delete),
     userMessage('deleted',  Deleted),
+    AbsenceUpdateMessage,
+    AbsenceRecordMessage,
+    AbsencePageMessage,
     BusinessMessage,
     SenderMessage,
     SenderResponseMessage,

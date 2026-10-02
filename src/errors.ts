@@ -20,7 +20,8 @@ const ErrorCodeKey = t.keyof({
     REQUIRED_ID_PARAMETER: null,
     BAD_REQUEST: null,
     DECODED_ERROR: null,
-    TOO_MANY_REQUESTS: null
+    TOO_MANY_REQUESTS: null,
+    CONFLICT: null
 })
 
 type ErrorCode = t.TypeOf<typeof ErrorCodeKey>
@@ -41,7 +42,8 @@ const englishMessages: Record<ErrorCode, string> = {
     REQUIRED_BRANCH_ID: 'You must provide a branchId as query parameter (?branchId=...)',
     REQUIRED_ID_PARAMETER: 'The id parameter is required for the specified method',
     DECODED_ERROR: 'The message sent is outside the established format',
-    TOO_MANY_REQUESTS: 'You have exceeded the request limits, please wait and try again later.'
+    TOO_MANY_REQUESTS: 'You have exceeded the request limits, please wait and try again later.',
+    CONFLICT: 'The provided entity conflicts with an existing one'
 }
 
 const brazilianPortugueseMessages: Record<ErrorCode, string> = {
@@ -54,7 +56,8 @@ const brazilianPortugueseMessages: Record<ErrorCode, string> = {
     REQUIRED_BRANCH_ID: 'Você deve informar o branchId como parâmetro de busca (?branchId=...)',
     REQUIRED_ID_PARAMETER: 'O id é um parâmetro obrigatório neste método específico',
     DECODED_ERROR: 'A mensagem enviada está fora dos padrões estabelecidos',
-    TOO_MANY_REQUESTS: 'Você excedeu o limite de requisições, por favor aguarde e tente novamente mais tarde.'
+    TOO_MANY_REQUESTS: 'Você excedeu o limite de requisições, por favor aguarde e tente novamente mais tarde.',
+    CONFLICT: 'A entidade fornecida conflita com uma já existente'
 }
 
 const spanishMessages: Record<ErrorCode, string> = {
@@ -67,7 +70,8 @@ const spanishMessages: Record<ErrorCode, string> = {
     REQUIRED_BRANCH_ID: 'Usted debe informar el branchId como parámetro de búsqueda (?branchId=...)',
     REQUIRED_ID_PARAMETER: 'El id es un parámetro obligatorio en este método específico',
     DECODED_ERROR: 'El mensaje enviado está fuera de los estándares establecidos',
-    TOO_MANY_REQUESTS: 'Usted excedió el límite de solicitudes, por favor espere e intente nuevamente más tarde.'
+    TOO_MANY_REQUESTS: 'Usted excedió el límite de solicitudes, por favor espere e intente nuevamente más tarde.',
+    CONFLICT: 'La entidad proporcionada entra en conflicto con una existente'
 }
 
 // Tabela por idioma em vez de cadeia de if: idioma novo na união quebra o
@@ -90,7 +94,8 @@ const getDetailedMessage = (payload: string, language: Language) => {
         REQUIRED_BRANCH_ID:  englishMessages['REQUIRED_BRANCH_ID'],
         REQUIRED_ID_PARAMETER:  englishMessages['REQUIRED_ID_PARAMETER'],
         DECODED_ERROR:  englishMessages['DECODED_ERROR'],
-        TOO_MANY_REQUESTS:  payload || englishMessages['TOO_MANY_REQUESTS']
+        TOO_MANY_REQUESTS:  payload || englishMessages['TOO_MANY_REQUESTS'],
+        CONFLICT:  payload || englishMessages['CONFLICT']
     }
     
     const brazilianPortugueseDetailedMessages: Record<ErrorCode, string> = {
@@ -103,7 +108,8 @@ const getDetailedMessage = (payload: string, language: Language) => {
         REQUIRED_BRANCH_ID: brazilianPortugueseMessages['REQUIRED_BRANCH_ID'],
         REQUIRED_ID_PARAMETER: brazilianPortugueseMessages['REQUIRED_ID_PARAMETER'],
         DECODED_ERROR: brazilianPortugueseMessages['DECODED_ERROR'],
-        TOO_MANY_REQUESTS: payload || brazilianPortugueseMessages['TOO_MANY_REQUESTS'] 
+        TOO_MANY_REQUESTS: payload || brazilianPortugueseMessages['TOO_MANY_REQUESTS'],
+        CONFLICT: payload || brazilianPortugueseMessages['CONFLICT']
     }
 
     const spanishDetailedMessages: Record<ErrorCode, string> = {
@@ -116,7 +122,8 @@ const getDetailedMessage = (payload: string, language: Language) => {
         REQUIRED_BRANCH_ID: spanishMessages['REQUIRED_BRANCH_ID'],
         REQUIRED_ID_PARAMETER: spanishMessages['REQUIRED_ID_PARAMETER'],
         DECODED_ERROR: spanishMessages['DECODED_ERROR'],
-        TOO_MANY_REQUESTS: payload || spanishMessages['TOO_MANY_REQUESTS']
+        TOO_MANY_REQUESTS: payload || spanishMessages['TOO_MANY_REQUESTS'],
+        CONFLICT: payload || spanishMessages['CONFLICT']
     }
 
     const detailedByLanguage: Record<Language, Record<ErrorCode, string>> = {
@@ -178,6 +185,11 @@ const errorInfoWith = (payload = '', language: Language = 'en-US'): Record<Error
         status: 429,
         message: getMessage(language)['TOO_MANY_REQUESTS'],
         detailedMessage: getDetailedMessage(payload, language)['TOO_MANY_REQUESTS']
+    },
+    CONFLICT: {
+        status: 409,
+        message: getMessage(language)['CONFLICT'],
+        detailedMessage: getDetailedMessage(payload, language)['CONFLICT']
     }
 })
 
