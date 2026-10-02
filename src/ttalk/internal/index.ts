@@ -11,3 +11,9 @@ export { Converter as StabilityTypeConverter } from './stability-type'
 export { Converter as TrainingConverter } from './training'
 export { Converter as TrainingHistoryConverter } from './training-history'
 export { Converter as WorkshiftConverter } from './workshift'
+export {
+    EmployeeAbsence,
+    EmployeeAbsencePage,
+    EmployeeAbsenceRecord,
+    EmployeeAbsenceUpdate
+} from './employee-absence'
