@@ -17,3 +17,18 @@ export {
     EmployeeAbsenceRecord,
     EmployeeAbsenceUpdate
 } from './employee-absence'
+export {
+    AccreditedClinic,
+    AdmissionAppointment,
+    AdmissionAppointmentInput,
+    AdmissionAppointmentUpdate,
+    EmployeeQualification,
+    ExpectedExamSimulation,
+    PersonAso,
+    ScheduleQuery,
+    SchedulingDoctor,
+    TimeSlot,
+    VacancyExposure,
+    VacancyQuery,
+    VacancyTraining
+} from './admission'

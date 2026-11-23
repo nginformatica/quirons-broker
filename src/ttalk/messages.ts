@@ -60,6 +60,20 @@ import {
     EmployeeAbsenceRecord,
     EmployeeAbsenceUpdate
 } from './internal/employee-absence'
+import {
+    AccreditedClinic,
+    AdmissionAppointment,
+    AdmissionAppointmentInput,
+    AdmissionAppointmentUpdate,
+    EmployeeQualification,
+    ExpectedExamSimulation,
+    PersonAso,
+    ScheduleQuery,
+    SchedulingDoctor,
+    VacancyExposure,
+    VacancyQuery,
+    VacancyTraining
+} from './internal/admission'
 
 /**
  * Greeting message sent by the broker to the backend, specifiying how the
@@ -146,6 +160,13 @@ export const BusinessMessage = t.union([
     userMessage('employeeipe',              t.array(EmployeeIpeInfo)),
     userMessage('employeerisk',             t.array(EmployeeRiskInfo)),
     userMessage('absence',                  t.array(EmployeeAbsence)),
+    userMessage('personaso',                t.array(PersonAso)),
+    userMessage('expectedexamsimulation',   t.array(ExpectedExamSimulation)),
+    userMessage('exposuresimulation',       t.array(VacancyExposure)),
+    userMessage('requiredtrainingsimulation', t.array(VacancyTraining)),
+    userMessage('schedulingdoctor',         t.array(SchedulingDoctor)),
+    userMessage('accreditedclinic',         t.array(AccreditedClinic)),
+    userMessage('employeequalification',    t.array(EmployeeQualification)),
 ])
 export type BusinessMessage = t.TypeOf<typeof BusinessMessage>
 
@@ -400,7 +421,15 @@ export const BusinessRequest = t.intersection([
         /** Employee (ERP id or registration) to filter, e.g. absences. */
         employeeId: t.string,
         /** Optional end of the period, paired with `date`. */
-        endDate: datetime
+        endDate: datetime,
+        /** Exam nature filter, e.g. ASOs of a candidate. */
+        nature: t.string,
+        /** Also answer a temporary URL of each document. */
+        includeDocument: t.boolean,
+        /** Job parameters of the admission simulations. */
+        vacancy: VacancyQuery,
+        /** Free slots to suggest; absent = no schedule. */
+        schedule: ScheduleQuery
     })
 ])
 export type BusinessRequest = t.TypeOf<typeof BusinessRequest>
@@ -417,6 +446,17 @@ export const AbsenceRecordMessage = userMessage('absencerecord', t.array(Employe
 export type AbsenceRecordMessage = t.TypeOf<typeof AbsenceRecordMessage>
 export const AbsencePageMessage = userMessage('absencepage', EmployeeAbsencePage)
 export type AbsencePageMessage = t.TypeOf<typeof AbsencePageMessage>
+
+/** Admission appointment commands. Not BusinessMessages: cannot be requested. */
+export const AdmissionAppointmentMessage = userMessage('admissionappointment', t.array(AdmissionAppointmentInput))
+export type AdmissionAppointmentMessage = t.TypeOf<typeof AdmissionAppointmentMessage>
+export const AdmissionAppointmentUpdateMessage = userMessage('admissionappointmentupdate', t.array(AdmissionAppointmentUpdate))
+export type AdmissionAppointmentUpdateMessage = t.TypeOf<typeof AdmissionAppointmentUpdateMessage>
+export const AdmissionAppointmentRemoveMessage = userMessage('admissionappointmentremove', t.array(t.type({ id: t.string })))
+export type AdmissionAppointmentRemoveMessage = t.TypeOf<typeof AdmissionAppointmentRemoveMessage>
+/** Backend answer to POST/PUT of an admission appointment. */
+export const AdmissionAppointmentRecordMessage = userMessage('admissionappointmentrecord', t.array(AdmissionAppointment))
+export type AdmissionAppointmentRecordMessage = t.TypeOf<typeof AdmissionAppointmentRecordMessage>
 
 
 
@@ -441,6 +481,10 @@ export const Message = t.union([
     AbsenceUpdateMessage,
     AbsenceRecordMessage,
     AbsencePageMessage,
+    AdmissionAppointmentMessage,
+    AdmissionAppointmentUpdateMessage,
+    AdmissionAppointmentRemoveMessage,
+    AdmissionAppointmentRecordMessage,
     BusinessMessage,
     SenderMessage,
     SenderResponseMessage,
