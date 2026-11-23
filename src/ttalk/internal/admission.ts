@@ -55,7 +55,7 @@ export const PersonAso = t.intersection([
     t.type({
         id: t.string,
         nature: t.string,
-        recommendation: t.string,
+        recommendation: nullable(t.string),
         scheduleDate: nullable(datetime),
         emissionDate: datetime,
         examiner: nullable(Professional),
