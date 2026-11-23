@@ -18,7 +18,7 @@ export const VacancyQuery = t.intersection([
         department: t.string,
         /** Cost center ERP code. */
         costCenter: t.string,
-        /** Task descriptions, compared case-insensitively. */
+        /** Task names, compared case-insensitively. */
         tasks: t.array(t.string),
         /** Exam nature (admission, periodic...). Expected exams only. */
         nature: t.string,
@@ -92,7 +92,6 @@ export const VacancyExposure = t.type({
         t.type({
             group: t.string,
             agent: t.string,
-            description: t.string,
             exposureGroupId: nullable(t.string)
         })
     )
