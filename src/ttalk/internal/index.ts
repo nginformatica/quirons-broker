@@ -18,6 +18,11 @@ export {
     EmployeeAbsenceUpdate
 } from './employee-absence'
 export {
+    ServiceTaker,
+    ServiceTakerRecord,
+    ServiceTakerUpdate
+} from './service-taker'
+export {
     AccreditedClinic,
     AdmissionAppointment,
     AdmissionAppointmentInput,

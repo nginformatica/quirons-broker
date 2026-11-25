@@ -61,6 +61,11 @@ import {
     EmployeeAbsenceUpdate
 } from './internal/employee-absence'
 import {
+    ServiceTaker,
+    ServiceTakerRecord,
+    ServiceTakerUpdate
+} from './internal/service-taker'
+import {
     AccreditedClinic,
     AdmissionAppointment,
     AdmissionAppointmentInput,
@@ -160,6 +165,7 @@ export const BusinessMessage = t.union([
     userMessage('employeeipe',              t.array(EmployeeIpeInfo)),
     userMessage('employeerisk',             t.array(EmployeeRiskInfo)),
     userMessage('absence',                  t.array(EmployeeAbsence)),
+    userMessage('servicetaker',             t.array(ServiceTaker)),
     userMessage('personaso',                t.array(PersonAso)),
     userMessage('expectedexamsimulation',   t.array(ExpectedExamSimulation)),
     userMessage('exposuresimulation',       t.array(VacancyExposure)),
@@ -447,6 +453,14 @@ export type AbsenceRecordMessage = t.TypeOf<typeof AbsenceRecordMessage>
 export const AbsencePageMessage = userMessage('absencepage', EmployeeAbsencePage)
 export type AbsencePageMessage = t.TypeOf<typeof AbsencePageMessage>
 
+/** Partial update of service takers (PUT). Not a BusinessMessage: cannot be deleted/requested. */
+export const ServiceTakerUpdateMessage = userMessage('servicetakerupdate', t.array(ServiceTakerUpdate))
+export type ServiceTakerUpdateMessage = t.TypeOf<typeof ServiceTakerUpdateMessage>
+
+/** Backend answer to a service taker POST, PUT or GET. */
+export const ServiceTakerRecordMessage = userMessage('servicetakerrecord', t.array(ServiceTakerRecord))
+export type ServiceTakerRecordMessage = t.TypeOf<typeof ServiceTakerRecordMessage>
+
 /** Admission appointment commands. Not BusinessMessages: cannot be requested. */
 export const AdmissionAppointmentMessage = userMessage('admissionappointment', t.array(AdmissionAppointmentInput))
 export type AdmissionAppointmentMessage = t.TypeOf<typeof AdmissionAppointmentMessage>
@@ -481,6 +495,8 @@ export const Message = t.union([
     AbsenceUpdateMessage,
     AbsenceRecordMessage,
     AbsencePageMessage,
+    ServiceTakerUpdateMessage,
+    ServiceTakerRecordMessage,
     AdmissionAppointmentMessage,
     AdmissionAppointmentUpdateMessage,
     AdmissionAppointmentRemoveMessage,
