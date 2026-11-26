@@ -23,6 +23,11 @@ export {
     ServiceTakerUpdate
 } from './service-taker'
 export {
+    PersonAllocation,
+    PersonAllocationRecord,
+    PersonAllocationUpdate
+} from './person-allocation'
+export {
     AccreditedClinic,
     AdmissionAppointment,
     AdmissionAppointmentInput,

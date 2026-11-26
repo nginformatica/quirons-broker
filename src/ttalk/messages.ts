@@ -66,6 +66,11 @@ import {
     ServiceTakerUpdate
 } from './internal/service-taker'
 import {
+    PersonAllocation,
+    PersonAllocationRecord,
+    PersonAllocationUpdate
+} from './internal/person-allocation'
+import {
     AccreditedClinic,
     AdmissionAppointment,
     AdmissionAppointmentInput,
@@ -166,6 +171,7 @@ export const BusinessMessage = t.union([
     userMessage('employeerisk',             t.array(EmployeeRiskInfo)),
     userMessage('absence',                  t.array(EmployeeAbsence)),
     userMessage('servicetaker',             t.array(ServiceTaker)),
+    userMessage('personallocation',         t.array(PersonAllocation)),
     userMessage('personaso',                t.array(PersonAso)),
     userMessage('expectedexamsimulation',   t.array(ExpectedExamSimulation)),
     userMessage('exposuresimulation',       t.array(VacancyExposure)),
@@ -461,6 +467,14 @@ export type ServiceTakerUpdateMessage = t.TypeOf<typeof ServiceTakerUpdateMessag
 export const ServiceTakerRecordMessage = userMessage('servicetakerrecord', t.array(ServiceTakerRecord))
 export type ServiceTakerRecordMessage = t.TypeOf<typeof ServiceTakerRecordMessage>
 
+/** Partial update of person allocations (PUT). Not a BusinessMessage: cannot be deleted/requested. */
+export const PersonAllocationUpdateMessage = userMessage('personallocationupdate', t.array(PersonAllocationUpdate))
+export type PersonAllocationUpdateMessage = t.TypeOf<typeof PersonAllocationUpdateMessage>
+
+/** Backend answer to a person allocation POST, PUT or GET. */
+export const PersonAllocationRecordMessage = userMessage('personallocationrecord', t.array(PersonAllocationRecord))
+export type PersonAllocationRecordMessage = t.TypeOf<typeof PersonAllocationRecordMessage>
+
 /** Admission appointment commands. Not BusinessMessages: cannot be requested. */
 export const AdmissionAppointmentMessage = userMessage('admissionappointment', t.array(AdmissionAppointmentInput))
 export type AdmissionAppointmentMessage = t.TypeOf<typeof AdmissionAppointmentMessage>
@@ -497,6 +511,8 @@ export const Message = t.union([
     AbsencePageMessage,
     ServiceTakerUpdateMessage,
     ServiceTakerRecordMessage,
+    PersonAllocationUpdateMessage,
+    PersonAllocationRecordMessage,
     AdmissionAppointmentMessage,
     AdmissionAppointmentUpdateMessage,
     AdmissionAppointmentRemoveMessage,
